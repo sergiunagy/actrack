@@ -8,6 +8,7 @@ public class ActrackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ActrackApplication.class, args);
+		System.out.println("Hello Activities Track");
 	}
 
 }
