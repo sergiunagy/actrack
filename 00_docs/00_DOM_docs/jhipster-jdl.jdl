@@ -1,0 +1,62 @@
+entity Activity {
+	description Integer,
+	duration Integer,
+    date Integer,
+	exported Boolean
+}
+
+entity User {
+	name String required
+    uid String 
+}
+
+entity Project {
+	name String,
+	description String,
+    number BigDecimal,
+    mainLocation String,
+    startDate Integer,
+    sopDate Integer,
+    customerName String,
+    productLine String,
+    active Boolean
+}
+
+entity ProjectRoles {
+	roleName String,
+    description String,
+}
+
+entity Workpackage {
+	name String,
+    description String
+}
+
+entity IssueTracker{
+	name String,
+    description String
+}
+
+relationship OneToMany {
+	User to Activity,
+    Activity to Workpackage,
+    Workpackage to Project
+}
+
+relationship ManyToOne {
+	Activity to User,
+    Workpackage to Activity,
+}
+
+relationship ManyToMany {
+	Project to User,
+    User to Project,
+    Project to ProjectRoles,
+    ProjectRoles to Project,
+    User to Workpackage,
+    Workpackage to User,
+    User to ProjectRoles,
+    ProjectRoles to User,
+    Activity to IssueTracker,
+    IssueTracker to Activity
+}
