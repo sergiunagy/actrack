@@ -28,18 +28,18 @@ public class Activity extends BaseEntity{
     @Column(name = "exported")
     private Boolean isExported;
 
-    @ManyToMany
-    @JoinTable(name = "activities_workpackages",
-                joinColumns = @JoinColumn(name = "activity_id"),
-                inverseJoinColumns = @JoinColumn(name = "workpackage_id"))
+    @ManyToMany(mappedBy = "activities")
     private Set<Workpackage> workpackages = new HashSet<>();
+
+    @ManyToMany(mappedBy = "activities")
+    private Set<Issue> issues = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Builder
 
+    @Builder
     public Activity(Long id, String description, String startDateTime, String endDateTime, Boolean isExported, Set<Workpackage> workpackages, User user) {
         super(id);
         this.description = description;

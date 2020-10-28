@@ -2,14 +2,15 @@ package sena.activitytracker.actrack.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Project extends BaseEntity{
+public class Project extends BaseEntity {
 
     private String name;
     private String description;
@@ -25,6 +26,23 @@ public class Project extends BaseEntity{
     private String customerId;
     private String productLine;
     private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "project")
+    private Set<Issue> issues;
+
+    @ManyToMany
+    @JoinTable(name = "project_roles",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    @ManyToMany
+    @JoinTable(name = "project_users",
+    joinColumns = @JoinColumn(name = "project_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
+
 
     @Builder
     public Project(Long id, String name, String description, String notes, String mainLocation, String plannedStartDate, String actualStartDate, String plannedEndDate, String actualEndDate, String plannedSopDate, String actualSopDate, String customerName, String customerId, String productLine, Boolean active) {

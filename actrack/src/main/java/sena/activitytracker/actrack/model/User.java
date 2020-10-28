@@ -29,6 +29,9 @@ public class User extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Activity> activities = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> project;
+
     public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities) {
         super(id);
         this.familyName = familyName;

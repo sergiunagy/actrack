@@ -7,10 +7,7 @@ import lombok.Setter;
 import org.atmosphere.config.service.Get;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,11 +25,15 @@ public class Workpackage extends BaseEntity{
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "workpackages")
+    @ManyToMany
+    @JoinTable(name = "workpackages_activities",
+            joinColumns = @JoinColumn(name = "workpackage_id"),
+            inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<Activity> activities = new HashSet<>();
 
     @ManyToMany(mappedBy = "workpackages")
     private Set<Issue> issues= new HashSet<>();
+
 
     @Builder
     public Workpackage(Long id, String name, String description, Set<Activity> activities, Set<Issue> issues) {

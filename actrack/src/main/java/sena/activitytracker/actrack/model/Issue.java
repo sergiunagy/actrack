@@ -42,6 +42,10 @@ public class Issue extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<Activity> activities = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @Builder
     public Issue(Long id, String shortName, String issue_id, String description, String link, Set<Workpackage> workpackages, Set<Activity> activities) {
         super(id);
