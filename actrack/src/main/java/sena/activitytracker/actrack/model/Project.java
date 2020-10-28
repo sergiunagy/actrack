@@ -39,10 +39,14 @@ public class Project extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "project_users",
-    joinColumns = @JoinColumn(name = "project_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
 
+    /* Connecting the embedded user to role mapping */
+//    @OneToMany(cascade = CascadeType.ALL,
+//            mappedBy = "project")
+//    private ProjectUserRoles projectUserRoles;
 
     @Builder
     public Project(Long id, String name, String description, String notes, String mainLocation, String plannedStartDate, String actualStartDate, String plannedEndDate, String actualEndDate, String plannedSopDate, String actualSopDate, String customerName, String customerId, String productLine, Boolean active) {
