@@ -1,4 +1,4 @@
-package sena.activitytracker.actrack.model;
+package sena.activitytracker.acktrack.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,8 +8,6 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter

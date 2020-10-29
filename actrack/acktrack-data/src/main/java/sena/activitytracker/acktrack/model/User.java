@@ -1,4 +1,4 @@
-package sena.activitytracker.actrack.model;
+package sena.activitytracker.acktrack.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
