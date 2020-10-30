@@ -1,4 +1,7 @@
 package sena.activitytracker.acktrack.repositories;
 
-public interface ProjectUserRolesRepository {
+import org.springframework.data.repository.CrudRepository;
+import sena.activitytracker.acktrack.model.ProjectUserRoles;
+
+public interface ProjectUserRolesRepository extends CrudRepository<ProjectUserRoles, Long> {
 }

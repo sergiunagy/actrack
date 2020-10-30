@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,7 +24,7 @@ public class Role extends BaseEntity{
     private String description;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<Project> project;
+    private Set<Project> project = new HashSet<>();
 
     @Builder
     public Role(Long id, String name, String description, Set<Project> project) {

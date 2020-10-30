@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -29,24 +30,24 @@ public class Project extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "project")
-    private Set<Issue> issues;
+    private Set<Issue> issues = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "project_roles",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     /* Connecting the embedded user to role mapping */
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "project")
-    private Set<ProjectUserRoles> projectUserRoles;
+    private Set<ProjectUserRoles> projectUserRoles = new HashSet<>();
 
     @Builder
     public Project(Long id, String name, String description, String notes, String mainLocation, String plannedStartDate, String actualStartDate, String plannedEndDate, String actualEndDate, String plannedSopDate, String actualSopDate, String customerName, String customerId, String productLine, Boolean active) {

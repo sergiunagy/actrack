@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,8 +31,9 @@ public class User extends BaseEntity{
     private Set<Activity> activities = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
-    private Set<Project> project;
+    private Set<Project> project = new HashSet<>();
 
+    @Builder
     public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities) {
         super(id);
         this.familyName = familyName;
