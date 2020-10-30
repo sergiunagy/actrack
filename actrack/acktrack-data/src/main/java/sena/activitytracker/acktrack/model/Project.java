@@ -44,9 +44,9 @@ public class Project extends BaseEntity {
     private Set<User> users;
 
     /* Connecting the embedded user to role mapping */
-//    @OneToMany(cascade = CascadeType.ALL,
-//            mappedBy = "project")
-//    private ProjectUserRoles projectUserRoles;
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "project")
+    private Set<ProjectUserRoles> projectUserRoles;
 
     @Builder
     public Project(Long id, String name, String description, String notes, String mainLocation, String plannedStartDate, String actualStartDate, String plannedEndDate, String actualEndDate, String plannedSopDate, String actualSopDate, String customerName, String customerId, String productLine, Boolean active) {
