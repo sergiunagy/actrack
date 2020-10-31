@@ -1,6 +1,7 @@
 package sena.activitytracker.acktrack.model;
 
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -32,13 +33,13 @@ public class Project extends BaseEntity {
             mappedBy = "project")
     private Set<Issue> issues = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_roles",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -66,5 +67,100 @@ public class Project extends BaseEntity {
         this.customerId = customerId;
         this.productLine = productLine;
         this.active = active;
+    }
+
+    /*Helper methods*/
+    public Set<Issue> addIssues(Set<Issue> issues) {
+
+        if (issues == null || issues.isEmpty())
+            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+
+        for (Issue issue : issues) {
+            addIssue(issue);
+        }
+        return issues;
+    }
+
+    public Issue addIssue(Issue issue) {
+
+        if (issue == null)
+            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+
+        issue.setProject(this);
+        this.issues.add(issue);
+
+        return issue;
+    }
+    @Transactional
+    public Set<Role> addRoles(Set<Role> roles) {
+
+        if (roles == null || roles.isEmpty())
+            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+
+        for (Role role : roles) {
+            addRole(role);
+        }
+        return roles;
+    }
+
+    @Transactional
+    public Role addRole(Role role) {
+
+        if (role == null)
+            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+
+        if(!role.getProjects().stream().anyMatch(project -> project.getId()==this.getId())){
+            role.getProjects().add(this);
+        }
+        this.roles.add(role);
+
+        return role;
+    }
+
+    public Set<User> addUsers(Set<User> users) {
+
+        if (users == null || users.isEmpty())
+            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+
+        for (User user : users) {
+            addUser(user);
+        }
+        return users;
+    }
+
+    @Transactional
+    public User addUser(User user) {
+
+        if (user == null)
+            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+
+        if(!user.getProject().stream().anyMatch(project -> project.getId()==this.getId())){
+            user.getProject().add(this);
+        }
+        this.users.add(user);
+
+        return user;
+    }
+
+    public Set<ProjectUserRoles> addProjectUserRolesSet(Set<ProjectUserRoles> projectUserRolesSet) {
+
+        if (projectUserRolesSet == null || projectUserRolesSet.isEmpty())
+            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+
+        for (ProjectUserRoles projectUserRoles : projectUserRolesSet) {
+            addProjectUserRoles(projectUserRoles);
+        }
+        return projectUserRolesSet;
+    }
+
+    public ProjectUserRoles addProjectUserRoles(ProjectUserRoles projectUserRoles) {
+
+        if (projectUserRoles == null)
+            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+
+        projectUserRoles.setProject(this);
+        this.projectUserRoles.add(projectUserRoles);
+
+        return projectUserRoles;
     }
 }

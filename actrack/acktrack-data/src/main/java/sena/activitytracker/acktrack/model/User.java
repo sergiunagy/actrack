@@ -41,4 +41,26 @@ public class User extends BaseEntity{
         this.uid = uid;
         if(activities != null) this.activities = activities;
     }
+
+    public Set<Activity> addActivities(Set<Activity> activities) {
+
+        if (activities == null || activities.isEmpty())
+            throw new RuntimeException("Null or empty activities list passed for User id:" + this.getId());
+
+        for (Activity activity : activities) {
+            addActivity(activity);
+        }
+        return activities;
+    }
+
+    public Activity addActivity(Activity activity) {
+
+        if (activity == null)
+            throw new RuntimeException("Null activity passed to addActivity for User id:" + this.getId());
+
+        activity.setUser(this);
+        this.activities.add(activity);
+
+        return activity;
+    }
 }

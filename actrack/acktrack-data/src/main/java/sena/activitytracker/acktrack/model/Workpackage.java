@@ -24,7 +24,7 @@ public class Workpackage extends BaseEntity{
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "workpackages_activities",
             joinColumns = @JoinColumn(name = "workpackage_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
@@ -41,5 +41,27 @@ public class Workpackage extends BaseEntity{
         this.description = description;
         if( activities != null) this.activities = activities;
         if( issues != null) this.issues = issues;
+    }
+
+    public Set<Activity> addActivities(Set<Activity> activities) {
+
+        if (activities == null || activities.isEmpty())
+            throw new RuntimeException("Null or empty activities list passed for workpackage id:" + this.getId());
+
+        for (Activity activity : activities) {
+            addActivity(activity);
+        }
+        return activities;
+    }
+
+    public Activity addActivity(Activity activity) {
+
+        if (activity == null)
+            throw new RuntimeException("Null activity passed to addActivity for workpackage id:" + this.getId());
+
+        activity.getWorkpackages().add(this);
+        this.activities.add(activity);
+
+        return activity;
     }
 }

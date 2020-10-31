@@ -49,4 +49,14 @@ public class Activity extends BaseEntity{
         if(workpackages != null) this.workpackages = workpackages;
         this.user = user;
     }
+
+    public User addUser(User user){
+
+        if(user == null) throw new RuntimeException("Null User passed to activity"+this.getId());
+
+        user.getActivities().add(this);
+        this.user = user;
+
+        return this.user;
+    }
 }
