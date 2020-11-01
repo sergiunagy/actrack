@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,6 +55,19 @@ class IssueTest {
     }
 
     @Test
+    void addWorkpackagesNull() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> issue.addWorkpackages(null));
+    }
+
+    @Test
+    void addWorkpackagesEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> issue.addWorkpackages(emptySet));
+    }
+
+    @Test
     void addWorkpackage() {
         // given
         final String TXT1 = "first";
@@ -100,5 +114,16 @@ class IssueTest {
         assertTrue(activityOptional2.get().getIssues().stream().anyMatch(issue1 -> issue1 == issue));
     }
 
+    @Test
+    void addActivitiesNull() {
 
+        Assertions.assertThrows(RuntimeException.class, ()-> issue.addActivities(null));
+    }
+
+    @Test
+    void addActivitiesEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> issue.addActivities(emptySet));
+    }
 }

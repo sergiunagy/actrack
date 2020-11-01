@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sena.activitytracker.acktrack.repositories.ProjectRepository;
@@ -68,6 +69,20 @@ class ProjectTest {
     }
 
     @Test
+    void addIssuesNull() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addIssues(null));
+    }
+
+    @Test
+    void addIssuesEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addIssues(emptySet));
+    }
+
+
+    @Test
     void addIssue() {
         // given
         final String ISSUE_TEXT1 = "first issue";
@@ -115,6 +130,19 @@ class ProjectTest {
     }
 
     @Test
+    void addRolesNull() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addRoles(null));
+    }
+
+    @Test
+    void addRolesEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addRoles(emptySet));
+    }
+
+    @Test
     void addRole() {
         // given
         final String ROLE_DESC1 = "first role";
@@ -159,6 +187,21 @@ class ProjectTest {
         assertTrue(user1.get().getProjects().stream().anyMatch(project1 -> project1 == project));
         assertTrue(user2.get().getProjects().stream().anyMatch(project2 -> project2 == project));
     }
+
+
+    @Test
+    void addUsersNull() {
+
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUsers(null));
+    }
+
+    @Test
+    void addUsersEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUsers(emptySet));
+    }
+
 
     @Test
     void addUser() {
@@ -208,6 +251,21 @@ class ProjectTest {
         assertEquals(project, projectUserRolesStream1.get().getProject());
         assertEquals(project, projectUserRolesStream2.get().getProject());
     }
+
+
+    @Test
+    void addProjectUserRolesSetNull() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addProjectUserRolesSet(null));
+    }
+
+    @Test
+    void addProjectUserRolesSetEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> project.addProjectUserRolesSet(emptySet));
+    }
+
 
     @Test
     void addProjectUserRoles() {
