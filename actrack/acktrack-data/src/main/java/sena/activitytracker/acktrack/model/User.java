@@ -31,7 +31,7 @@ public class User extends BaseEntity{
     private Set<Activity> activities = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
-    private Set<Project> project = new HashSet<>();
+    private Set<Project> projects = new HashSet<>();
 
     @Builder
     public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities) {

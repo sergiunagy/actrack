@@ -134,8 +134,8 @@ public class Project extends BaseEntity {
         if (user == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
 
-        if(!user.getProject().stream().anyMatch(project -> project.getId()==this.getId())){
-            user.getProject().add(this);
+        if(!user.getProjects().stream().anyMatch(project -> project.getId()==this.getId())){
+            user.getProjects().add(this);
         }
         this.users.add(user);
 
