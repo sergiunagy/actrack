@@ -118,6 +118,7 @@ public class bootstrapData implements CommandLineRunner {
         revido.getActivities().add(revact);
         bugfixdo.getActivities().add(bugfixact);
 
+
         /* configure activities for alpha */
         ade.addActivity(revact);
         mihai.addActivity(bugfixact);

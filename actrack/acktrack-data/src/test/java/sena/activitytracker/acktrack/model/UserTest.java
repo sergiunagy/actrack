@@ -70,4 +70,65 @@ class UserTest {
     void addActivityNull() {
         Assertions.assertThrows(RuntimeException.class, ()-> user.addActivity(null));
     }
+
+    @Test
+    void addWorkpackages() {
+        // given
+        final String TXT1 = "first";
+        final String TXT2 = "2nd ";
+        Set<Workpackage> workpackages = new HashSet<>();
+        workpackages.add(Workpackage.builder().id(1L).description(TXT1).build());
+        workpackages.add(Workpackage.builder().id(2L).description(TXT2).build());
+
+        // when
+        Set<Workpackage> boundWorkpackages = user.addWorkpackages(workpackages);
+
+        // then
+        assertNotNull(user.getWorkpackages());
+        assertEquals(2, user.getWorkpackages().size());
+        assertTrue(user.getWorkpackages().stream().anyMatch(user -> user.getDescription().equals(TXT1)));
+        assertTrue(user.getWorkpackages().stream().anyMatch(user -> user.getDescription().equals(TXT2)));
+
+        assertNotNull(boundWorkpackages);
+        Optional<Workpackage> workpackageOptional1 = boundWorkpackages.stream().filter(workpackage1 -> workpackage1.getDescription().equals(TXT1)).findFirst();
+        Optional<Workpackage> workpackageOptional2 = boundWorkpackages.stream().filter(workpackage1 -> workpackage1.getDescription().equals(TXT2)).findFirst();
+        assertTrue(workpackageOptional1.isPresent());
+        assertTrue(workpackageOptional2.isPresent());
+        // check directly on objects
+        assertTrue(workpackageOptional1.get().getUsers().stream().anyMatch(user1 -> user1 == user));
+        assertTrue(workpackageOptional2.get().getUsers().stream().anyMatch(user1 -> user1 == user));
+
+    }
+
+    @Test
+    void addWorkpackagesNull() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> user.addWorkpackages(null));
+    }
+
+    @Test
+    void addWorkpackagesEmpty() {
+
+        Set emptySet = new HashSet();
+        Assertions.assertThrows(RuntimeException.class, ()-> user.addWorkpackages(emptySet));
+    }
+
+    @Test
+    void addWorkpackage() {
+        // given
+        final String TXT1 = "first";
+        Workpackage workpackage = Workpackage.builder().id(1L).description(TXT1).build();
+
+        // when
+        user.addWorkpackage(workpackage);
+
+        // then
+        assertNotNull(user.getWorkpackages());
+        assertEquals(1, user.getWorkpackages().size());
+        assertTrue(user.getWorkpackages().stream().anyMatch(workpackage1 -> workpackage1.getDescription().equals(TXT1)));
+
+        // check directly on objects
+        assertTrue(workpackage.getUsers().stream().anyMatch(user1 -> user1 == user));
+    }
+
 }

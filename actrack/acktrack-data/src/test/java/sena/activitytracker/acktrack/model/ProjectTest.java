@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProjectTest {
 
-    ProjectRepository projectRepository;
-
     Project project;
 
     @BeforeEach

@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "workpackages")
-public class Workpackage extends BaseEntity{
+public class Workpackage extends BaseEntity {
 
     @NaturalId
     @Column(name = "name")
@@ -31,7 +31,13 @@ public class Workpackage extends BaseEntity{
     private Set<Activity> activities = new HashSet<>();
 
     @ManyToMany(mappedBy = "workpackages")
-    private Set<Issue> issues= new HashSet<>();
+    private Set<Issue> issues = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "workpackage_user",
+            joinColumns = @JoinColumn(name = "workpackage_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
 
 
     @Builder
@@ -39,8 +45,8 @@ public class Workpackage extends BaseEntity{
         super(id);
         this.name = name;
         this.description = description;
-        if( activities != null) this.activities = activities;
-        if( issues != null) this.issues = issues;
+        if (activities != null) this.activities = activities;
+        if (issues != null) this.issues = issues;
     }
 
     public Set<Activity> addActivities(Set<Activity> activities) {
@@ -63,5 +69,27 @@ public class Workpackage extends BaseEntity{
         this.activities.add(activity);
 
         return activity;
+    }
+
+    public Set<User> addUsers(Set<User> users) {
+
+        if (users == null || users.isEmpty())
+            throw new RuntimeException("Null or empty activities list passed for workpackage id:" + this.getId());
+
+        for (User user : users) {
+            addUser(user);
+        }
+        return users;
+    }
+
+    public User addUser(User user) {
+
+        if (user == null)
+            throw new RuntimeException("Null activity passed to addActivity for workpackage id:" + this.getId());
+
+        user.getWorkpackages().add(this);
+        this.users.add(user);
+
+        return user;
     }
 }

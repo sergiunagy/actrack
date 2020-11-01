@@ -33,6 +33,9 @@ public class User extends BaseEntity{
     @ManyToMany(mappedBy = "users")
     private Set<Project> projects = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users")
+    private Set<Workpackage> workpackages = new HashSet<>();
+
     @Builder
     public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities) {
         super(id);
@@ -62,5 +65,28 @@ public class User extends BaseEntity{
         this.activities.add(activity);
 
         return activity;
+    }
+
+
+    public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {
+
+        if (workpackages == null || workpackages.isEmpty())
+            throw new RuntimeException("Null workapackages list passed for Project id:" + this.getId());
+
+        for (Workpackage workpackage : workpackages) {
+            addWorkpackage(workpackage);
+        }
+        return workpackages;
+    }
+
+    public Workpackage addWorkpackage(Workpackage workpackage) {
+
+        if (workpackage == null)
+            throw new RuntimeException("Null workpackage passed to addIssue for Project id:" + this.getId());
+
+        workpackage.getUsers().add(this);
+        this.workpackages.add(workpackage);
+
+        return workpackage;
     }
 }
