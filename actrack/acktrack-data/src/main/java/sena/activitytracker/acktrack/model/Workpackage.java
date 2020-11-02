@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,12 @@ public class Workpackage extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "workpackages_activities",
             joinColumns = @JoinColumn(name = "workpackage_id"),
@@ -39,15 +46,18 @@ public class Workpackage extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 
-
     @Builder
-    public Workpackage(Long id, String name, String description, Set<Activity> activities, Set<Issue> issues) {
+    public Workpackage(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
         super(id);
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
         if (activities != null) this.activities = activities;
         if (issues != null) this.issues = issues;
+        if(users!=null) this.users = users;
     }
+
 
     public Set<Activity> addActivities(Set<Activity> activities) {
 

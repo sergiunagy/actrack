@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,17 +15,17 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="activities")
-public class Activity extends BaseEntity{
+@Table(name = "activities")
+public class Activity extends BaseEntity {
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "start_date_time")
-    private String startDateTime;
+    @Column(name = "date")
+    private LocalDate date;
 
-    @Column(name = "end_date_time")
-    private String endDateTime;
+    @Column(name = "duration")
+    private Duration duration;
 
     @Column(name = "exported")
     private Boolean isExported;
@@ -38,21 +40,22 @@ public class Activity extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @Builder
-    public Activity(Long id, String description, String startDateTime, String endDateTime, Boolean isExported, Set<Workpackage> workpackages, User user) {
+    public Activity(Long id, String description, LocalDate date, Duration duration, Boolean isExported, Set<Workpackage> workpackages, Set<Issue> issues, User user) {
         super(id);
         this.description = description;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.date = date;
+        this.duration = duration;
         this.isExported = isExported;
-        if(workpackages != null) this.workpackages = workpackages;
+        if (workpackages != null) this.workpackages = workpackages;
+        if (issues != null) this.issues = issues;
         this.user = user;
     }
 
-    public User addUser(User user){
 
-        if(user == null) throw new RuntimeException("Null User passed to activity"+this.getId());
+    public User addUser(User user) {
+
+        if (user == null) throw new RuntimeException("Null User passed to activity" + this.getId());
 
         user.getActivities().add(this);
         this.user = user;

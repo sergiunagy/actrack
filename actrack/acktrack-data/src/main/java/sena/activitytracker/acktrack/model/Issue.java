@@ -8,6 +8,7 @@ import org.hibernate.annotations.NaturalId;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="issues")
+@Table(name = "issues")
 public class Issue extends BaseEntity {
 
     @Column(name = "short_description")
@@ -30,6 +31,12 @@ public class Issue extends BaseEntity {
 
     @Column(name = "link_to_issue")
     private String link;
+
+    @Column(name = "created_date")
+    private LocalDate createdDate;
+
+    @Column(name = "closed_date")
+    private LocalDate closedDate;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "issues_workpackages",
@@ -48,15 +55,19 @@ public class Issue extends BaseEntity {
     private Project project;
 
     @Builder
-    public Issue(Long id, String shortName, String issue_id, String description, String link, Set<Workpackage> workpackages, Set<Activity> activities) {
+    public Issue(Long id, String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
         super(id);
         this.shortName = shortName;
         this.issue_id = issue_id;
         this.description = description;
         this.link = link;
-        if( activities != null) this.activities = activities;
-        if( workpackages != null) this.workpackages = workpackages;
+        this.createdDate = createdDate;
+        this.closedDate = closedDate;
+        if (activities != null) this.activities = activities;
+        if (workpackages != null) this.workpackages = workpackages;
+        this.project = project;
     }
+
 
     /*Helper methods*/
     public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {

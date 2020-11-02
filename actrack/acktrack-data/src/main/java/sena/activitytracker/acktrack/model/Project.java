@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,12 +19,12 @@ public class Project extends BaseEntity {
     private String description;
     private String notes;
     private String mainLocation;
-    private String plannedStartDate;
-    private String actualStartDate;
-    private String plannedEndDate;
-    private String actualEndDate;
-    private String plannedSopDate;
-    private String actualSopDate;
+    private LocalDate plannedStartDate;
+    private LocalDate actualStartDate;
+    private LocalDate plannedEndDate;
+    private LocalDate actualEndDate;
+    private LocalDate plannedSopDate;
+    private LocalDate actualSopDate;
     private String customerName;
     private String customerId;
     private String productLine;
@@ -51,7 +52,7 @@ public class Project extends BaseEntity {
     private Set<ProjectUserRoles> projectUserRoles = new HashSet<>();
 
     @Builder
-    public Project(Long id, String name, String description, String notes, String mainLocation, String plannedStartDate, String actualStartDate, String plannedEndDate, String actualEndDate, String plannedSopDate, String actualSopDate, String customerName, String customerId, String productLine, Boolean active) {
+    public Project(Long id, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<Role> roles, Set<User> users, Set<ProjectUserRoles> projectUserRoles) {
         super(id);
         this.name = name;
         this.description = description;
@@ -67,7 +68,12 @@ public class Project extends BaseEntity {
         this.customerId = customerId;
         this.productLine = productLine;
         this.active = active;
+        if (issues != null) this.issues = issues;
+        if (roles != null) this.roles = roles;
+        if (users != null) this.users = users;
+        if (projectUserRoles != null) this.projectUserRoles = projectUserRoles;
     }
+
 
     /*Helper methods*/
     public Set<Issue> addIssues(Set<Issue> issues) {
@@ -91,6 +97,7 @@ public class Project extends BaseEntity {
 
         return issue;
     }
+
     @Transactional
     public Set<Role> addRoles(Set<Role> roles) {
 
@@ -109,7 +116,7 @@ public class Project extends BaseEntity {
         if (role == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
 
-        if(!role.getProjects().stream().anyMatch(project -> project.getId()==this.getId())){
+        if (!role.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
             role.getProjects().add(this);
         }
         this.roles.add(role);
@@ -134,7 +141,7 @@ public class Project extends BaseEntity {
         if (user == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
 
-        if(!user.getProjects().stream().anyMatch(project -> project.getId()==this.getId())){
+        if (!user.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
             user.getProjects().add(this);
         }
         this.users.add(user);

@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
 import sena.activitytracker.acktrack.repositories.*;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 
 @Slf4j
@@ -162,19 +166,22 @@ public class bootstrapData implements CommandLineRunner {
 
         qualact = Activity.builder()
                 .description("Check quality issues")
-                .startDateTime("30.10.2020")
+                .duration(Duration.of(4, ChronoUnit.HOURS))
+                .date(LocalDate.of(2020,10,18))
                 .isExported(false)
                 .build();
 
         revact = Activity.builder()
                 .description("Execute review on beta")
-                .startDateTime("30.10.2020")
+                .duration(Duration.of(8,ChronoUnit.HOURS))
+                .date(LocalDate.of(2020,10,19))
                 .isExported(false)
                 .build();
 
         bugfixact = Activity.builder()
                 .description("Bugfix problem on beta")
-                .startDateTime("31.10.2020")
+                .duration(Duration.of(8,ChronoUnit.HOURS))
+                .date(LocalDate.of(2020,10,20))
                 .isExported(true)
                 .build();
     }
@@ -225,10 +232,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
-                .plannedEndDate("21.10.2020")
-                .actualEndDate("28.10.2020")
-                .plannedSopDate("28.10.2021")
-                .plannedEndDate("28.10.2022")
+                .plannedEndDate(LocalDate.of(2018,10,20))
+                .actualEndDate(LocalDate.of(2020,10,20))
+                .plannedSopDate(LocalDate.of(2019,6,20))
+                .plannedEndDate(LocalDate.of(2020,10,1))
                 .customerName("Alpha Daimler")
                 .customerId("12s42")
                 .productLine("alpha moto")
@@ -240,10 +247,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("beta")
                 .description("dummy beta")
                 .mainLocation("Beta location")
-                .plannedEndDate("21.10.2020")
-                .actualEndDate("28.10.2020")
-                .plannedSopDate("28.10.2021")
-                .plannedEndDate("28.10.2022")
+                .plannedEndDate(LocalDate.of(2018,10,20))
+                .actualEndDate(LocalDate.of(2020,10,20))
+                .plannedSopDate(LocalDate.of(2019,6,20))
+                .plannedEndDate(LocalDate.of(2020,10,1))
                 .customerName("Alpha Daimler")
                 .customerId("13s42")
                 .productLine("Beta moto")
@@ -254,10 +261,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("gamma")
                 .description("dummy gamma")
                 .mainLocation("Beta location")
-                .plannedEndDate("21.10.2020")
-                .actualEndDate("28.10.2020")
-                .plannedSopDate("28.10.2021")
-                .plannedEndDate("28.10.2022")
+                .plannedEndDate(LocalDate.of(2018,10,20))
+                .actualEndDate(LocalDate.of(2020,10,20))
+                .plannedSopDate(LocalDate.of(2019,6,20))
+                .plannedEndDate(LocalDate.of(2020,10,1))
                 .customerName("Alpha Daimler")
                 .customerId("zzzzzz1")
                 .productLine("gama moto")

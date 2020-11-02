@@ -15,13 +15,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "family_name")
-    private String familyName ;
+    private String familyName;
 
     @Column(name = "given_name")
-    private String givenName ;
+    private String givenName;
 
     @NaturalId
     @Column(name = "user_system_id")
@@ -37,12 +37,14 @@ public class User extends BaseEntity{
     private Set<Workpackage> workpackages = new HashSet<>();
 
     @Builder
-    public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities) {
+    public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
         super(id);
         this.familyName = familyName;
         this.givenName = givenName;
         this.uid = uid;
-        if(activities != null) this.activities = activities;
+        if (activities != null) this.activities = activities;
+        if (projects != null) this.projects = projects;
+        if (workpackages != null) this.workpackages = workpackages;
     }
 
     public Set<Activity> addActivities(Set<Activity> activities) {

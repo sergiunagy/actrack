@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sena.activitytracker.acktrack.repositories.ProjectRepository;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -24,10 +25,10 @@ class ProjectTest {
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
-                .plannedEndDate("21.10.2020")
-                .actualEndDate("28.10.2020")
-                .plannedSopDate("28.10.2021")
-                .plannedEndDate("28.10.2022")
+                .plannedEndDate(LocalDate.of(2018,10,20))
+                .actualEndDate(LocalDate.of(2020,10,20))
+                .plannedSopDate(LocalDate.of(2019,6,20))
+                .plannedEndDate(LocalDate.of(2020,10,1))
                 .customerName("Alpha Daimler")
                 .customerId("12s42")
                 .productLine("alpha moto")

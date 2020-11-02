@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActivityTest {
@@ -15,7 +17,7 @@ class ActivityTest {
         activity = Activity.builder()
                 .id(1L)
                 .description("Check quality issues")
-                .startDateTime("30.10.2020")
+                .date(LocalDate.of(2020,10,20))
                 .isExported(false)
                 .build();
     }
