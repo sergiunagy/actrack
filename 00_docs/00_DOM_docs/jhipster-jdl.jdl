@@ -1,12 +1,27 @@
 entity Activity {
 	description Integer,
-	duration Integer,
-    date Integer,
+	date LocalDate,
+    duration Duration,
 	exported Boolean
 }
 
+entity Workpackage {
+	name String,
+    startDate LocalDate,
+    endDate LocalDate,
+    description String
+}
+
+entity Issue{
+	shortName String,
+    createdDate LocalDate,
+    closedDate LocalDate,
+    description String,
+    link String
+}
 entity User {
-	name String required
+	familyName String required,
+    givenName String required,
     uid String 
 }
 
@@ -22,41 +37,25 @@ entity Project {
     active Boolean
 }
 
-entity ProjectRoles {
+entity Role {
 	roleName String,
     description String,
 }
 
-entity Workpackage {
-	name String,
-    description String
-}
 
-entity IssueTracker{
-	name String,
-    description String
-}
 
 relationship OneToMany {
-	User to Activity,
-    Activity to Workpackage,
-    Workpackage to Project
+    Project to Issue
 }
 
 relationship ManyToOne {
-	Activity to User,
-    Workpackage to Activity,
+	Activity to User
 }
 
 relationship ManyToMany {
-	Project to User,
-    User to Project,
-    Project to ProjectRoles,
-    ProjectRoles to Project,
-    User to Workpackage,
-    Workpackage to User,
-    User to ProjectRoles,
-    ProjectRoles to User,
-    Activity to IssueTracker,
-    IssueTracker to Activity
+	Activity to Workpackage,
+    Issue to Workpackage,
+    Issue to Activity
+    Project to Role
+    Project to User
 }
