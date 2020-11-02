@@ -7,12 +7,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
 import sena.activitytracker.acktrack.repositories.*;
+import sena.activitytracker.acktrack.services.ActivityService;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Component
@@ -27,6 +31,8 @@ public class bootstrapData implements CommandLineRunner {
     private final RoleRepository rolesRepository;
     private final ProjectUserRolesRepository projectUserRolesRepository;
 
+    private final ActivityService activityService;
+
     /*Users available*/
     Project alpha, beta, gamma;
     Issue quality, review, bugfix;
@@ -38,7 +44,7 @@ public class bootstrapData implements CommandLineRunner {
 
 
     @Autowired
-    public bootstrapData(ProjectRepository projectRepository, IssueRepository issueRepository, WorkpackageRepository workpackageRepository, ActivityRepository activityRepository, UserRepository userRepository, RoleRepository rolesRepository, ProjectUserRolesRepository projectUserRolesRepository) {
+    public bootstrapData(ProjectRepository projectRepository, IssueRepository issueRepository, WorkpackageRepository workpackageRepository, ActivityRepository activityRepository, UserRepository userRepository, RoleRepository rolesRepository, ProjectUserRolesRepository projectUserRolesRepository, ActivityService activityService) {
         this.projectRepository = projectRepository;
         this.issueRepository = issueRepository;
         this.workpackageRepository = workpackageRepository;
@@ -46,11 +52,13 @@ public class bootstrapData implements CommandLineRunner {
         this.userRepository = userRepository;
         this.rolesRepository = rolesRepository;
         this.projectUserRolesRepository = projectUserRolesRepository;
+        this.activityService = activityService;
     }
 
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+        bootstrapNActivities(10);
         initData();
     }
 
@@ -167,21 +175,21 @@ public class bootstrapData implements CommandLineRunner {
         qualact = Activity.builder()
                 .description("Check quality issues")
                 .duration(Duration.of(4, ChronoUnit.HOURS))
-                .date(LocalDate.of(2020,10,18))
+                .date(LocalDate.of(2020, 10, 18))
                 .isExported(false)
                 .build();
 
         revact = Activity.builder()
                 .description("Execute review on beta")
-                .duration(Duration.of(8,ChronoUnit.HOURS))
-                .date(LocalDate.of(2020,10,19))
+                .duration(Duration.of(8, ChronoUnit.HOURS))
+                .date(LocalDate.of(2020, 10, 19))
                 .isExported(false)
                 .build();
 
         bugfixact = Activity.builder()
                 .description("Bugfix problem on beta")
-                .duration(Duration.of(8,ChronoUnit.HOURS))
-                .date(LocalDate.of(2020,10,20))
+                .duration(Duration.of(8, ChronoUnit.HOURS))
+                .date(LocalDate.of(2020, 10, 20))
                 .isExported(true)
                 .build();
     }
@@ -232,10 +240,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
-                .plannedEndDate(LocalDate.of(2018,10,20))
-                .actualEndDate(LocalDate.of(2020,10,20))
-                .plannedSopDate(LocalDate.of(2019,6,20))
-                .plannedEndDate(LocalDate.of(2020,10,1))
+                .plannedEndDate(LocalDate.of(2018, 10, 20))
+                .actualEndDate(LocalDate.of(2020, 10, 20))
+                .plannedSopDate(LocalDate.of(2019, 6, 20))
+                .plannedEndDate(LocalDate.of(2020, 10, 1))
                 .customerName("Alpha Daimler")
                 .customerId("12s42")
                 .productLine("alpha moto")
@@ -247,10 +255,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("beta")
                 .description("dummy beta")
                 .mainLocation("Beta location")
-                .plannedEndDate(LocalDate.of(2018,10,20))
-                .actualEndDate(LocalDate.of(2020,10,20))
-                .plannedSopDate(LocalDate.of(2019,6,20))
-                .plannedEndDate(LocalDate.of(2020,10,1))
+                .plannedEndDate(LocalDate.of(2018, 10, 20))
+                .actualEndDate(LocalDate.of(2020, 10, 20))
+                .plannedSopDate(LocalDate.of(2019, 6, 20))
+                .plannedEndDate(LocalDate.of(2020, 10, 1))
                 .customerName("Alpha Daimler")
                 .customerId("13s42")
                 .productLine("Beta moto")
@@ -261,10 +269,10 @@ public class bootstrapData implements CommandLineRunner {
                 .name("gamma")
                 .description("dummy gamma")
                 .mainLocation("Beta location")
-                .plannedEndDate(LocalDate.of(2018,10,20))
-                .actualEndDate(LocalDate.of(2020,10,20))
-                .plannedSopDate(LocalDate.of(2019,6,20))
-                .plannedEndDate(LocalDate.of(2020,10,1))
+                .plannedEndDate(LocalDate.of(2018, 10, 20))
+                .actualEndDate(LocalDate.of(2020, 10, 20))
+                .plannedSopDate(LocalDate.of(2019, 6, 20))
+                .plannedEndDate(LocalDate.of(2020, 10, 1))
                 .customerName("Alpha Daimler")
                 .customerId("zzzzzz1")
                 .productLine("gama moto")
@@ -293,5 +301,30 @@ public class bootstrapData implements CommandLineRunner {
                 .givenName("Adelina")
                 .uid("u3")
                 .build();
+    }
+
+    void bootstrapNActivities(int n) {
+
+        int MAXRANGE = n; //days
+
+        Set<Activity> activities = new HashSet<>();
+
+        IntStream.range(0, MAXRANGE).parallel().forEach(
+                idx -> {
+                    activities.add(Activity.builder()
+                            .id(Long.valueOf(idx))
+                            .date(LocalDate.now().minusDays((MAXRANGE - idx)))
+                            .description("activity" + idx)
+                            .build());
+                }
+        );
+//        for (Activity a :
+//                activities) {
+//            System.out.println("\n" + a);
+//            if (a != null) {
+//                activityRepository.save(a);
+//            }
+//        }
+        activityService.saveAll(activities);
     }
 }
