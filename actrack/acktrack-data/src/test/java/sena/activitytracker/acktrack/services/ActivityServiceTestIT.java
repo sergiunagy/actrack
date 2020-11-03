@@ -55,7 +55,7 @@ class ActivityServiceTestIT {
                 }
         );
 
-        //when(activityRepository.saveAll(anySet())).thenReturn(activities);
+        when(activityRepository.saveAll(anySet())).thenReturn(activities);
 
         Set<Activity> savedActivities = activityService.saveAll(activities);
         if(savedActivities == null) System.out.println("null saved activities returned");

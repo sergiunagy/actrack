@@ -134,8 +134,8 @@ public class bootstrapData implements CommandLineRunner {
         /* configure activities for alpha */
         ade.addActivity(revact);
         mihai.addActivity(bugfixact);
-//
-//        /* persist PJ2 */
+
+        /* persist PJ2 */
         projectRepository.save(beta);
 
 
@@ -318,13 +318,7 @@ public class bootstrapData implements CommandLineRunner {
                             .build());
                 }
         );
-//        for (Activity a :
-//                activities) {
-//            System.out.println("\n" + a);
-//            if (a != null) {
-//                activityRepository.save(a);
-//            }
-//        }
+
         activityService.saveAll(activities);
     }
 }
