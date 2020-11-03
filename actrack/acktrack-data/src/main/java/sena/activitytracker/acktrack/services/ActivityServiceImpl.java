@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Slf4j
 @AllArgsConstructor
@@ -21,35 +20,41 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Set<Activity> findAll() {
-        Set<Activity> activitySet = new HashSet<>();
-        activityRepository.findAll().forEach(activitySet::add);
-        return activitySet;
+        Set<Activity> issues = new HashSet<>();
+        activityRepository.findAll().forEach(issues::add);
+
+        return issues;
     }
 
     @Override
-    public Activity findById(Long aLong) {
-        return null;
+    public Activity findById(Long id) {
+
+        return activityRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Activity save(Activity obj) {
-        return null;
+    public Activity save(Activity issue) {
+
+        return activityRepository.save(issue);
     }
 
     @Override
-    public Set<Activity> saveAll(Set<Activity> entities) {
+    public Set<Activity> saveAll(Set<Activity> issues) {
+        Set<Activity> retActivitys = new HashSet<>();
+        activityRepository.saveAll(issues).forEach(retActivitys::add);
 
-        return StreamSupport.stream(activityRepository.saveAll(entities).spliterator(), false).collect(Collectors.toSet());
+        return retActivitys;
     }
 
     @Override
-    public void delete(Activity obj) {
+    public void delete(Activity issue) {
 
+        activityRepository.delete(issue);
     }
 
     @Override
-    public void deleteById(Long aLong) {
-
+    public void deleteById(Long id) {
+        activityRepository.deleteById(id);
     }
 
     @Override
