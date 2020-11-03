@@ -35,7 +35,7 @@ public class bootstrapData implements CommandLineRunner {
     Activity qualact, revact, bugfixact;
     User sergiu, ade, mihai;
     Role dev_alpha, lead_alpha, dev_beta, lead_beta;
-    ProjectUserRoles pdev, plead;
+    ProjectUserRoles pdev_alpha, plead_alpha, pdev_beta, plead_beta;
 
 
     @Autowired
@@ -92,6 +92,10 @@ public class bootstrapData implements CommandLineRunner {
         /* configure activities for alpha */
         sergiu.addActivity(qualact);
 
+        /*add project roles to user mapping */
+        alpha.addProjectUserRoles(pdev_alpha);
+        alpha.addProjectUserRoles(plead_alpha);
+
         /* persist PJ1 */
         projectService.save(alpha);
 
@@ -129,6 +133,10 @@ public class bootstrapData implements CommandLineRunner {
         ade.addActivity(revact);
         mihai.addActivity(bugfixact);
 
+        /*add project roles to user mapping */
+        beta.addProjectUserRoles(pdev_beta);
+        beta.addProjectUserRoles(plead_beta);
+
         /* persist PJ2 */
         projectService.save(beta);
 
@@ -137,8 +145,34 @@ public class bootstrapData implements CommandLineRunner {
 
     private void initProjectUserRoles() {
 
-//        pdev = ProjectUserRoles.builder()
-//                .
+        UserRoleKey key1 = new UserRoleKey(1L,1L);
+        UserRoleKey key2 = new UserRoleKey(1L,2L);
+
+        /*Dummy project init*/
+        pdev_alpha = ProjectUserRoles.builder()
+                .userRoleKey(key1)
+                .user(sergiu)
+                .role(dev_alpha)
+                .build();
+
+        plead_alpha = ProjectUserRoles.builder()
+                .userRoleKey(key2)
+                .user(mihai)
+                .role(lead_alpha)
+                .build();
+
+        pdev_beta = ProjectUserRoles.builder()
+                .userRoleKey(key1)
+                .user(mihai)
+                .role(dev_beta)
+                .build();
+
+        plead_beta = ProjectUserRoles.builder()
+                .userRoleKey(key2)
+                .user(ade)
+                .role(lead_beta)
+                .build();
+
     }
 
     private void initRoles() {
