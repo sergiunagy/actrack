@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ActivityServiceTest {
+class ActivityServiceImplTest {
 
     @Mock
     ActivityRepository activityRepository;
