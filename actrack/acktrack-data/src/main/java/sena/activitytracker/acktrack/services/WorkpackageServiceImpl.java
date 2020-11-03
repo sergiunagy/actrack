@@ -1,0 +1,57 @@
+package sena.activitytracker.acktrack.services;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.model.Workpackage;
+import sena.activitytracker.acktrack.repositories.WorkpackageRepository;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Slf4j
+@AllArgsConstructor
+@Service
+public class WorkpackageServiceImpl implements WorkpackageService {
+
+    private final WorkpackageRepository workpackageRepository;
+
+    @Override
+    public Set<Workpackage> findAll() {
+        Set<Workpackage> workpackages = new HashSet<>();
+        workpackageRepository.findAll().forEach(workpackages::add);
+
+        return workpackages;
+    }
+
+    @Override
+    public Workpackage findById(Long id) {
+
+        return workpackageRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Workpackage save(Workpackage workpackage) {
+
+        return workpackageRepository.save(workpackage);
+    }
+
+    @Override
+    public Set<Workpackage> saveAll(Set<Workpackage> workpackages) {
+        Set<Workpackage> retWorkpackages = new HashSet<>();
+        workpackageRepository.saveAll(workpackages).forEach(retWorkpackages::add);
+
+        return retWorkpackages;
+    }
+
+    @Override
+    public void delete(Workpackage workpackage) {
+
+        workpackageRepository.delete(workpackage);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        workpackageRepository.deleteById(id);
+    }
+}
