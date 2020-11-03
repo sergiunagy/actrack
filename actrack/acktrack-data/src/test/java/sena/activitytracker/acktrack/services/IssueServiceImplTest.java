@@ -43,7 +43,7 @@ class IssueServiceImplTest {
                 .build();
 
         review = Issue.builder()
-                .id(1L)
+                .id(2L)
                 .issue_id("aaaa")
                 .description("review issue beta")
                 .link("url review")
@@ -74,7 +74,7 @@ class IssueServiceImplTest {
         Issue foundIssue = issueService.findById(review.getId());
 
         assertNotNull(foundIssue);
-        assertEquals(1, foundIssue.getId());
+        assertEquals(2, foundIssue.getId());
         verify(issueRepository, times(1)).findById(anyLong());
     }
 
@@ -86,7 +86,7 @@ class IssueServiceImplTest {
         Issue foundIssue = issueService.save(review);
 
         assertNotNull(foundIssue);
-        assertEquals(1, foundIssue.getId());
+        assertEquals(2, foundIssue.getId());
         verify(issueRepository, times(1)).save(any());
     }
 

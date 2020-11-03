@@ -6,15 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
-import sena.activitytracker.acktrack.repositories.*;
-import sena.activitytracker.acktrack.services.ActivityService;
+import sena.activitytracker.acktrack.services.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -23,15 +20,13 @@ import java.util.stream.IntStream;
 public class bootstrapData implements CommandLineRunner {
 
     /*Injected repository handles*/
-    private final ProjectRepository projectRepository;
-    private final IssueRepository issueRepository;
-    private final WorkpackageRepository workpackageRepository;
-    private final ActivityRepository activityRepository;
-    private final UserRepository userRepository;
-    private final RoleRepository rolesRepository;
-    private final ProjectUserRolesRepository projectUserRolesRepository;
-
+    private final ProjectService projectService;
+    private final IssueService issueService;
+    private final WorkpackageService workpackageService;
     private final ActivityService activityService;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final ProjectUserRolesService projectUserRolesService;
 
     /*Users available*/
     Project alpha, beta, gamma;
@@ -44,14 +39,13 @@ public class bootstrapData implements CommandLineRunner {
 
 
     @Autowired
-    public bootstrapData(ProjectRepository projectRepository, IssueRepository issueRepository, WorkpackageRepository workpackageRepository, ActivityRepository activityRepository, UserRepository userRepository, RoleRepository rolesRepository, ProjectUserRolesRepository projectUserRolesRepository, ActivityService activityService) {
-        this.projectRepository = projectRepository;
-        this.issueRepository = issueRepository;
-        this.workpackageRepository = workpackageRepository;
-        this.activityRepository = activityRepository;
-        this.userRepository = userRepository;
-        this.rolesRepository = rolesRepository;
-        this.projectUserRolesRepository = projectUserRolesRepository;
+    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, ActivityService activityRepository, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService) {
+        this.projectService = projectService;
+        this.issueService = issueService;
+        this.workpackageService = workpackageService;
+        this.userService = userService;
+        this.roleService = roleService;
+        this.projectUserRolesService = projectUserRolesService;
         this.activityService = activityService;
     }
 
@@ -99,7 +93,7 @@ public class bootstrapData implements CommandLineRunner {
         sergiu.addActivity(qualact);
 
         /* persist PJ1 */
-        projectRepository.save(alpha);
+        projectService.save(alpha);
 
 
         /*PROJECT 2 SETUP : configure the 2nd project save at the end*/
@@ -136,7 +130,7 @@ public class bootstrapData implements CommandLineRunner {
         mihai.addActivity(bugfixact);
 
         /* persist PJ2 */
-        projectRepository.save(beta);
+        projectService.save(beta);
 
 
     }
