@@ -26,6 +26,7 @@ public class Issue extends BaseEntity {
     @Column(name = "issue_tracking_id")
     private String issue_id;
 
+    @Lob
     @Column(name = "description")
     private String description;
 

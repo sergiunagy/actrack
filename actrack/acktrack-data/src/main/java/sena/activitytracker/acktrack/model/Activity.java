@@ -18,6 +18,7 @@ import java.util.Set;
 @Table(name = "activities")
 public class Activity extends BaseEntity {
 
+    @Lob
     @Column(name = "description")
     private String description;
 

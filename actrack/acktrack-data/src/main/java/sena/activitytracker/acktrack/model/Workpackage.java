@@ -22,6 +22,7 @@ public class Workpackage extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Lob
     @Column(name = "description")
     private String description;
 

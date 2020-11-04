@@ -13,21 +13,38 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "projects")
 public class Project extends BaseEntity {
 
+    @Column(name = "name")
     private String name;
+    @Lob
+    @Column(name = "description")
     private String description;
+    @Lob
+    @Column(name = "notes")
     private String notes;
+    @Column(name = "main_location")
     private String mainLocation;
+    @Column(name = "planned_start_date")
     private LocalDate plannedStartDate;
+    @Column(name = "actual_start_date")
     private LocalDate actualStartDate;
+    @Column(name = "planned_end_date")
     private LocalDate plannedEndDate;
+    @Column(name = "actual_end_date")
     private LocalDate actualEndDate;
+    @Column(name = "planned_start_of_production_date")
     private LocalDate plannedSopDate;
+    @Column(name = "actual_start_of_production_date")
     private LocalDate actualSopDate;
+    @Column(name = "customer_name")
     private String customerName;
+    @Column(name = "customer_id")
     private String customerId;
+    @Column(name = "product_line")
     private String productLine;
+    @Column(name = "active")
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL,
