@@ -3,23 +3,35 @@ package sena.activitytracker.acktrack.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sena.activitytracker.acktrack.repositories.ProjectRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProjectTest {
 
     Project project;
+    User sergiu, mihai;
+    Role developer;
+    Set<User> users;
+    Set<Role> roles;
 
     @BeforeEach
     void setUp() {
+
+        sergiu= User.builder().id(1L).givenName("Sergiu").build();
+        mihai = User.builder().id(2L).givenName("Mihai").build();
+        users = new HashSet<>();
+        users.add(sergiu);
+        users.add(mihai);
+
+        developer = Role.builder().id(1L).name("developer").build();
+        roles = new HashSet<>();
+        roles.add(developer);
+
         project = Project.builder()
                 .id(1L)
                 .name("alpha")
@@ -161,12 +173,7 @@ class ProjectTest {
 
     @Test
     void addUsers() {
-        // given
-        final String TXT1 = "first";
-        final String TXT2 = "2nd ";
-        Set<User> users = new HashSet<>();
-        users.add(User.builder().id(1L).givenName(TXT1).build());
-        users.add(User.builder().id(2L).givenName(TXT2).build());
+        // given - setup
 
         //when
         Set<User> boundUsers = project.addUsers(users);
@@ -174,12 +181,12 @@ class ProjectTest {
         //then
         assertNotNull(project.getUsers());
         assertEquals(2, project.getUsers().size());
-        assertTrue(project.getUsers().stream().anyMatch(user -> user.getGivenName().equals(TXT1)));
-        assertTrue(project.getUsers().stream().anyMatch(user -> user.getGivenName().equals(TXT2)));
+        assertTrue(project.getUsers().stream().anyMatch(user -> user.getGivenName().equals("Sergiu")));
+        assertTrue(project.getUsers().stream().anyMatch(user -> user.getGivenName().equals("Mihai")));
 
         assertNotNull(boundUsers);
-        Optional<User> user1 = boundUsers.stream().filter(user -> user.getGivenName().equals(TXT1)).findFirst();
-        Optional<User> user2 = boundUsers.stream().filter(user -> user.getGivenName().equals(TXT2)).findFirst();
+        Optional<User> user1 = boundUsers.stream().filter(user -> user.getGivenName().equals("Sergiu")).findFirst();
+        Optional<User> user2 = boundUsers.stream().filter(user -> user.getGivenName().equals("Mihai")).findFirst();
         assertTrue(user1.isPresent());
         assertTrue(user2.isPresent());
         // check directly on objects
@@ -204,83 +211,78 @@ class ProjectTest {
 
     @Test
     void addUser() {
-        final String TXT1 = "first";
-        // given
-        final String ROLE_DESC1 = "first role";
-        User user = User.builder().id(1L).givenName(TXT1).build();
 
         //when
-        project.addUser(user);
+        project.addUser(sergiu);
 
         //then
         assertNotNull(project.getUsers());
         assertEquals(1, project.getUsers().size());
-        assertTrue(project.getUsers().stream().anyMatch(user1 -> user1.getGivenName().equals(TXT1)));
+        assertTrue(project.getUsers().stream().anyMatch(user1 -> user1.getGivenName().equals("Sergiu")));
 
         // reverse linkage
-        assertTrue(user.getProjects().stream().anyMatch(project1 -> project1 == project));
+        assertTrue(sergiu.getProjects().stream().anyMatch(project1 -> project1 == project));
     }
 
+
+    /*User-Role mapping tests- null tests, non-associates tests, happy-path tests*/
+
     @Test
-    void addProjectUserRolesSet() {
-        // given
-        // composite keys for the project-user-role mapping
-        UserRoleKey key1 = new UserRoleKey(1L,1L);
-        UserRoleKey key2 = new UserRoleKey(1L,2L);
+    void testAddUserToRole(){
 
-        Set<ProjectUserRoles> projectUserRoles = new HashSet<>();
-        projectUserRoles.add(ProjectUserRoles.builder().userRoleKey(key1).build());
-        projectUserRoles.add(ProjectUserRoles.builder().userRoleKey(key2).build());
+        // given - project, users, and roles
+        project.addUsers(users);
+        project.addRoles(roles);
 
-        //when
-        Set<ProjectUserRoles> boundProjectUserRoles = project.addProjectUserRolesSet(projectUserRoles);
+        // when
+        ProjectUserRole map1 = project.addUserToRole(sergiu, developer);
+        ProjectUserRole map2 = project.addUserToRole(mihai,developer);
 
-        //then
-        assertNotNull(project.getProjectUserRoles());
+        assertNotNull(map1);
+        assertNotNull(map2);
+
         assertEquals(2, project.getProjectUserRoles().size());
-        assertTrue(project.getProjectUserRoles().stream().anyMatch(projectUserRoles1 -> projectUserRoles1.getUserRoleKey()==key1));
-        assertTrue(project.getProjectUserRoles().stream().anyMatch(projectUserRoles1 -> projectUserRoles1.getUserRoleKey()==key2));
+        assertEquals(2, project.getUsers().size());
+        assertEquals(1, project.getRoles().size());
 
-        assertNotNull(boundProjectUserRoles);
-        Optional<ProjectUserRoles> projectUserRolesStream1 = boundProjectUserRoles.stream().filter(projectUserRoles1 -> projectUserRoles1.getUserRoleKey()==key1).findFirst();
-        Optional<ProjectUserRoles> projectUserRolesStream2 = boundProjectUserRoles.stream().filter(projectUserRoles1 -> projectUserRoles1.getUserRoleKey()==key2).findFirst();
-        assertTrue(projectUserRolesStream1.isPresent());
-        assertTrue(projectUserRolesStream2.isPresent());
-        // check directly on objects
-        assertEquals(project, projectUserRolesStream1.get().getProject());
-        assertEquals(project, projectUserRolesStream2.get().getProject());
-    }
-
-
-    @Test
-    void addProjectUserRolesSetNull() {
-
-        Assertions.assertThrows(RuntimeException.class, ()-> project.addProjectUserRolesSet(null));
     }
 
     @Test
-    void addProjectUserRolesSetEmpty() {
+    void testAddUserToRoleUserNotAllocatedToProject(){
+        // given - project, users, and roles
+        /*Unknown users*/
+        project.addRoles(roles);
 
-        Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> project.addProjectUserRolesSet(emptySet));
+        // when
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUserToRole(sergiu, developer));
     }
 
+    @Test
+    void testAddUserToRoleRoleNotAllocatedToProject(){
+        // given - project, users, and roles
+        /*Unknown users*/
+        project.addUsers(users);
+
+        // when
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUserToRole(sergiu, developer));
+    }
+    @Test
+    void testAddUserToRoleUserIsNull(){
+        // given - project, users, and roles
+        project.addUsers(users);
+        project.addRoles(roles);
+
+        // when
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUserToRole(null, developer));
+    }
 
     @Test
-    void addProjectUserRoles() {
-        UserRoleKey key1 = new UserRoleKey(1L,1L);
+    void testAddUserToRoleRoleIsNull(){
+        // given - project, users, and roles
+        project.addUsers(users);
+        project.addRoles(roles);
 
-        ProjectUserRoles projectUserRoles = ProjectUserRoles.builder().userRoleKey(key1).build();
-
-        //when
-        project.addProjectUserRoles(projectUserRoles);
-
-        //then
-        assertNotNull(project.getProjectUserRoles());
-        assertEquals(1, project.getProjectUserRoles().size());
-        assertTrue(project.getProjectUserRoles().stream().anyMatch(projectUserRoles1 -> projectUserRoles1.getUserRoleKey()==key1));
-
-        // check directly on objects
-        assertEquals(project, projectUserRoles.getProject());
+        // when
+        Assertions.assertThrows(RuntimeException.class, () -> project.addUserToRole(sergiu, null));
     }
 }

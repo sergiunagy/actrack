@@ -3,8 +3,7 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sena.activitytracker.acktrack.model.ProjectUserRoles;
-import sena.activitytracker.acktrack.model.UserRoleKey;
+import sena.activitytracker.acktrack.model.ProjectUserRole;
 import sena.activitytracker.acktrack.repositories.ProjectUserRolesRepository;
 
 import java.util.HashSet;
@@ -18,35 +17,35 @@ public class ProjectUserRolesServiceImpl implements ProjectUserRolesService {
     private final ProjectUserRolesRepository projectUserRolesRepository;
 
     @Override
-    public Set<ProjectUserRoles> findAll() {
-        Set<ProjectUserRoles> issues = new HashSet<>();
+    public Set<ProjectUserRole> findAll() {
+        Set<ProjectUserRole> issues = new HashSet<>();
         projectUserRolesRepository.findAll().forEach(issues::add);
 
         return issues;
     }
 
     @Override
-    public ProjectUserRoles findById(Long id) {
+    public ProjectUserRole findById(Long id) {
 
         return projectUserRolesRepository.findById(id).orElse(null);
     }
 
     @Override
-    public ProjectUserRoles save(ProjectUserRoles issue) {
+    public ProjectUserRole save(ProjectUserRole issue) {
 
         return projectUserRolesRepository.save(issue);
     }
 
     @Override
-    public Set<ProjectUserRoles> saveAll(Set<ProjectUserRoles> issues) {
-        Set<ProjectUserRoles> retProjectUserRoless = new HashSet<>();
-        projectUserRolesRepository.saveAll(issues).forEach(retProjectUserRoless::add);
+    public Set<ProjectUserRole> saveAll(Set<ProjectUserRole> issues) {
+        Set<ProjectUserRole> retProjectUserRolesses = new HashSet<>();
+        projectUserRolesRepository.saveAll(issues).forEach(retProjectUserRolesses::add);
 
-        return retProjectUserRoless;
+        return retProjectUserRolesses;
     }
 
     @Override
-    public void delete(ProjectUserRoles issue) {
+    public void delete(ProjectUserRole issue) {
 
         projectUserRolesRepository.delete(issue);
     }
@@ -56,9 +55,5 @@ public class ProjectUserRolesServiceImpl implements ProjectUserRolesService {
         projectUserRolesRepository.deleteById(id);
     }
 
-    @Override
-    public ProjectUserRoles findByUserRoleKey(UserRoleKey key) {
 
-        return projectUserRolesRepository.findByUserRoleKey(key);
-    }
 }

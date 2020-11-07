@@ -34,8 +34,8 @@ public class bootstrapData implements CommandLineRunner {
     Workpackage qualfix, revido, bugfixdo;
     Activity qualact, revact, bugfixact;
     User sergiu, ade, mihai;
-    Role dev_alpha, lead_alpha, dev_beta, lead_beta;
-    ProjectUserRoles pdev_alpha, plead_alpha, pdev_beta, plead_beta;
+    Role developer_on_alpha, plead_on_alpha, dev_beta, lead_beta;
+    ProjectUserRole pdev_alpha, plead_alpha, pdev_beta, plead_beta;
 
 
     @Autowired
@@ -66,13 +66,12 @@ public class bootstrapData implements CommandLineRunner {
         initWorkpackages();
         initActivities();
         initRoles();
-        initProjectUserRoles();
 
         /*PROJECT 1 SETUP : configure the first project save at the end*/
 
         // has 2 roles
-        alpha.addRole(dev_alpha);
-        alpha.addRole(lead_alpha);
+        alpha.addRole(developer_on_alpha);
+        alpha.addRole(plead_on_alpha);
 
         // has 2 assigned workers
         alpha.addUser(sergiu);
@@ -93,8 +92,8 @@ public class bootstrapData implements CommandLineRunner {
         sergiu.addActivity(qualact);
 
         /*add project roles to user mapping */
-        alpha.addProjectUserRoles(pdev_alpha);
-        alpha.addProjectUserRoles(plead_alpha);
+        alpha.addUserToRole(sergiu, developer_on_alpha);
+        alpha.addUserToRole(mihai, plead_on_alpha);
 
         /* persist PJ1 */
         projectService.save(alpha);
@@ -134,8 +133,9 @@ public class bootstrapData implements CommandLineRunner {
         mihai.addActivity(bugfixact);
 
         /*add project roles to user mapping */
-        beta.addProjectUserRoles(pdev_beta);
-        beta.addProjectUserRoles(plead_beta);
+        beta.addUserToRole(sergiu, dev_beta);
+        beta.addUserToRole(mihai, dev_beta);
+        beta.addUserToRole(ade, lead_beta);
 
         /* persist PJ2 */
         projectService.save(beta);
@@ -143,46 +143,14 @@ public class bootstrapData implements CommandLineRunner {
 
     }
 
-    private void initProjectUserRoles() {
-
-        UserRoleKey key1 = new UserRoleKey(1L,1L);
-        UserRoleKey key2 = new UserRoleKey(1L,2L);
-
-        /*Dummy project init*/
-        pdev_alpha = ProjectUserRoles.builder()
-                .userRoleKey(key1)
-                .user(sergiu)
-                .role(dev_alpha)
-                .build();
-
-        plead_alpha = ProjectUserRoles.builder()
-                .userRoleKey(key2)
-                .user(mihai)
-                .role(lead_alpha)
-                .build();
-
-        pdev_beta = ProjectUserRoles.builder()
-                .userRoleKey(key1)
-                .user(mihai)
-                .role(dev_beta)
-                .build();
-
-        plead_beta = ProjectUserRoles.builder()
-                .userRoleKey(key2)
-                .user(ade)
-                .role(lead_beta)
-                .build();
-
-    }
-
     private void initRoles() {
 
-        dev_alpha = Role.builder()
+        developer_on_alpha = Role.builder()
                 .name("Developer")
                 .description("Implements, tests, reviews")
                 .build();
 
-        lead_alpha = Role.builder()
+        plead_on_alpha = Role.builder()
                 .name("Project lead")
                 .description("Assigns, manages, client interface")
                 .build();

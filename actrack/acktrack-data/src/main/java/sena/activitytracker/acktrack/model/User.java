@@ -36,8 +36,12 @@ public class User extends BaseEntity {
     @ManyToMany(mappedBy = "users")
     private Set<Workpackage> workpackages = new HashSet<>();
 
+    /*todo: check if cascading delete is OK form this */
+    @OneToMany(mappedBy = "user")
+    private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
+
     @Builder
-    public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
+    public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages, Set<ProjectUserRole> projectUserRoles) {
         super(id);
         this.familyName = familyName;
         this.givenName = givenName;
@@ -45,6 +49,8 @@ public class User extends BaseEntity {
         if (activities != null) this.activities = activities;
         if (projects != null) this.projects = projects;
         if (workpackages != null) this.workpackages = workpackages;
+        if (projectUserRoles != null) this.projectUserRoles = projectUserRoles;
+
     }
 
     public Set<Activity> addActivities(Set<Activity> activities) {

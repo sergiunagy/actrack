@@ -66,10 +66,10 @@ public class Project extends BaseEntity {
     /* Connecting the embedded user to role mapping */
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "project")
-    private Set<ProjectUserRoles> projectUserRoles = new HashSet<>();
+    private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public Project(Long id, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<Role> roles, Set<User> users, Set<ProjectUserRoles> projectUserRoles) {
+    public Project(Long id, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<Role> roles, Set<User> users, Set<ProjectUserRole> projectUserRoles) {
         super(id);
         this.name = name;
         this.description = description;
@@ -152,11 +152,15 @@ public class Project extends BaseEntity {
         return users;
     }
 
+    /*todo: check if user exists and only add if not already existing*/
     @Transactional
     public User addUser(User user) {
 
         if (user == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+        /*if the user already exists,*/
+//        if(!user.isNew())
+//            return user;
 
         if (!user.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
             user.getProjects().add(this);
@@ -166,25 +170,39 @@ public class Project extends BaseEntity {
         return user;
     }
 
-    public Set<ProjectUserRoles> addProjectUserRolesSet(Set<ProjectUserRoles> projectUserRolesSet) {
+    /*Todo : replace throwing exception with non-blocking solutions for reporting errors*/
+    public ProjectUserRole addUserToRole(User user, Role role){
 
-        if (projectUserRolesSet == null || projectUserRolesSet.isEmpty())
-            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+        /*Null checks:*/
+        if (user==null || role == null) throw new RuntimeException("Null issue passed to addUserToRole for project:" + this.toString());
+        /*user and role must be already persisted in the repository AND be associated with this project*/
+        if (!userExistsForProject(user) || !roleExistsForProject(role)) throw new RuntimeException("Null issue passed to addUserToRole for project:" + this.toString());
 
-        for (ProjectUserRoles projectUserRoles : projectUserRolesSet) {
-            addProjectUserRoles(projectUserRoles);
-        }
-        return projectUserRolesSet;
+        /*Create a new user to role mapping and associate it with this project*/
+        ProjectUserRole newMapping = ProjectUserRole.builder()
+                .project(this)
+                .role(role)
+                .user(user)
+                .build();
+
+        projectUserRoles.add(newMapping);
+
+        return newMapping;
     }
 
-    public ProjectUserRoles addProjectUserRoles(ProjectUserRoles projectUserRoles) {
+    private boolean userExistsForProject(User user){
 
-        if (projectUserRoles == null)
-            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+        return users.stream().anyMatch(usr -> usr.getId()==user.getId());
+    }
 
-        projectUserRoles.setProject(this);
-        this.projectUserRoles.add(projectUserRoles);
+    private boolean roleExistsForProject(Role role){
 
-        return projectUserRoles;
+        return roles.stream().anyMatch(r -> r.getId()==role.getId());
+    }
+
+    @Override
+    public String toString(){
+
+        return ("Project name: " + this.name + " with id: " + this.getId());
     }
 }
