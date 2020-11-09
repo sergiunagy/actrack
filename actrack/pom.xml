@@ -6,7 +6,8 @@
 
     <modules>
         <module>acktrack-data</module>
-		<module>acktrack-web</module>
+<!--		<module>acktrack-web</module>-->
+		<module>acktrack-vaadinui</module>
 	</modules>
 
     <parent>
@@ -24,21 +25,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-<!--		<vaadin.version>14.4.1</vaadin.version>-->
 	</properties>
-
-
-<!--	<dependencyManagement>-->
-<!--		<dependencies>-->
-<!--			<dependency>-->
-<!--				<groupId>com.vaadin</groupId>-->
-<!--				<artifactId>vaadin-bom</artifactId>-->
-<!--				<version>${vaadin.version}</version>-->
-<!--				<type>pom</type>-->
-<!--				<scope>import</scope>-->
-<!--			</dependency>-->
-<!--		</dependencies>-->
-<!--	</dependencyManagement>-->
 
 	<build>
 		<plugins>
@@ -49,7 +36,8 @@
 <!--			<plugin>-->
 <!--				<groupId>org.apache.maven.plugins</groupId>-->
 <!--				<artifactId>maven-release-plugin</artifactId>-->
-<!--				<configuration>-->
+<!--				<co
+nfiguration>-->
 <!--					<goals>install</goals>-->
 <!--					<autoVersionSubmodules>true</autoVersionSubmodules>-->
 <!--				</configuration>-->
