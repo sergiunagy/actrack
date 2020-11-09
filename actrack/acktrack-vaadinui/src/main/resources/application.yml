@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: test
+---
+# Test profile yml
+spring:
+  profiles: test
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  jpa:
+    show-sql : true
+    properties:
+      hibernate:
+        generate_statistics : true
+  security:
+    user:
+      name: user
+      password: pass
+---
+# Production profile yml
+spring:
+  profiles:
+    prod
