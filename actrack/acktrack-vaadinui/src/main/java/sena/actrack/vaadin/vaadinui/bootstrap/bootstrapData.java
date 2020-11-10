@@ -4,6 +4,7 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
@@ -42,6 +43,7 @@ public class bootstrapData implements CommandLineRunner {
 
     @Autowired
     public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService) {
+        log.info("VAADIN: bootstrap creator..");
         this.projectService = projectService;
         this.issueService = issueService;
         this.workpackageService = workpackageService;
@@ -55,8 +57,9 @@ public class bootstrapData implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+        log.info("VAADIN: Data loader..");
         bootstrapNActivities(10);
-      //  initData();
+        initData();
     }
 
     private void initData() {

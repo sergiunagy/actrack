@@ -52,6 +52,7 @@ public class bootstrapData implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+        log.info("WebApp: Data loader..");
         bootstrapNActivities(10);
         initData();
     }
