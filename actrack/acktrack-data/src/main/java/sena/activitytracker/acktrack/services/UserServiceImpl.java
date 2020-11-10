@@ -3,6 +3,8 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.model.User;
 import sena.activitytracker.acktrack.repositories.UserRepository;
 
@@ -54,4 +56,5 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
 }

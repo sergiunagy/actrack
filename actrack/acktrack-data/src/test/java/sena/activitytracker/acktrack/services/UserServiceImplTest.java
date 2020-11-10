@@ -29,7 +29,7 @@ class UserServiceImplTest {
     UserServiceImpl userService;
 
     User sergiu, mihai;
-    Set<User> issueSet =new HashSet<>();
+    Set<User> userSet =new HashSet<>();
 
     @BeforeEach
     void setUp() {
@@ -49,14 +49,14 @@ class UserServiceImplTest {
                 .build();
 
 
-        issueSet.add(sergiu);
-        issueSet.add(mihai);
+        userSet.add(sergiu);
+        userSet.add(mihai);
     }
 
     @Test
     void findAll() {
 
-        when(userRepository.findAll()).thenReturn(issueSet);
+        when(userRepository.findAll()).thenReturn(userSet);
 
         Set<User> foundUsers = userService.findAll();
 
@@ -91,9 +91,9 @@ class UserServiceImplTest {
 
     @Test
     void saveAll() {
-        when(userRepository.saveAll(any(Set.class))).thenReturn(issueSet);
+        when(userRepository.saveAll(any(Set.class))).thenReturn(userSet);
 
-        Set<User> foundUsers = userService.saveAll(issueSet);
+        Set<User> foundUsers = userService.saveAll(userSet);
 
         assertNotNull(foundUsers);
         assertEquals(2, foundUsers.size());

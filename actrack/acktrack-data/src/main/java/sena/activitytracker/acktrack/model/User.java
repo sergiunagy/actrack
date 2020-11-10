@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Activity> activities = new HashSet<>();
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
