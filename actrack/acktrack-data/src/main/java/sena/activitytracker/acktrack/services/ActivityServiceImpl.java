@@ -10,6 +10,7 @@ import sena.activitytracker.acktrack.repositories.ActivityRepository;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity findById(Long id) {
+    public Activity findById(UUID id) {
 
         return activityRepository.findById(id).orElse(null);
     }
@@ -53,7 +54,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         activityRepository.deleteById(id);
     }
 

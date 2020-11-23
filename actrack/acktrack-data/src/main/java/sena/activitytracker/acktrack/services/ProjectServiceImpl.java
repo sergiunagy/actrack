@@ -9,6 +9,7 @@ import sena.activitytracker.acktrack.repositories.ProjectRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(Long id) {
+    public Project findById(UUID id) {
 
         return projectRepository.findById(id).orElse(null);
     }
@@ -52,7 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         projectRepository.deleteById(id);
     }
 }

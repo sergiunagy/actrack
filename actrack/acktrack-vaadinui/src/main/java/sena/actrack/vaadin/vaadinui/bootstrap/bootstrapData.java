@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -314,7 +315,6 @@ public class bootstrapData implements CommandLineRunner {
         IntStream.range(0, MAXRANGE).parallel().forEach(
                 idx -> {
                     activities.add(Activity.builder()
-                            .id(Long.valueOf(idx))
                             .date(LocalDate.now().minusDays((MAXRANGE - idx)))
                             .description("activity" + idx)
                             .build());

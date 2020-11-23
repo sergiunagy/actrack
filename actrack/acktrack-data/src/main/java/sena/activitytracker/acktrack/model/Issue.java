@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -57,9 +58,9 @@ public class Issue extends BaseEntity {
     private Project project;
 
     @Builder
-    public Issue(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public Issue(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                  String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
-        super(id, createdTimestamp, updatedTimestamp);
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.shortName = shortName;
         this.issue_id = issue_id;
         this.description = description;

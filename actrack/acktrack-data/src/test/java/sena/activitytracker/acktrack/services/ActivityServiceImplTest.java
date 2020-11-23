@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ActivityServiceImplTest {
+class ActivityServiceImplTest extends BaseServiceTest{
 
     @Mock
     ActivityRepository activityRepository;
@@ -37,7 +37,7 @@ class ActivityServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         quality = Activity.builder()
-                .id(1L)
+                .id(IDONE)
                 .description("Check quality issues")
                 .duration(Duration.of(4, ChronoUnit.HOURS))
                 .date(LocalDate.of(2020, 10, 18))
@@ -45,7 +45,7 @@ class ActivityServiceImplTest {
                 .build();
 
         review = Activity.builder()
-                .id(1L)
+                .id(IDTWO)
                 .description("Execute review on beta")
                 .duration(Duration.of(8, ChronoUnit.HOURS))
                 .date(LocalDate.of(2020, 10, 19))
@@ -72,13 +72,13 @@ class ActivityServiceImplTest {
 
     @Test
     void findById() {
-        when(activityRepository.findById(anyLong())).thenReturn(Optional.of(review));
+        when(activityRepository.findById(any())).thenReturn(Optional.of(review));
 
         Activity foundActivity = activityService.findById(review.getId());
 
         assertNotNull(foundActivity);
-        assertEquals(1, foundActivity.getId());
-        verify(activityRepository, times(1)).findById(anyLong());
+        assertTrue(review.getId().equals(foundActivity.getId()));
+        verify(activityRepository, times(1)).findById(any());
     }
 
     @Test
@@ -89,7 +89,7 @@ class ActivityServiceImplTest {
         Activity foundActivity = activityService.save(review);
 
         assertNotNull(foundActivity);
-        assertEquals(1, foundActivity.getId());
+        assertTrue(review.getId().equals(foundActivity.getId()));
         verify(activityRepository, times(1)).save(any());
     }
 
@@ -115,9 +115,9 @@ class ActivityServiceImplTest {
     @Test
     void deleteById() {
 
-        activityService.deleteById(1L);
+        activityService.deleteById(IDONE);
 
-        verify(activityRepository, times(1)).deleteById(anyLong());
+        verify(activityRepository, times(1)).deleteById(any());
     }
 
     @Test

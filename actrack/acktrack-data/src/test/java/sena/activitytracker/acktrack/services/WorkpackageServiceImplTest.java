@@ -12,6 +12,7 @@ import sena.activitytracker.acktrack.repositories.WorkpackageRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class WorkpackageServiceImplTest {
+class WorkpackageServiceImplTest extends BaseServiceTest{
 
     @Mock
     WorkpackageRepository workpackageRepository;
@@ -35,13 +36,13 @@ class WorkpackageServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         quality = Workpackage.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("fix quality")
                 .description("fix quality on alpha")
                 .build();
 
         review = Workpackage.builder()
-                .id(1L)
+                .id(IDTWO)
                 .name("do reviews")
                 .description("do reviews on beta")
                 .build();
@@ -66,13 +67,13 @@ class WorkpackageServiceImplTest {
 
     @Test
     void findById() {
-        when(workpackageRepository.findById(anyLong())).thenReturn(Optional.of(review));
+        when(workpackageRepository.findById(any())).thenReturn(Optional.of(review));
 
         Workpackage foundWorkpackage = workpackageService.findById(review.getId());
 
         assertNotNull(foundWorkpackage);
-        assertEquals(1, foundWorkpackage.getId());
-        verify(workpackageRepository, times(1)).findById(anyLong());
+        assertTrue(review.getId().equals(foundWorkpackage.getId()));
+        verify(workpackageRepository, times(1)).findById(any());
     }
 
     @Test
@@ -83,7 +84,7 @@ class WorkpackageServiceImplTest {
         Workpackage foundWorkpackage = workpackageService.save(review);
 
         assertNotNull(foundWorkpackage);
-        assertEquals(1, foundWorkpackage.getId());
+        assertTrue(review.getId().equals(foundWorkpackage.getId()));
         verify(workpackageRepository, times(1)).save(any());
     }
 
@@ -109,8 +110,8 @@ class WorkpackageServiceImplTest {
     @Test
     void deleteById() {
 
-        workpackageService.deleteById(1L);
+        workpackageService.deleteById(IDONE);
 
-        verify(workpackageRepository, times(1)).deleteById(anyLong());
+        verify(workpackageRepository, times(1)).deleteById(any());
     }
 }

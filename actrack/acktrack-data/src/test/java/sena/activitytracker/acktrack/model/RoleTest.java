@@ -10,14 +10,14 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RoleTest {
+class RoleTest extends BaseDomTest {
 
     Role role;
 
     @BeforeEach
     void setUp() {
         role = Role.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("Developer")
                 .description("Implements, tests, reviews")
                 .build();
@@ -29,8 +29,8 @@ class RoleTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Project> projects = new HashSet<>();
-        projects.add(Project.builder().id(1L).description(TXT1).build());
-        projects.add(Project.builder().id(2L).description(TXT2).build());
+        projects.add(Project.builder().id(IDONE).description(TXT1).build());
+        projects.add(Project.builder().id(IDTWO).description(TXT2).build());
 
         // when
         Set<Project> boundProjects = role.addProjects(projects);
@@ -69,7 +69,7 @@ class RoleTest {
     void addProject() {
         // given
         final String TXT1 = "first";
-        Project project = Project.builder().id(1L).description(TXT1).build();
+        Project project = Project.builder().id(IDONE).description(TXT1).build();
 
         // when
         role.addProject(project);

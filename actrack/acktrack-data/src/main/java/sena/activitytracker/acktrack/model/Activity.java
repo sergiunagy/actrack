@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -43,9 +44,9 @@ public class Activity extends BaseEntity {
     private User user;
 
     @Builder
-    public Activity(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public Activity(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                     String description, LocalDate date, Duration duration, Boolean isExported, Set<Workpackage> workpackages, Set<Issue> issues, User user) {
-        super(id, createdTimestamp, updatedTimestamp);
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.description = description;
         this.date = date;
         this.duration = duration;

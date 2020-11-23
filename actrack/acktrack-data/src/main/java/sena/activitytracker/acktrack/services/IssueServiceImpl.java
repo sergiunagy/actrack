@@ -8,6 +8,7 @@ import sena.activitytracker.acktrack.repositories.IssueRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue findById(Long id) {
+    public Issue findById(UUID id) {
 
         return issueRepository.findById(id).orElse(null);
     }
@@ -51,7 +52,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         issueRepository.deleteById(id);
     }
 }

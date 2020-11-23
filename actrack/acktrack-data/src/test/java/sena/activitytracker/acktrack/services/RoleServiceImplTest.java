@@ -12,16 +12,16 @@ import sena.activitytracker.acktrack.repositories.RoleRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class RoleServiceImplTest {
+class RoleServiceImplTest extends BaseServiceTest{
 
     @Mock
     RoleRepository roleRepository;
@@ -36,13 +36,13 @@ class RoleServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         developer = Role.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("Developer")
                 .description("Implements, tests, reviews")
                 .build();
 
         lead = Role.builder()
-                .id(2L)
+                .id(IDTWO)
                 .name("Project lead")
                 .description("Assigns, manages, client interface")
                 .build();
@@ -67,13 +67,13 @@ class RoleServiceImplTest {
 
     @Test
     void findById() {
-        when(roleRepository.findById(anyLong())).thenReturn(Optional.of(developer));
+        when(roleRepository.findById(any())).thenReturn(Optional.of(developer));
 
         Role foundRole = roleService.findById(developer.getId());
 
         assertNotNull(foundRole);
-        assertEquals(1, foundRole.getId());
-        verify(roleRepository, times(1)).findById(anyLong());
+        assertTrue(developer.getId().equals(foundRole.getId()));
+        verify(roleRepository, times(1)).findById(any());
     }
 
     @Test
@@ -84,7 +84,7 @@ class RoleServiceImplTest {
         Role foundRole = roleService.save(developer);
 
         assertNotNull(foundRole);
-        assertEquals(1, foundRole.getId());
+        assertTrue(developer.getId().equals(foundRole.getId()));
         verify(roleRepository, times(1)).save(any());
     }
 
@@ -110,8 +110,8 @@ class RoleServiceImplTest {
     @Test
     void deleteById() {
 
-        roleService.deleteById(1L);
+        roleService.deleteById(IDONE);
 
-        verify(roleRepository, times(1)).deleteById(anyLong());
+        verify(roleRepository, times(1)).deleteById(any());
     }
 }

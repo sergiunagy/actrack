@@ -7,8 +7,9 @@ import sena.activitytracker.acktrack.model.Activity;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
-public interface ActivityRepository extends CrudRepository<Activity, Long> {
+public interface ActivityRepository extends CrudRepository<Activity, UUID> {
 
     Set<Activity> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
 }

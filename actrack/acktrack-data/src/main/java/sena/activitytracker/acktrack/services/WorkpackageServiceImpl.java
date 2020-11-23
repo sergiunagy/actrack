@@ -8,6 +8,7 @@ import sena.activitytracker.acktrack.repositories.WorkpackageRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class WorkpackageServiceImpl implements WorkpackageService {
     }
 
     @Override
-    public Workpackage findById(Long id) {
+    public Workpackage findById(UUID id) {
 
         return workpackageRepository.findById(id).orElse(null);
     }
@@ -51,7 +52,7 @@ public class WorkpackageServiceImpl implements WorkpackageService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         workpackageRepository.deleteById(id);
     }
 }

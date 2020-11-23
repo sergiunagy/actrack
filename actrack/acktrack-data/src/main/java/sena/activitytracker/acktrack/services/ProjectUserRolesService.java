@@ -2,6 +2,8 @@ package sena.activitytracker.acktrack.services;
 
 import sena.activitytracker.acktrack.model.ProjectUserRole;
 
-public interface ProjectUserRolesService extends CrudService<ProjectUserRole, Long>{
+import java.util.UUID;
+
+public interface ProjectUserRolesService extends CrudService<ProjectUserRole, UUID>{
 
 }

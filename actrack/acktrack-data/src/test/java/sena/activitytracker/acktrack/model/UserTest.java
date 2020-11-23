@@ -10,14 +10,14 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class UserTest extends BaseDomTest {
 
     User user;
 
     @BeforeEach
     void setUp() {
         user = User.builder()
-                .id(1L)
+                .id(IDONE)
                 .familyName("Nagy")
                 .givenName("Sergiu")
                 .uid("u1")
@@ -30,8 +30,8 @@ class UserTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Activity> activities = new HashSet<>();
-        activities.add(Activity.builder().id(1L).description(TXT1).build());
-        activities.add(Activity.builder().id(2L).description(TXT2).build());
+        activities.add(Activity.builder().id(IDONE).description(TXT1).build());
+        activities.add(Activity.builder().id(IDTWO).description(TXT2).build());
 
         // when
         Set<Activity> boundActivities = user.addActivities(activities);
@@ -77,8 +77,8 @@ class UserTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Workpackage> workpackages = new HashSet<>();
-        workpackages.add(Workpackage.builder().id(1L).description(TXT1).build());
-        workpackages.add(Workpackage.builder().id(2L).description(TXT2).build());
+        workpackages.add(Workpackage.builder().id(IDONE).description(TXT1).build());
+        workpackages.add(Workpackage.builder().id(IDTWO).description(TXT2).build());
 
         // when
         Set<Workpackage> boundWorkpackages = user.addWorkpackages(workpackages);
@@ -117,7 +117,7 @@ class UserTest {
     void addWorkpackage() {
         // given
         final String TXT1 = "first";
-        Workpackage workpackage = Workpackage.builder().id(1L).description(TXT1).build();
+        Workpackage workpackage = Workpackage.builder().id(IDONE).description(TXT1).build();
 
         // when
         user.addWorkpackage(workpackage);

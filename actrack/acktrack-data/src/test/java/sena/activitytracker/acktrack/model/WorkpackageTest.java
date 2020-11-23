@@ -10,14 +10,14 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WorkpackageTest {
+class WorkpackageTest extends BaseDomTest {
 
     Workpackage workpackage;
 
     @BeforeEach
     void setUp() {
         workpackage = Workpackage.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("fix quality")
                 .description("fix quality on alpha")
                 .build();
@@ -29,8 +29,8 @@ class WorkpackageTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Activity> activities = new HashSet<>();
-        activities.add(Activity.builder().id(1L).description(TXT1).build());
-        activities.add(Activity.builder().id(2L).description(TXT2).build());
+        activities.add(Activity.builder().id(IDONE).description(TXT1).build());
+        activities.add(Activity.builder().id(IDONE).description(TXT2).build());
 
         // when
         Set<Activity> boundActivities = workpackage.addActivities(activities);
@@ -71,8 +71,8 @@ class WorkpackageTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<User> users = new HashSet<>();
-        users.add(User.builder().id(1L).givenName(TXT1).build());
-        users.add(User.builder().id(2L).givenName(TXT2).build());
+        users.add(User.builder().id(IDONE).givenName(TXT1).build());
+        users.add(User.builder().id(IDONE).givenName(TXT2).build());
 
         //when
         Set<User> boundUsers = workpackage.addUsers(users);
@@ -113,7 +113,7 @@ class WorkpackageTest {
         final String TXT1 = "first";
         // given
         final String ROLE_DESC1 = "first role";
-        User user = User.builder().id(1L).givenName(TXT1).build();
+        User user = User.builder().id(IDONE).givenName(TXT1).build();
 
         //when
         workpackage.addUser(user);

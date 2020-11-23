@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -42,9 +43,10 @@ public class User extends BaseEntity {
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public User(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public User(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                 String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages, Set<ProjectUserRole> projectUserRoles) {
-        super(id, createdTimestamp, updatedTimestamp);
+
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.familyName = familyName;
         this.givenName = givenName;
         this.uid = uid;

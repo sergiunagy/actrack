@@ -8,6 +8,7 @@ import sena.activitytracker.acktrack.repositories.ProjectUserRolesRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class ProjectUserRolesServiceImpl implements ProjectUserRolesService {
     }
 
     @Override
-    public ProjectUserRole findById(Long id) {
+    public ProjectUserRole findById(UUID id) {
 
         return projectUserRolesRepository.findById(id).orElse(null);
     }
@@ -51,7 +52,7 @@ public class ProjectUserRolesServiceImpl implements ProjectUserRolesService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         projectUserRolesRepository.deleteById(id);
     }
 

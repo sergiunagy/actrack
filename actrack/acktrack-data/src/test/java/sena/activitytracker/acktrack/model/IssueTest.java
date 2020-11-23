@@ -11,14 +11,14 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IssueTest {
+class IssueTest extends BaseDomTest {
 
     Issue issue;
 
     @BeforeEach
     void setUp() {
         issue = Issue.builder()
-                .id(1L)
+                .id(IDONE)
                 .issue_id("14a8")
                 .description("quality issue alpha")
                 .link("url quality")
@@ -31,8 +31,8 @@ class IssueTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Workpackage> workpackages = new HashSet<>();
-        workpackages.add(Workpackage.builder().id(1L).description(TXT1).build());
-        workpackages.add(Workpackage.builder().id(2L).description(TXT2).build());
+        workpackages.add(Workpackage.builder().id(IDONE).description(TXT1).build());
+        workpackages.add(Workpackage.builder().id(IDTWO).description(TXT2).build());
 
         // when
         Set<Workpackage> boundWorkpackages = issue.addWorkpackages(workpackages);
@@ -71,7 +71,7 @@ class IssueTest {
     void addWorkpackage() {
         // given
         final String TXT1 = "first";
-        Workpackage workpackage = Workpackage.builder().id(1L).description(TXT1).build();
+        Workpackage workpackage = Workpackage.builder().id(IDONE).description(TXT1).build();
 
         // when
         issue.addWorkpackage(workpackage);
@@ -91,8 +91,8 @@ class IssueTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Activity> activities = new HashSet<>();
-        activities.add(Activity.builder().id(1L).description(TXT1).build());
-        activities.add(Activity.builder().id(2L).description(TXT2).build());
+        activities.add(Activity.builder().id(IDONE).description(TXT1).build());
+        activities.add(Activity.builder().id(IDTWO).description(TXT2).build());
 
         // when
         Set<Activity> boundWorkpackages = issue.addActivities(activities);

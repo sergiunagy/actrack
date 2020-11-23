@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProjectTest {
+class ProjectTest extends BaseDomTest {
 
     Project project;
     User sergiu, mihai;
@@ -22,18 +22,18 @@ class ProjectTest {
     @BeforeEach
     void setUp() {
 
-        sergiu= User.builder().id(1L).givenName("Sergiu").build();
-        mihai = User.builder().id(2L).givenName("Mihai").build();
+        sergiu= User.builder().id(IDONE).givenName("Sergiu").build();
+        mihai = User.builder().id(IDTWO).givenName("Mihai").build();
         users = new HashSet<>();
         users.add(sergiu);
         users.add(mihai);
 
-        developer = Role.builder().id(1L).name("developer").build();
+        developer = Role.builder().id(IDONE).name("developer").build();
         roles = new HashSet<>();
         roles.add(developer);
 
         project = Project.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
@@ -56,8 +56,8 @@ class ProjectTest {
         final String ISSUE_TEXT1 = "first issue";
         final String ISSUE_TEXT2 = "2nd issue";
         Set<Issue> issues = new HashSet<>();
-        issues.add(Issue.builder().id(1L).shortName(ISSUE_TEXT1).build());
-        issues.add(Issue.builder().id(2L).shortName(ISSUE_TEXT2).build());
+        issues.add(Issue.builder().id(IDONE).shortName(ISSUE_TEXT1).build());
+        issues.add(Issue.builder().id(IDTWO).shortName(ISSUE_TEXT2).build());
 
         //when
         Set<Issue> boundIssues = project.addIssues(issues);
@@ -97,7 +97,7 @@ class ProjectTest {
     void addIssue() {
         // given
         final String ISSUE_TEXT1 = "first issue";
-        Issue issue = Issue.builder().id(1L).shortName(ISSUE_TEXT1).build();
+        Issue issue = Issue.builder().id(IDONE).shortName(ISSUE_TEXT1).build();
 
         //when
         project.addIssue(issue);
@@ -117,8 +117,8 @@ class ProjectTest {
         final String ROLE_DESC1 = "first role";
         final String ROLE_DESC2 = "2nd role";
         Set<Role> roles = new HashSet<>();
-        roles.add(Role.builder().id(1L).description(ROLE_DESC1).build());
-        roles.add(Role.builder().id(2L).description(ROLE_DESC2).build());
+        roles.add(Role.builder().id(IDONE).description(ROLE_DESC1).build());
+        roles.add(Role.builder().id(IDTWO).description(ROLE_DESC2).build());
 
         //when
         Set<Role> boundRoles = project.addRoles(roles);
@@ -157,7 +157,7 @@ class ProjectTest {
     void addRole() {
         // given
         final String ROLE_DESC1 = "first role";
-        Role role = Role.builder().id(1L).description(ROLE_DESC1).build();
+        Role role = Role.builder().id(IDONE).description(ROLE_DESC1).build();
 
         //when
         project.addRole(role);

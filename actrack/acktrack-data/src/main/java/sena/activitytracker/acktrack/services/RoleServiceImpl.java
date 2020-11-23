@@ -8,6 +8,7 @@ import sena.activitytracker.acktrack.repositories.RoleRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findById(Long id) {
+    public Role findById(UUID id) {
 
         return roleRepository.findById(id).orElse(null);
     }
@@ -51,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         roleRepository.deleteById(id);
     }
 }

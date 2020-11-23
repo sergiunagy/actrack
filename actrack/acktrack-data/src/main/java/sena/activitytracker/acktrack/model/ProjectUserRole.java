@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -24,9 +25,10 @@ public class ProjectUserRole extends BaseEntity {
     private Project project;
 
     @Builder
-    public ProjectUserRole(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public ProjectUserRole(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                            User user, Role role, Project project) {
-        super(id, createdTimestamp, updatedTimestamp);
+
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.user = user;
         this.role = role;
         this.project = project;

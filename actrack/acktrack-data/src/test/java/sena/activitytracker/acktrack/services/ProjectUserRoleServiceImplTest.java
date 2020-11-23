@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 @Disabled
 @ExtendWith(MockitoExtension.class)
-class ProjectUserRoleServiceImplTest {
+class ProjectUserRoleServiceImplTest extends BaseServiceTest{
 
     @Mock
     ProjectUserRolesRepository projectUserRolesRepository;
@@ -45,18 +46,18 @@ class ProjectUserRoleServiceImplTest {
     @BeforeEach
     void setUp() {
 
-        sergiu= User.builder().id(1L).givenName("Sergiu").build();
-        mihai = User.builder().id(2L).givenName("Mihai").build();
+        sergiu= User.builder().id(IDONE).givenName("Sergiu").build();
+        mihai = User.builder().id(IDTWO).givenName("Mihai").build();
         users = new HashSet<>();
         users.add(sergiu);
         users.add(mihai);
 
-        developer = Role.builder().id(1L).name("developer").build();
+        developer = Role.builder().id(IDONE).name("developer").build();
         roles = new HashSet<>();
         roles.add(developer);
 
         project = Project.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
@@ -76,8 +77,8 @@ class ProjectUserRoleServiceImplTest {
         map_role_dev = project.addUserToRole(sergiu, developer);
         map_role_dev2 = project.addUserToRole(mihai, developer);
         /*Ids are normally generated but for this test we do not have the database to do it*/
-        map_role_dev.setId(1L);
-        map_role_dev2.setId(2L);
+        map_role_dev.setId(IDONE);
+        map_role_dev2.setId(IDTWO);
 
         projectUserRoleSet.add(map_role_dev);
         projectUserRoleSet.add(map_role_dev2);
@@ -98,12 +99,12 @@ class ProjectUserRoleServiceImplTest {
 
     @Test
     void findById() {
-        when(projectUserRolesRepository.findById(anyLong())).thenReturn(Optional.of(map_role_dev));
+        when(projectUserRolesRepository.findById(any())).thenReturn(Optional.of(map_role_dev));
 
         ProjectUserRole foundProjectUserRole = projectUserRolesService.findById(map_role_dev.getId());
 
         assertNotNull(foundProjectUserRole);
-        verify(projectUserRolesRepository, times(1)).findById(anyLong());
+        verify(projectUserRolesRepository, times(1)).findById(any());
     }
 
     @Test
@@ -139,9 +140,9 @@ class ProjectUserRoleServiceImplTest {
     @Test
     void deleteById() {
 
-        projectUserRolesService.deleteById(1L);
+        projectUserRolesService.deleteById(IDONE);
 
-        verify(projectUserRolesRepository, times(1)).deleteById(anyLong());
+        verify(projectUserRolesRepository, times(1)).deleteById(any());
     }
 
 }

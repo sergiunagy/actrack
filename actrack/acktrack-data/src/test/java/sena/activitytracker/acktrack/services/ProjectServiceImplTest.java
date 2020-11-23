@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProjectServiceImplTest {
+class ProjectServiceImplTest extends BaseServiceTest{
 
     @Mock
     ProjectRepository projectRepository;
@@ -33,7 +33,7 @@ class ProjectServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         alpha = Project.builder()
-                .id(1L)
+                .id(IDONE)
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
@@ -48,7 +48,7 @@ class ProjectServiceImplTest {
                 .build();
 
         beta = Project.builder()
-                .id(2L)
+                .id(IDTWO)
                 .name("beta")
                 .description("dummy beta")
                 .mainLocation("Beta location")
@@ -81,13 +81,13 @@ class ProjectServiceImplTest {
 
     @Test
     void findById() {
-        when(projectRepository.findById(anyLong())).thenReturn(Optional.of(alpha));
+        when(projectRepository.findById(any())).thenReturn(Optional.of(alpha));
 
         Project foundProject = projectService.findById(alpha.getId());
 
         assertNotNull(foundProject);
-        assertEquals(1, foundProject.getId());
-        verify(projectRepository, times(1)).findById(anyLong());
+        assertTrue(alpha.getId().equals(foundProject.getId()));
+        verify(projectRepository, times(1)).findById(any());
     }
 
     @Test
@@ -98,7 +98,7 @@ class ProjectServiceImplTest {
         Project foundProject = projectService.save(alpha);
 
         assertNotNull(foundProject);
-        assertEquals(1, foundProject.getId());
+        assertTrue(alpha.getId().equals(foundProject.getId()));
         verify(projectRepository, times(1)).save(any());
     }
 
@@ -124,8 +124,8 @@ class ProjectServiceImplTest {
     @Test
     void deleteById() {
 
-        projectService.deleteById(1L);
+        projectService.deleteById(IDONE);
 
-        verify(projectRepository, times(1)).deleteById(anyLong());
+        verify(projectRepository, times(1)).deleteById(any());
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -30,9 +31,10 @@ public class Role extends BaseEntity{
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public Role(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public Role(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                 String name, String description, Set<Project> projects, Set<ProjectUserRole> projectUserRoles) {
-        super(id, createdTimestamp, updatedTimestamp);
+
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
         if(projects !=null) this.projects = projects;

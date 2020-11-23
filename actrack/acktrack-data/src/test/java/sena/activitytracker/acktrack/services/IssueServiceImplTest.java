@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class IssueServiceImplTest {
+class IssueServiceImplTest extends BaseServiceTest{
 
     @Mock
     IssueRepository issueRepository;
@@ -36,14 +37,14 @@ class IssueServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         quality = Issue.builder()
-                .id(1L)
+                .id(IDONE)
                 .issue_id("14a8")
                 .description("quality issue alpha")
                 .link("url quality")
                 .build();
 
         review = Issue.builder()
-                .id(2L)
+                .id(IDTWO)
                 .issue_id("aaaa")
                 .description("review issue beta")
                 .link("url review")
@@ -69,13 +70,13 @@ class IssueServiceImplTest {
 
     @Test
     void findById() {
-        when(issueRepository.findById(anyLong())).thenReturn(Optional.of(review));
+        when(issueRepository.findById(any())).thenReturn(Optional.of(review));
 
         Issue foundIssue = issueService.findById(review.getId());
 
         assertNotNull(foundIssue);
-        assertEquals(2, foundIssue.getId());
-        verify(issueRepository, times(1)).findById(anyLong());
+        assertTrue(review.getId().equals(foundIssue.getId()));
+        verify(issueRepository, times(1)).findById(any());
     }
 
     @Test
@@ -86,7 +87,7 @@ class IssueServiceImplTest {
         Issue foundIssue = issueService.save(review);
 
         assertNotNull(foundIssue);
-        assertEquals(2, foundIssue.getId());
+        assertTrue(review.getId().equals(foundIssue.getId()));
         verify(issueRepository, times(1)).save(any());
     }
 
@@ -112,8 +113,8 @@ class IssueServiceImplTest {
     @Test
     void deleteById() {
 
-        issueService.deleteById(1L);
+        issueService.deleteById(IDONE);
 
-        verify(issueRepository, times(1)).deleteById(anyLong());
+        verify(issueRepository, times(1)).deleteById(any());
     }
 }

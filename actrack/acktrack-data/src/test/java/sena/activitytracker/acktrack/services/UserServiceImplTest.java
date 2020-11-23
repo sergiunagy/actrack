@@ -12,6 +12,7 @@ import sena.activitytracker.acktrack.repositories.UserRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImplTest {
+class UserServiceImplTest extends BaseServiceTest{
 
     @Mock
     UserRepository userRepository;
@@ -35,14 +36,14 @@ class UserServiceImplTest {
     void setUp() {
         /*Dummy project init*/
         sergiu = User.builder()
-                .id(1L)
+                .id(IDONE)
                 .familyName("Nagy")
                 .givenName("Sergiu")
                 .uid("u1")
                 .build();
 
         mihai = User.builder()
-                .id(2L)
+                .id(IDTWO)
                 .familyName("Popa")
                 .givenName("Mihai")
                 .uid("u2")
@@ -68,13 +69,13 @@ class UserServiceImplTest {
 
     @Test
     void findById() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(sergiu));
+        when(userRepository.findById(any())).thenReturn(Optional.of(sergiu));
 
         User foundUser = userService.findById(sergiu.getId());
 
         assertNotNull(foundUser);
-        assertEquals(1, foundUser.getId());
-        verify(userRepository, times(1)).findById(anyLong());
+        assertTrue(sergiu.getId().equals(foundUser.getId()));
+        verify(userRepository, times(1)).findById(any());
     }
 
     @Test
@@ -85,7 +86,7 @@ class UserServiceImplTest {
         User foundUser = userService.save(sergiu);
 
         assertNotNull(foundUser);
-        assertEquals(1, foundUser.getId());
+        assertTrue(sergiu.getId().equals(foundUser.getId()));
         verify(userRepository, times(1)).save(any());
     }
 
@@ -111,8 +112,8 @@ class UserServiceImplTest {
     @Test
     void deleteById() {
 
-        userService.deleteById(1L);
+        userService.deleteById(IDONE);
 
-        verify(userRepository, times(1)).deleteById(anyLong());
+        verify(userRepository, times(1)).deleteById(any());
     }
 }

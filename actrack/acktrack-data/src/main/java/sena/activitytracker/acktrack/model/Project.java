@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -70,9 +71,10 @@ public class Project extends BaseEntity {
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public Project(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public Project(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                    String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<Role> roles, Set<User> users, Set<ProjectUserRole> projectUserRoles) {
-        super(id, createdTimestamp, updatedTimestamp);
+
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
         this.notes = notes;
