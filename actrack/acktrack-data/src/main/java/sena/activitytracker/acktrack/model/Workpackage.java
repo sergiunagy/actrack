@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,8 +49,10 @@ public class Workpackage extends BaseEntity {
     private Set<User> users = new HashSet<>();
 
     @Builder
-    public Workpackage(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
-        super(id);
+    public Workpackage(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+                       String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
+
+        super(id, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
         this.startDate = startDate;

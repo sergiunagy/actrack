@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +30,9 @@ public class Role extends BaseEntity{
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public Role(Long id, String name, String description, Set<Project> projects, Set<ProjectUserRole> projectUserRoles) {
-        super(id);
+    public Role(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+                String name, String description, Set<Project> projects, Set<ProjectUserRole> projectUserRoles) {
+        super(id, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
         if(projects !=null) this.projects = projects;

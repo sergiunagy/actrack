@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -42,8 +43,9 @@ public class Activity extends BaseEntity {
     private User user;
 
     @Builder
-    public Activity(Long id, String description, LocalDate date, Duration duration, Boolean isExported, Set<Workpackage> workpackages, Set<Issue> issues, User user) {
-        super(id);
+    public Activity(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+                    String description, LocalDate date, Duration duration, Boolean isExported, Set<Workpackage> workpackages, Set<Issue> issues, User user) {
+        super(id, createdTimestamp, updatedTimestamp);
         this.description = description;
         this.date = date;
         this.duration = duration;

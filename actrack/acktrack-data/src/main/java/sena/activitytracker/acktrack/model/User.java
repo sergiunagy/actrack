@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +42,9 @@ public class User extends BaseEntity {
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
-    public User(Long id, String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages, Set<ProjectUserRole> projectUserRoles) {
-        super(id);
+    public User(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+                String familyName, String givenName, String uid, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages, Set<ProjectUserRole> projectUserRoles) {
+        super(id, createdTimestamp, updatedTimestamp);
         this.familyName = familyName;
         this.givenName = givenName;
         this.uid = uid;

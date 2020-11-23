@@ -8,6 +8,7 @@ import org.hibernate.annotations.NaturalId;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,8 +57,9 @@ public class Issue extends BaseEntity {
     private Project project;
 
     @Builder
-    public Issue(Long id, String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
-        super(id);
+    public Issue(Long id, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+                 String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
+        super(id, createdTimestamp, updatedTimestamp);
         this.shortName = shortName;
         this.issue_id = issue_id;
         this.description = description;
