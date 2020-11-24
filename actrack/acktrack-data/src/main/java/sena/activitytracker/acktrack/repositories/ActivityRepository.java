@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface ActivityRepository extends CrudRepository<Activity, UUID> {
 
     Set<Activity> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
+
+    Set<Activity> findAllByDate(LocalDate date);
 }

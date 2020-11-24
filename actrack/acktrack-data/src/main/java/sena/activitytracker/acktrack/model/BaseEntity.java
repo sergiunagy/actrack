@@ -19,11 +19,7 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseEntity  implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
-    /*Using a UUID is an overkill in the base use case. But it also has no observable drawbacks */
+    /* Using a UUID is an overkill in the base use case. But it also has no observable drawbacks */
     /* docs : https://thorben-janssen.com/generate-uuids-primary-keys-hibernate/ */
     @Id
     @GeneratedValue(generator = "UUID")
@@ -33,10 +29,10 @@ public class BaseEntity  implements Serializable {
     )
     private UUID id;
 
-    /*Using versioning may also be overkill in the base case: https://www.baeldung.com/jpa-optimistic-locking*/
-    /*Optimistic Locking versioning property for securing concurrent access*/
+    /* Using versioning may also be overkill in the base case: https://www.baeldung.com/jpa-optimistic-locking*/
+    /* Optimistic Locking versioning property for securing concurrent access*/
     @Version
-    private Long version; /*DO NOT UPDATE. This is handled by the persistence provider*/
+    private Long version; /* DO NOT UPDATE. This is handled by the persistence provider*/
 
     @CreationTimestamp
     @Column(updatable = false)

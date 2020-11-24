@@ -62,4 +62,9 @@ public class ActivityServiceImpl implements ActivityService {
     public Set<Activity> findAllActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
         return activityRepository.findAllByDateBetween(startDate, endDate);
     }
+
+    public Set<Activity> findAllByDate(LocalDate date){
+
+        return activityRepository.findAllByDate(date);
+    }
 }
