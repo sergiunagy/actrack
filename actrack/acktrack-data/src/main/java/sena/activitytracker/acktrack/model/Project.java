@@ -1,6 +1,8 @@
 package sena.activitytracker.acktrack.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -57,12 +59,14 @@ public class Project extends BaseEntity {
     @JoinTable(name = "project_roles",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Fetch(FetchMode.JOIN)
     private Set<Role> roles = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @Fetch(FetchMode.JOIN) /*No of users expected to be small*/
     private Set<User> users = new HashSet<>();
 
     /* Connecting the embedded user to role mapping */

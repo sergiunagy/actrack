@@ -4,6 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -29,10 +32,14 @@ public class User extends BaseEntity {
     @Column(name = "user_system_id")
     private String uid;
 
+    /*Todo: Lazy load for activities. Also batch the load by date*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Activity> activities = new HashSet<>();
+     private Set<Activity> activities = new HashSet<>();
 
+    /*Eager fetching - JOIN fetches return duplicates so type should be Set:
+    .  Ex: https://www.solidsyntax.be/2013/10/17/fetching-collections-hibernate/*/
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
@@ -40,6 +47,7 @@ public class User extends BaseEntity {
 
     /*todo: check if cascading delete is OK form this */
     @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.JOIN)
     private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
