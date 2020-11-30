@@ -9,15 +9,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.model.ProjectUserRole;
-import sena.activitytracker.acktrack.model.Role;
-import sena.activitytracker.acktrack.model.User;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.repositories.ProjectUserRolesRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -1,6 +1,6 @@
 package sena.activitytracker.acktrack.services;
 
-import sena.activitytracker.acktrack.model.User;
+import sena.activitytracker.acktrack.model.security.User;
 
 import java.util.UUID;
 

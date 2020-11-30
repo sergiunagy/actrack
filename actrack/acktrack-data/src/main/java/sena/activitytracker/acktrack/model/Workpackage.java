@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
+import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

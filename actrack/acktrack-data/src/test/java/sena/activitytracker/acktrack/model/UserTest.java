@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sena.activitytracker.acktrack.model.security.User;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -17,10 +18,8 @@ class UserTest extends BaseDomTest {
     @BeforeEach
     void setUp() {
         user = User.builder()
-                .id(IDONE)
                 .familyName("Nagy")
                 .givenName("Sergiu")
-                .uid("u1")
                 .build();
     }
 

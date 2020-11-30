@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.transaction.annotation.Transactional;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

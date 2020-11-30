@@ -1,4 +1,4 @@
-package sena.activitytracker.acktrack.model;
+package sena.activitytracker.acktrack.model.security;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import sena.activitytracker.acktrack.model.BaseEntity;
+import sena.activitytracker.acktrack.model.Project;
+import sena.activitytracker.acktrack.model.ProjectUserRole;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -17,7 +20,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
 
     @Column(name = "name")
     private String name;

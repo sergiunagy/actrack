@@ -6,17 +6,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import sena.activitytracker.acktrack.model.User;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -39,14 +37,12 @@ class UserServiceImplTest extends BaseServiceTest{
                 .id(IDONE)
                 .familyName("Nagy")
                 .givenName("Sergiu")
-                .uid("u1")
                 .build();
 
         mihai = User.builder()
                 .id(IDTWO)
                 .familyName("Popa")
                 .givenName("Mihai")
-                .uid("u2")
                 .build();
 
 

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

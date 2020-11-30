@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.*;
 
 import java.time.Duration;

@@ -1,12 +1,11 @@
 package sena.activitytracker.acktrack.model;
 
 import lombok.*;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter

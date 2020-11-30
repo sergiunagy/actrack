@@ -4,11 +4,11 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
-import sena.activitytracker.acktrack.repositories.ProjectRepository;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.*;
 
 import java.time.Duration;
@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.IntStream;
 
 @Slf4j

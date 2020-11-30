@@ -3,6 +3,8 @@ package sena.activitytracker.acktrack.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sena.activitytracker.acktrack.model.security.Role;
+import sena.activitytracker.acktrack.model.security.User;
 
 import java.time.LocalDate;
 import java.util.HashSet;

@@ -3,7 +3,7 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sena.activitytracker.acktrack.model.Role;
+import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.repositories.RoleRepository;
 
 import java.util.HashSet;

@@ -3,12 +3,9 @@ package sena.actrack.vaadin.vaadinui.views;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import org.springframework.transaction.annotation.Transactional;
-import sena.activitytracker.acktrack.model.User;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.UserService;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 @Route("")
