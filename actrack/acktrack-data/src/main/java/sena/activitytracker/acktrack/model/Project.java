@@ -58,23 +58,12 @@ public class Project extends BaseEntity {
     private Set<Issue> issues = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "project_roles",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @Fetch(FetchMode.JOIN)
-    private Set<Role> roles = new HashSet<>();
-
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @Fetch(FetchMode.JOIN) /*No of users expected to be small*/
     private Set<User> users = new HashSet<>();
 
-    /* Connecting the embedded user to role mapping */
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "project")
-    private Set<ProjectUserRole> projectUserRoles = new HashSet<>();
 
     @Builder
     public Project(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
@@ -96,9 +85,7 @@ public class Project extends BaseEntity {
         this.productLine = productLine;
         this.active = active;
         if (issues != null) this.issues = issues;
-        if (roles != null) this.roles = roles;
         if (users != null) this.users = users;
-        if (projectUserRoles != null) this.projectUserRoles = projectUserRoles;
     }
 
 
@@ -123,32 +110,6 @@ public class Project extends BaseEntity {
         this.issues.add(issue);
 
         return issue;
-    }
-
-    @Transactional
-    public Set<Role> addRoles(Set<Role> roles) {
-
-        if (roles == null || roles.isEmpty())
-            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
-
-        for (Role role : roles) {
-            addRole(role);
-        }
-        return roles;
-    }
-
-    @Transactional
-    public Role addRole(Role role) {
-
-        if (role == null)
-            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
-
-        if (!role.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
-            role.getProjects().add(this);
-        }
-        this.roles.add(role);
-
-        return role;
     }
 
     public Set<User> addUsers(Set<User> users) {
@@ -180,34 +141,10 @@ public class Project extends BaseEntity {
         return user;
     }
 
-    /*Todo : replace throwing exception with non-blocking solutions for reporting errors*/
-    public ProjectUserRole addUserToRole(User user, Role role){
-
-        /*Null checks:*/
-        if (user==null || role == null) throw new RuntimeException("Null issue passed to addUserToRole for project:" + this.toString());
-        /*user and role must be already persisted in the repository AND be associated with this project*/
-        if (!userExistsForProject(user) || !roleExistsForProject(role)) throw new RuntimeException("Null issue passed to addUserToRole for project:" + this.toString());
-
-        /*Create a new user to role mapping and associate it with this project*/
-        ProjectUserRole newMapping = ProjectUserRole.builder()
-                .project(this)
-                .role(role)
-                .user(user)
-                .build();
-
-        projectUserRoles.add(newMapping);
-
-        return newMapping;
-    }
 
     private boolean userExistsForProject(User user){
 
         return users.stream().anyMatch(usr -> usr.getId()==user.getId());
-    }
-
-    private boolean roleExistsForProject(Role role){
-
-        return roles.stream().anyMatch(r -> r.getId()==role.getId());
     }
 
     @Override

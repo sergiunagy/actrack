@@ -34,13 +34,11 @@ class UserServiceImplTest extends BaseServiceTest{
     void setUp() {
         /*Dummy project init*/
         sergiu = User.builder()
-                .id(IDONE)
                 .familyName("Nagy")
                 .givenName("Sergiu")
                 .build();
 
         mihai = User.builder()
-                .id(IDTWO)
                 .familyName("Popa")
                 .givenName("Mihai")
                 .build();

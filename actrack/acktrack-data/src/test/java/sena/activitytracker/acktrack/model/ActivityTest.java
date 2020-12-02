@@ -28,7 +28,7 @@ class ActivityTest extends BaseDomTest {
         final String TXT1 = "first";
         // given
         final String ROLE_DESC1 = "first role";
-        User user = User.builder().id(IDONE).givenName(TXT1).build();
+        User user = User.builder().givenName(TXT1).build();
 
         //when
         activity.addUser(user);

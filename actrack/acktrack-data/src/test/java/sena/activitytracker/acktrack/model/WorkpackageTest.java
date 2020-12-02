@@ -72,8 +72,8 @@ class WorkpackageTest extends BaseDomTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<User> users = new HashSet<>();
-        users.add(User.builder().id(IDONE).givenName(TXT1).build());
-        users.add(User.builder().id(IDONE).givenName(TXT2).build());
+        users.add(User.builder().givenName(TXT1).build());
+        users.add(User.builder().givenName(TXT2).build());
 
         //when
         Set<User> boundUsers = workpackage.addUsers(users);
@@ -114,7 +114,7 @@ class WorkpackageTest extends BaseDomTest {
         final String TXT1 = "first";
         // given
         final String ROLE_DESC1 = "first role";
-        User user = User.builder().id(IDONE).givenName(TXT1).build();
+        User user = User.builder().givenName(TXT1).build();
 
         //when
         workpackage.addUser(user);

@@ -26,28 +26,11 @@ import java.util.function.Function;
 @Builder
 @Entity
 @Table(name = "users")
-public class User implements UserDetails, CredentialsContainer {
+public class User extends BaseSecurityEntity implements UserDetails, CredentialsContainer {
 
     /***********************************************************************************************
      * Database behavior setup */
-
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name="UUID",
-            strategy="org.hibernate.id.UUIDGenerator"
-    )
-    private UUID id;
-
-    @Version
-    private Long version;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    private Timestamp creationTimestamp;
-
-    @UpdateTimestamp
-    private Timestamp updatedTimestamp;
+    /* Inherited from parent */
 
     /***********************************************************************************************
     * Security instance fields*/
@@ -89,6 +72,21 @@ public class User implements UserDetails, CredentialsContainer {
     @ManyToMany(mappedBy = "users")
     private Set<Workpackage> workpackages;
 
+    @Builder
+    public User(Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
+        super(version, createdTimestamp, updatedTimestamp);
+        this.username = username;
+        this.password = password;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.activities = activities;
+        this.projects = projects;
+        this.workpackages = workpackages;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -129,8 +127,6 @@ public class User implements UserDetails, CredentialsContainer {
 
         return activity;
     }
-
-
 
     public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {
 

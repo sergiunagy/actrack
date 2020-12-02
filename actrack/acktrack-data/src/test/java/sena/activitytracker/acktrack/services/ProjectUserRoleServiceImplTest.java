@@ -45,13 +45,13 @@ class ProjectUserRoleServiceImplTest extends BaseServiceTest{
     @BeforeEach
     void setUp() {
 
-        sergiu= User.builder().id(IDONE).givenName("Sergiu").build();
-        mihai = User.builder().id(IDTWO).givenName("Mihai").build();
+        sergiu= User.builder().givenName("Sergiu").build();
+        mihai = User.builder().givenName("Mihai").build();
         users = new HashSet<>();
         users.add(sergiu);
         users.add(mihai);
 
-        developer = Role.builder().id(IDONE).name("developer").build();
+        developer = Role.builder().name("developer").build();
         roles = new HashSet<>();
         roles.add(developer);
 
@@ -71,10 +71,7 @@ class ProjectUserRoleServiceImplTest extends BaseServiceTest{
                 .build();
 
         project.addUsers(users);
-        project.addRoles(roles);
 
-        map_role_dev = project.addUserToRole(sergiu, developer);
-        map_role_dev2 = project.addUserToRole(mihai, developer);
         /*Ids are normally generated but for this test we do not have the database to do it*/
         map_role_dev.setId(IDONE);
         map_role_dev2.setId(IDTWO);

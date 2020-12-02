@@ -34,13 +34,11 @@ class RoleServiceImplTest extends BaseServiceTest{
     void setUp() {
         /*Dummy project init*/
         developer = Role.builder()
-                .id(IDONE)
                 .name("Developer")
                 .description("Implements, tests, reviews")
                 .build();
 
         lead = Role.builder()
-                .id(IDTWO)
                 .name("Project lead")
                 .description("Assigns, manages, client interface")
                 .build();
