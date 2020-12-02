@@ -1,8 +1,11 @@
-package sena.activitytracker.acktrack.model;
+package sena.activitytracker.acktrack.model.security;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.BaseDomTest;
+import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.model.security.User;
 
 import java.util.HashSet;

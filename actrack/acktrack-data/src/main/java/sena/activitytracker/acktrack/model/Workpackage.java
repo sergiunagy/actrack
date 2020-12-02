@@ -87,26 +87,4 @@ public class Workpackage extends BaseEntity {
         return activity;
     }
 
-    public Set<User> addUsers(Set<User> users) {
-
-        if (users == null || users.isEmpty())
-            throw new RuntimeException("Null or empty activities list passed for workpackage id:" + this.getId());
-
-        for (User user : users) {
-            addUser(user);
-        }
-        return users;
-    }
-
-    public User addUser(User user) {
-
-        if (user == null)
-            throw new RuntimeException("Null activity passed to addActivity for workpackage id:" + this.getId());
-
-        user.getWorkpackages().add(this);
-        this.users.add(user);
-
-        return user;
-    }
-
 }

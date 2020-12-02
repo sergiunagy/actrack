@@ -28,5 +28,4 @@ public class Role extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-
 }

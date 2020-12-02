@@ -1,8 +1,9 @@
-package sena.activitytracker.acktrack.model;
+package sena.activitytracker.acktrack.model.security;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sena.activitytracker.acktrack.model.BaseDomTest;
 import sena.activitytracker.acktrack.model.security.Role;
 
 import java.util.HashSet;
@@ -24,8 +25,11 @@ class RoleTest extends BaseDomTest {
     }
 
     @Test
-    public void dummy(){
+    public void builderTest(){
 
-        System.out.println("Placeholder test");
+        Role role = Role.builder().name("Test").build();
+
+        assertNotNull(role);
+        assertTrue(role.isNew());
     }
 }

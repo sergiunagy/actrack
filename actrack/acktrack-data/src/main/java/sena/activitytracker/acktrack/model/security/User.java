@@ -69,24 +69,9 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     @Fetch(FetchMode.JOIN)
     private Set<Project> projects = new HashSet<>();
 
+    @Singular
     @ManyToMany(mappedBy = "users")
     private Set<Workpackage> workpackages;
-
-    @Builder
-    public User(Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
-        super(version, createdTimestamp, updatedTimestamp);
-        this.username = username;
-        this.password = password;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
-        this.familyName = familyName;
-        this.givenName = givenName;
-        this.activities = activities;
-        this.projects = projects;
-        this.workpackages = workpackages;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
