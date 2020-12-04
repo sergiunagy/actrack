@@ -10,7 +10,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Getter
 @Setter
@@ -53,4 +56,8 @@ public class BaseSecurityEntity {
         this.createdTimestamp = createdTimestamp;
         this.updatedTimestamp = updatedTimestamp;
     }
+
+    @Transient
+    static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
+
 }

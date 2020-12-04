@@ -28,4 +28,12 @@ public class Role extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Set<User> users;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "role_authority",
+    joinColumns = @JoinColumn(name = "ROLE_ID"),
+    inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Set<Authority> authorities;
 }

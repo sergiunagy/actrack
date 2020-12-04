@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.*;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import sena.activitytracker.acktrack.model.*;
 
@@ -18,6 +19,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -50,6 +53,23 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     @Builder.Default
     private boolean enabled = true;
 
+    @Singular
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    @Transient
+    public Set<GrantedAuthority> getAuthorities(){
+
+        return this.roles.stream()
+                .map(Role::getAuthorities)
+                .flatMap(Set::stream)
+                .map(authority -> new SimpleGrantedAuthority(authority.getPermission()))
+                .collect(Collectors.toSet());
+    }
+
     /***********************************************************************************************
      * Employee details*/
 
@@ -69,23 +89,13 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     @Fetch(FetchMode.JOIN)
     private Set<Project> projects = new HashSet<>();
 
-    @Singular
     @ManyToMany(mappedBy = "users")
     private Set<Workpackage> workpackages;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
     @Override
     public void eraseCredentials() {
         password = null;
     }
-
-    /* Prevent a null pointer */
-    @Transient
-    static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
 
     public Set<Activity> addActivities(Set<Activity> activities) {
 
@@ -125,6 +135,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         }
         return workpackages;
     }
+
 
     public Workpackage addWorkpackage(Workpackage workpackage) {
 

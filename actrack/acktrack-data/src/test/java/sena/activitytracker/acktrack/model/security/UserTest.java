@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.model.security;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.GrantedAuthority;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.BaseDomTest;
 import sena.activitytracker.acktrack.model.Workpackage;
@@ -16,16 +17,56 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest extends BaseDomTest {
 
-    User user;
+    User userAdmin, userDev;
+    Role admin, developer;
+    Authority userCreate, userRead, userUpdate, userDelete, activityCreate, activityRead, activityUpdate, activityDelete;
 
     @BeforeEach
     void setUp() {
-        user = User.builder()
-                .familyName("Nagy")
-                .givenName("Sergiu")
+
+        userCreate = Authority.builder().permission("user.create").build();
+        userRead = Authority.builder().permission("user.read").build();
+        userUpdate = Authority.builder().permission("user.update").build();
+        userDelete = Authority.builder().permission("user.delete").build();
+        activityCreate = Authority.builder().permission("activity.create").build();
+        activityRead = Authority.builder().permission("activity.read").build();
+        activityUpdate = Authority.builder().permission("activity.update").build();
+        activityDelete = Authority.builder().permission("activity.delete").build();
+
+        admin = Role.builder()
+                .name("administrator user")
+                .build();
+        developer = Role.builder()
+                .name("developer user")
+                .build();
+
+        admin.setAuthorities(new HashSet<>(Set.of(userCreate, userRead, userUpdate, userDelete, activityCreate, activityRead, activityUpdate, activityDelete)));
+        developer.setAuthorities(new HashSet<>(Set.of(activityCreate, activityRead, activityUpdate, activityDelete)));
+
+        userAdmin = User.builder()
+                .role(admin)
+                .familyName("Admin")
+                .givenName("Test")
+                .build();
+
+        userDev = User.builder()
+                .role(developer)
+                .familyName("Developer")
+                .givenName("Test")
                 .build();
     }
 
+    @Test
+    void getAuthoritiesTest(){
+         /* given : admin user in setup */
+
+        /* when: get user authorities*/
+        Set<GrantedAuthority> authorities = userAdmin.getAuthorities();
+
+        assertNotNull(authorities);
+        assertEquals(8, authorities.stream().count());
+
+    }
     @Test
     void addActivities() {
         // given
@@ -36,13 +77,13 @@ class UserTest extends BaseDomTest {
         activities.add(Activity.builder().id(IDTWO).description(TXT2).build());
 
         // when
-        Set<Activity> boundActivities = user.addActivities(activities);
+        Set<Activity> boundActivities = userAdmin.addActivities(activities);
 
         // then
-        assertNotNull(user.getActivities());
-        assertEquals(2, user.getActivities().size());
-        assertTrue(user.getActivities().stream().anyMatch(activity -> activity.getDescription().equals(TXT1)));
-        assertTrue(user.getActivities().stream().anyMatch(activity -> activity.getDescription().equals(TXT2)));
+        assertNotNull(userAdmin.getActivities());
+        assertEquals(2, userAdmin.getActivities().size());
+        assertTrue(userAdmin.getActivities().stream().anyMatch(activity -> activity.getDescription().equals(TXT1)));
+        assertTrue(userAdmin.getActivities().stream().anyMatch(activity -> activity.getDescription().equals(TXT2)));
 
         assertNotNull(boundActivities);
         Optional<Activity> activityOptional1 = boundActivities.stream().filter(activity -> activity.getDescription().equals(TXT1)).findFirst();
@@ -51,26 +92,26 @@ class UserTest extends BaseDomTest {
         assertTrue(activityOptional2.isPresent());
 
         // check directly on objects
-        assertTrue(activityOptional1.get().getUser() == user);
-        assertTrue(activityOptional2.get().getUser() == user);
+        assertTrue(activityOptional1.get().getUser() == userAdmin);
+        assertTrue(activityOptional2.get().getUser() == userAdmin);
     }
 
     @Test
     void addActivitiesNull() {
 
-        Assertions.assertThrows(RuntimeException.class, ()-> user.addActivities(null));
+        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addActivities(null));
     }
 
     @Test
     void addActivitiesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> user.addActivities(emptySet));
+        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addActivities(emptySet));
     }
 
     @Test
     void addActivityNull() {
-        Assertions.assertThrows(RuntimeException.class, ()-> user.addActivity(null));
+        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addActivity(null));
     }
 
     @Test
@@ -83,13 +124,13 @@ class UserTest extends BaseDomTest {
         workpackages.add(Workpackage.builder().id(IDTWO).description(TXT2).build());
 
         // when
-        Set<Workpackage> boundWorkpackages = user.addWorkpackages(workpackages);
+        Set<Workpackage> boundWorkpackages = userAdmin.addWorkpackages(workpackages);
 
         // then
-        assertNotNull(user.getWorkpackages());
-        assertEquals(2, user.getWorkpackages().size());
-        assertTrue(user.getWorkpackages().stream().anyMatch(user -> user.getDescription().equals(TXT1)));
-        assertTrue(user.getWorkpackages().stream().anyMatch(user -> user.getDescription().equals(TXT2)));
+        assertNotNull(userAdmin.getWorkpackages());
+        assertEquals(2, userAdmin.getWorkpackages().size());
+        assertTrue(userAdmin.getWorkpackages().stream().anyMatch(wp -> wp.getDescription().equals(TXT1)));
+        assertTrue(userAdmin.getWorkpackages().stream().anyMatch(wp -> wp.getDescription().equals(TXT2)));
 
         assertNotNull(boundWorkpackages);
         Optional<Workpackage> workpackageOptional1 = boundWorkpackages.stream().filter(workpackage1 -> workpackage1.getDescription().equals(TXT1)).findFirst();
@@ -97,22 +138,22 @@ class UserTest extends BaseDomTest {
         assertTrue(workpackageOptional1.isPresent());
         assertTrue(workpackageOptional2.isPresent());
         // check directly on objects
-        assertTrue(workpackageOptional1.get().getUsers().stream().anyMatch(user1 -> user1 == user));
-        assertTrue(workpackageOptional2.get().getUsers().stream().anyMatch(user1 -> user1 == user));
+        assertTrue(workpackageOptional1.get().getUsers().stream().anyMatch(user1 -> user1 == userAdmin));
+        assertTrue(workpackageOptional2.get().getUsers().stream().anyMatch(user1 -> user1 == userAdmin));
 
     }
 
     @Test
     void addWorkpackagesNull() {
 
-        Assertions.assertThrows(RuntimeException.class, ()-> user.addWorkpackages(null));
+        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addWorkpackages(null));
     }
 
     @Test
     void addWorkpackagesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> user.addWorkpackages(emptySet));
+        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addWorkpackages(emptySet));
     }
 
     @Test
@@ -122,15 +163,15 @@ class UserTest extends BaseDomTest {
         Workpackage workpackage = Workpackage.builder().id(IDONE).description(TXT1).build();
 
         // when
-        user.addWorkpackage(workpackage);
+        userAdmin.addWorkpackage(workpackage);
 
         // then
-        assertNotNull(user.getWorkpackages());
-        assertEquals(1, user.getWorkpackages().size());
-        assertTrue(user.getWorkpackages().stream().anyMatch(workpackage1 -> workpackage1.getDescription().equals(TXT1)));
+        assertNotNull(userAdmin.getWorkpackages());
+        assertEquals(1, userAdmin.getWorkpackages().size());
+        assertTrue(userAdmin.getWorkpackages().stream().anyMatch(workpackage1 -> workpackage1.getDescription().equals(TXT1)));
 
         // check directly on objects
-        assertTrue(workpackage.getUsers().stream().anyMatch(user1 -> user1 == user));
+        assertTrue(workpackage.getUsers().stream().anyMatch(user1 -> user1 == userAdmin));
     }
 
 }
