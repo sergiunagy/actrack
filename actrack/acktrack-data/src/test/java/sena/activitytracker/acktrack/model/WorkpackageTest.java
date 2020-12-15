@@ -18,7 +18,6 @@ class WorkpackageTest extends BaseDomTest {
     @BeforeEach
     void setUp() {
         workpackage = Workpackage.builder()
-                .id(IDONE)
                 .name("fix quality")
                 .description("fix quality on alpha")
                 .build();
@@ -63,7 +62,10 @@ class WorkpackageTest extends BaseDomTest {
     void addActivitiesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> workpackage.addActivities(emptySet));
+        Set returnedSet = workpackage.addActivities(emptySet);
+
+        assertTrue(returnedSet.isEmpty());
+        assertNull(workpackage.getActivities());
     }
 
 }

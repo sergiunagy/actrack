@@ -11,7 +11,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Setter
 @Getter
@@ -41,13 +44,6 @@ public class BaseEntity  implements Serializable {
     @UpdateTimestamp
     private Timestamp updatedTimestamp;
 
-
-    /*Returns True if object has an ID allocated*/
-    public boolean isNew(){
-
-        return this.id ==null;
-    }
-
     public BaseEntity(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp) {
 
         this.id = id;
@@ -55,4 +51,14 @@ public class BaseEntity  implements Serializable {
         this.createdTimestamp = createdTimestamp;
         this.updatedTimestamp = updatedTimestamp;
     }
+
+    /*Returns True if object has an ID allocated*/
+    public boolean isNew(){
+
+        return this.id ==null;
+    }
+
+    @Transient
+    static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
+
 }

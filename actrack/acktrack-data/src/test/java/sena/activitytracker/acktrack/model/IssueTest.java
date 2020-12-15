@@ -31,8 +31,8 @@ class IssueTest extends BaseDomTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Workpackage> workpackages = new HashSet<>();
-        workpackages.add(Workpackage.builder().id(IDONE).description(TXT1).build());
-        workpackages.add(Workpackage.builder().id(IDTWO).description(TXT2).build());
+        workpackages.add(Workpackage.builder().description(TXT1).build());
+        workpackages.add(Workpackage.builder().description(TXT2).build());
 
         // when
         Set<Workpackage> boundWorkpackages = issue.addWorkpackages(workpackages);
@@ -71,7 +71,7 @@ class IssueTest extends BaseDomTest {
     void addWorkpackage() {
         // given
         final String TXT1 = "first";
-        Workpackage workpackage = Workpackage.builder().id(IDONE).description(TXT1).build();
+        Workpackage workpackage = Workpackage.builder().description(TXT1).build();
 
         // when
         issue.addWorkpackage(workpackage);

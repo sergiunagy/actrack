@@ -58,6 +58,6 @@ public class BaseSecurityEntity {
     }
 
     @Transient
-    static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
+    public static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
 
 }
