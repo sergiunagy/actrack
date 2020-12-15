@@ -7,7 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sena.activitytracker.acktrack.model.security.User;
-import sena.activitytracker.acktrack.repositories.UserRepository;
+import sena.activitytracker.acktrack.repositories.security.UserRepository;
+import sena.activitytracker.acktrack.services.security.UserServiceImpl;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -65,10 +66,10 @@ class UserServiceImplTest extends BaseServiceTest{
     void findById() {
         when(userRepository.findById(any())).thenReturn(Optional.of(sergiu));
 
-        User foundUser = userService.findById(sergiu.getId());
+        Optional<User> foundUserOptional = userService.findById(sergiu.getId());
 
-        assertNotNull(foundUser);
-        assertTrue(sergiu.getId().equals(foundUser.getId()));
+        assertTrue(foundUserOptional.isPresent());
+        assertTrue(sergiu.getId().equals(foundUserOptional.get().getId()));
         verify(userRepository, times(1)).findById(any());
     }
 

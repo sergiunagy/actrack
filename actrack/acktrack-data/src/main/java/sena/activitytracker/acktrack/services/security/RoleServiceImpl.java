@@ -1,12 +1,13 @@
-package sena.activitytracker.acktrack.services;
+package sena.activitytracker.acktrack.services.security;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.security.Role;
-import sena.activitytracker.acktrack.repositories.RoleRepository;
+import sena.activitytracker.acktrack.repositories.security.RoleRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,28 +20,28 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Set<Role> findAll() {
-        Set<Role> issues = new HashSet<>();
-        roleRepository.findAll().forEach(issues::add);
+        Set<Role> roles = new HashSet<>();
+        roleRepository.findAll().forEach(roles::add);
 
-        return issues;
+        return roles;
     }
 
     @Override
-    public Role findById(UUID id) {
+    public Optional<Role> findById(UUID id) {
 
-        return roleRepository.findById(id).orElse(null);
+        return roleRepository.findById(id);
     }
 
     @Override
-    public Role save(Role issue) {
+    public Role save(Role role) {
 
-        return roleRepository.save(issue);
+        return roleRepository.save(role);
     }
 
     @Override
-    public Set<Role> saveAll(Set<Role> issues) {
+    public Set<Role> saveAll(Set<Role> roles) {
         Set<Role> retRoles = new HashSet<>();
-        roleRepository.saveAll(issues).forEach(retRoles::add);
+        roleRepository.saveAll(roles).forEach(retRoles::add);
 
         return retRoles;
     }

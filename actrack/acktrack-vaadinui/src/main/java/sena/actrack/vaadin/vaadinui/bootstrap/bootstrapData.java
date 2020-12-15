@@ -7,9 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import sena.activitytracker.acktrack.model.*;
+import sena.activitytracker.acktrack.model.security.Authority;
 import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.*;
+import sena.activitytracker.acktrack.services.security.AuthorityService;
+import sena.activitytracker.acktrack.services.security.RoleService;
+import sena.activitytracker.acktrack.services.security.UserService;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -30,6 +34,7 @@ public class bootstrapData implements CommandLineRunner {
     private final ActivityService activityService;
     private final UserService userService;
     private final RoleService roleService;
+    private final AuthorityService authorityService;
     private final ProjectUserRolesService projectUserRolesService;
 
     /*Users available*/
@@ -37,16 +42,25 @@ public class bootstrapData implements CommandLineRunner {
     Issue quality, review, bugfix;
     Workpackage qualfix, revido, bugfixdo;
     Activity qualact, revact, bugfixact;
-    User sergiu, ade, mihai;
-    Role developer_on_alpha, plead_on_alpha, dev_beta, lead_beta;
+
+    User        sergiu, ade, mihai, cicero, maximus;
+    Role        admin, developer, projectLead, teamLead, manager, administrative;
+    Authority   userCreate, userRead, userUpdate, userDelete,
+                roleCreate, roleRead, roleUpdate, roleDelete,
+                projectCreate, projectRead, projectUpdate, projectDelete,
+                issueCreate, issueRead, issueUpdate, issueDelete,
+                workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
+                activityCreate, activityRead, activityUpdate, activityDelete;
 
 
     @Autowired
-    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService) {
+    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService, AuthorityService authorityService) {
+
         log.info("VAADIN: bootstrap creator..");
         this.projectService = projectService;
         this.issueService = issueService;
         this.workpackageService = workpackageService;
+        this.authorityService = authorityService;
         this.userService = userService;
         this.roleService = roleService;
         this.projectUserRolesService = projectUserRolesService;
@@ -65,19 +79,24 @@ public class bootstrapData implements CommandLineRunner {
     private void initData() {
         /* Bootstrap some basic data */
         log.info("BOOTSTRAPPER - init data section");
-
+        initRolesAndAuthorities();
         initUsers();
         initProjects();
         initIssues();
         initWorkpackages();
         initActivities();
-        initRoles();
 
-        /*PROJECT 1 SETUP : configure the first project save at the end*/
+        /******************************
+        * Atribute roles to users*/
+        sergiu.addRoles(new HashSet<>(Set.of(admin, developer)));
+        maximus.addRole(manager);
+        cicero.addRole(administrative);
+        ade.addRoles(new HashSet<>(Set.of(teamLead, developer)));
+        mihai.addRole(developer);
 
-        // has 2 roles
-        alpha.addRole(developer_on_alpha);
-        alpha.addRole(plead_on_alpha);
+        userService.saveAll(new HashSet<>(Set.of(sergiu, maximus, cicero, ade, mihai)));
+        /***************************************************************
+         ** PROJECT 1 SETUP : configure the first project save at the end*/
 
         // has 2 assigned workers
         alpha.addUser(sergiu);
@@ -97,21 +116,13 @@ public class bootstrapData implements CommandLineRunner {
         /* configure activities for alpha */
         sergiu.addActivity(qualact);
 
-        /*add project roles to user mapping */
-        alpha.addUserToRole(sergiu, developer_on_alpha);
-        alpha.addUserToRole(mihai, plead_on_alpha);
-
         /* persist PJ1 */
         projectService.save(alpha);
 
+        /***************************************************************
+         ** PROJECT 2 SETUP : configure the first project save at the end*/
 
-        /*PROJECT 2 SETUP : configure the 2nd project save at the end*/
-
-        // has 2 roles
-        beta.addRole(dev_beta);
-        beta.addRole(lead_beta);
-
-        // has 2 assigned workers
+        // has 3 assigned workers
         beta.addUser(sergiu);
         beta.addUser(mihai);
         beta.addUser(ade);
@@ -139,9 +150,6 @@ public class bootstrapData implements CommandLineRunner {
         mihai.addActivity(bugfixact);
 
         /*add project roles to user mapping */
-        beta.addUserToRole(sergiu, dev_beta);
-        beta.addUserToRole(mihai, dev_beta);
-        beta.addUserToRole(ade, lead_beta);
 
         /* persist PJ2 */
         projectService.save(beta);
@@ -149,96 +157,218 @@ public class bootstrapData implements CommandLineRunner {
 
     }
 
-    private void initRoles() {
+    /* 5 users*/
+    private void initUsers() {
 
-        developer_on_alpha = Role.builder()
-                .name("Developer")
-                .description("Implements, tests, reviews")
+        /* sergiu, ade, mihai, cicero, maximus */
+        sergiu = userService.save(User.builder()
+                .familyName("Nagy")
+                .givenName("Sergiu")
+                .build());
+
+        ade = userService.save(User.builder()
+                .familyName("Nagy")
+                .givenName("Ade")
+                .build());
+
+        mihai = userService.save(User.builder()
+                .familyName("Popa")
+                .givenName("Mihai")
+                .build());
+
+        maximus = userService.save(User.builder()
+                .familyName("Nagy")
+                .givenName("Maximus")
+                .build());
+
+        cicero = userService.save(User.builder()
+                .familyName("Nagy")
+                .givenName("Cicero")
+                .build());
+    }
+
+
+    private void initRolesAndAuthorities() {
+
+        /* userCreate, userRead, userUpdate, userDelete,
+           roleCreate, roleRead, roleUpdate, roleDelete,
+           projectCreate, projectRead, projectUpdate, projectDelete,
+           issueCreate, issueRead, issueUpdate, issueDelete,
+           workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
+           activityCreate, activityRead, activityUpdate, activityDelete */
+
+        userCreate = authorityService.save(Authority.builder().permission("user.create").build());
+        userRead = authorityService.save(Authority.builder().permission("user.read").build());
+        userUpdate = authorityService.save(Authority.builder().permission("user.update").build());
+        userDelete = authorityService.save(Authority.builder().permission("user.delete").build());
+
+        roleCreate = authorityService.save(Authority.builder().permission("role.create").build());
+        roleRead = authorityService.save(Authority.builder().permission("role.read").build());
+        roleUpdate = authorityService.save(Authority.builder().permission("role.update").build());
+        roleDelete = authorityService.save(Authority.builder().permission("role.delete").build());
+
+        projectCreate = authorityService.save(Authority.builder().permission("project.create").build());
+        projectRead = authorityService.save(Authority.builder().permission("project.read").build());
+        projectUpdate = authorityService.save(Authority.builder().permission("project.update").build());
+        projectDelete = authorityService.save(Authority.builder().permission("project.delete").build());
+
+        issueCreate = authorityService.save(Authority.builder().permission("issue.create").build());
+        issueRead = authorityService.save(Authority.builder().permission("issue.read").build());
+        issueUpdate = authorityService.save(Authority.builder().permission("issue.update").build());
+        issueDelete = authorityService.save(Authority.builder().permission("issue.delete").build());
+
+        workpackageCreate = authorityService.save(Authority.builder().permission("workpackage.create").build());
+        workpackageRead = authorityService.save(Authority.builder().permission("workpackage.read").build());
+        workpackageUpdate = authorityService.save(Authority.builder().permission("workpackage.update").build());
+        workpackageDelete = authorityService.save(Authority.builder().permission("workpackage.delete").build());
+
+        activityCreate = authorityService.save(Authority.builder().permission("activity.create").build());
+        activityRead = authorityService.save(Authority.builder().permission("activity.read").build());
+        activityUpdate = authorityService.save(Authority.builder().permission("activity.update").build());
+        activityDelete = authorityService.save(Authority.builder().permission("activity.delete").build());
+
+        /*admin, developer, projectLead, teamLead, manager, administrative*/
+        admin = Role.builder()
+                .name("administrator")
                 .build();
 
-        plead_on_alpha = Role.builder()
-                .name("Project lead")
-                .description("Assigns, manages, client interface")
+        developer = Role.builder()
+                .name("administrator")
                 .build();
 
-        dev_beta = Role.builder()
-                .name("Developer")
-                .description("Implements, tests, reviews")
+        projectLead = Role.builder()
+                .name("administrator")
                 .build();
 
-        lead_beta = Role.builder()
-                .name("Project lead")
-                .description("Assigns, manages, client interface")
+        teamLead = Role.builder()
+                .name("administrator")
                 .build();
+
+        manager = Role.builder()
+                .name("administrator")
+                .build();
+
+        administrative = Role.builder()
+                .name("administrator")
+                .build();
+
+        /*Add authorities */
+        admin.setAuthorities(new HashSet<>(Set.of(
+                userCreate, userRead, userUpdate, userDelete,
+                roleCreate, roleRead, roleUpdate, roleDelete,
+                projectCreate, projectRead, projectUpdate, projectDelete,
+                issueCreate, issueRead, issueUpdate, issueDelete,
+                workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
+                activityCreate, activityRead, activityUpdate, activityDelete
+                )));
+
+        developer.setAuthorities(new HashSet<>(Set.of(
+                projectRead,
+                issueCreate, issueRead, issueUpdate, issueDelete,
+                workpackageRead, workpackageUpdate,
+                activityCreate, activityRead, activityUpdate, activityDelete
+                )));
+
+        projectLead.setAuthorities(new HashSet<>(Set.of(
+                projectCreate, projectRead, projectUpdate, projectDelete,
+                issueCreate, issueRead, issueUpdate, issueDelete,
+                workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
+                activityCreate, activityRead, activityUpdate, activityDelete
+                )));
+
+        teamLead.setAuthorities(new HashSet<>(Set.of(
+                userCreate, userRead, userUpdate, userDelete
+                )));
+
+        manager.setAuthorities(new HashSet<>(Set.of(
+                userCreate, userRead, userUpdate, userDelete,
+                roleCreate, roleRead, roleUpdate, roleDelete,
+                projectRead,
+                issueCreate, issueRead, issueUpdate, issueDelete,
+                workpackageRead,
+                activityRead
+                )));
+
+        administrative.setAuthorities(new HashSet<>(Set.of(
+                userCreate, userRead, userUpdate, userDelete,
+                roleCreate, roleRead, roleUpdate, roleDelete,
+                projectCreate, projectRead, projectUpdate, projectDelete,
+                issueRead,
+                workpackageRead,
+                activityRead
+                )));
+
+        /*save roles*/
+        roleService.saveAll(new HashSet<>(Set.of(admin, developer, projectLead, teamLead,manager,administrative)));
     }
 
     private void initActivities() {
 
-        qualact = Activity.builder()
+        qualact = activityService.save(Activity.builder()
                 .description("Check quality issues")
                 .duration(Duration.of(4, ChronoUnit.HOURS))
                 .date(LocalDate.of(2020, 10, 18))
                 .isExported(false)
-                .build();
+                .build());
 
-        revact = Activity.builder()
+        revact = activityService.save(Activity.builder()
                 .description("Execute review on beta")
                 .duration(Duration.of(8, ChronoUnit.HOURS))
                 .date(LocalDate.of(2020, 10, 19))
                 .isExported(false)
-                .build();
+                .build());
 
-        bugfixact = Activity.builder()
+        bugfixact = activityService.save(Activity.builder()
                 .description("Bugfix problem on beta")
                 .duration(Duration.of(8, ChronoUnit.HOURS))
                 .date(LocalDate.of(2020, 10, 20))
                 .isExported(true)
-                .build();
+                .build());
     }
 
     private void initWorkpackages() {
 
-        qualfix = Workpackage.builder()
+        qualfix = workpackageService.save(Workpackage.builder()
                 .name("fix quality")
                 .description("fix quality on alpha")
-                .build();
+                .build());
 
-        revido = Workpackage.builder()
+        revido = workpackageService.save(Workpackage.builder()
                 .name("do reviews")
                 .description("do reviews on beta")
-                .build();
+                .build());
 
-        bugfixdo = Workpackage.builder()
+        bugfixdo = workpackageService.save(Workpackage.builder()
                 .name("do bugfixing")
                 .description("do bugfixing on beta")
-                .build();
+                .build());
     }
 
 
     private void initIssues() {
-        quality = Issue.builder()
+        quality = issueService.save(Issue.builder()
                 .issue_id("14a8")
                 .description("quality issue alpha")
                 .link("url quality")
-                .build();
+                .build());
 
-        review = Issue.builder()
+        review = issueService.save(Issue.builder()
                 .issue_id("aaaa")
                 .description("review issue beta")
                 .link("url review")
-                .build();
+                .build());
 
-        bugfix = Issue.builder()
+        bugfix = issueService.save(Issue.builder()
                 .issue_id("111a")
                 .description("bug issue beta")
                 .link("url bug")
-                .build();
+                .build());
 
     }
 
     private void initProjects() {
 
-        alpha = Project.builder()
+        alpha = projectService.save(Project.builder()
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")
@@ -250,10 +380,10 @@ public class bootstrapData implements CommandLineRunner {
                 .customerId("12s42")
                 .productLine("alpha moto")
                 .active(true)
-                .build();
+                .build());
 
 
-        beta = Project.builder()
+        beta = projectService.save(Project.builder()
                 .name("beta")
                 .description("dummy beta")
                 .mainLocation("Beta location")
@@ -265,9 +395,9 @@ public class bootstrapData implements CommandLineRunner {
                 .customerId("13s42")
                 .productLine("Beta moto")
                 .active(true)
-                .build();
+                .build());
 
-        gamma = Project.builder()
+        gamma = projectService.save(Project.builder()
                 .name("gamma")
                 .description("dummy gamma")
                 .mainLocation("Beta location")
@@ -279,31 +409,9 @@ public class bootstrapData implements CommandLineRunner {
                 .customerId("zzzzzz1")
                 .productLine("gama moto")
                 .active(false)
-                .build();
+                .build());
     }
 
-
-    /* 3 users*/
-    private void initUsers() {
-
-        sergiu = User.builder()
-                .familyName("Nagy")
-                .givenName("Sergiu")
-                .uid("u1")
-                .build();
-
-        mihai = User.builder()
-                .familyName("Popa")
-                .givenName("Mihai")
-                .uid("u2")
-                .build();
-
-        ade = User.builder()
-                .familyName("Nagy")
-                .givenName("Adelina")
-                .uid("u3")
-                .build();
-    }
 
     void bootstrapNActivities(int n) {
 

@@ -9,6 +9,8 @@ import sena.activitytracker.acktrack.model.*;
 import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.*;
+import sena.activitytracker.acktrack.services.security.RoleService;
+import sena.activitytracker.acktrack.services.security.UserService;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -79,10 +81,6 @@ public class bootstrapData implements CommandLineRunner {
 
         /*PROJECT 1 SETUP : configure the first project save at the end*/
 
-        // has 2 roles
-        alpha.addRole(developer_on_alpha);
-        alpha.addRole(plead_on_alpha);
-
         // has 2 assigned workers
         alpha.addUser(sergiu);
         alpha.addUser(mihai);
@@ -101,19 +99,12 @@ public class bootstrapData implements CommandLineRunner {
         /* configure activities for alpha */
         sergiu.addActivity(qualact);
 
-        /*add project roles to user mapping */
-        alpha.addUserToRole(sergiu, developer_on_alpha);
-        alpha.addUserToRole(mihai, plead_on_alpha);
 
         /* persist PJ1 */
         projectService.save(alpha);
 
 
         /*PROJECT 2 SETUP : configure the 2nd project save at the end*/
-
-        // has 2 roles
-        beta.addRole(dev_beta);
-        beta.addRole(lead_beta);
 
         // has 2 assigned workers
         beta.addUser(sergiu);
@@ -141,11 +132,6 @@ public class bootstrapData implements CommandLineRunner {
         /* configure activities for alpha */
         ade.addActivity(revact);
         mihai.addActivity(bugfixact);
-
-        /*add project roles to user mapping */
-        beta.addUserToRole(sergiu, dev_beta);
-        beta.addUserToRole(mihai, dev_beta);
-        beta.addUserToRole(ade, lead_beta);
 
         /* persist PJ2 */
         projectService.save(beta);

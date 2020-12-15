@@ -3,10 +3,12 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.model.ProjectUserRole;
 import sena.activitytracker.acktrack.repositories.ProjectUserRolesRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,9 +28,9 @@ public class ProjectUserRolesServiceImpl implements ProjectUserRolesService {
     }
 
     @Override
-    public ProjectUserRole findById(UUID id) {
+    public Optional<ProjectUserRole>  findById(UUID id) {
 
-        return projectUserRolesRepository.findById(id).orElse(null);
+        return projectUserRolesRepository.findById(id);
     }
 
     @Override

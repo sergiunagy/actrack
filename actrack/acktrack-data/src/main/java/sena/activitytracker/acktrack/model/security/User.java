@@ -13,20 +13,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "users")
 public class User extends BaseSecurityEntity implements UserDetails, CredentialsContainer {
@@ -41,34 +34,19 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private String username;
     private String password;
 
-    @Builder.Default
     private boolean accountNonExpired = true;
 
-    @Builder.Default
     private boolean accountNonLocked = true;
 
-    @Builder.Default
     private boolean credentialsNonExpired = true;
 
-    @Builder.Default
     private boolean enabled = true;
 
-    @Singular
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
-    @Transient
-    public Set<GrantedAuthority> getAuthorities(){
-
-        return this.roles.stream()
-                .map(Role::getAuthorities)
-                .flatMap(Set::stream)
-                .map(authority -> new SimpleGrantedAuthority(authority.getPermission()))
-                .collect(Collectors.toSet());
-    }
+    private Set<Role> roles = new HashSet<>();
 
     /***********************************************************************************************
      * Employee details*/
@@ -81,7 +59,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
 
     /*Todo: Lazy load for activities. Also batch the load by date*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-     private Set<Activity> activities ;
+     private Set<Activity> activities = new HashSet<>();
 
     /*Eager fetching - JOIN fetches return duplicates so type should be Set:
     .  Ex: https://www.solidsyntax.be/2013/10/17/fetching-collections-hibernate/*/
@@ -90,12 +68,54 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
-    private Set<Workpackage> workpackages;
+    private Set<Workpackage> workpackages = new HashSet<>();
+
+    @Builder
+    public User(Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, Set<Role> roles, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
+        super(version, createdTimestamp, updatedTimestamp);
+        this.username = username;
+        this.password = password;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        if(null!= roles) this.roles = roles;
+        this.familyName = familyName;
+        this.givenName = givenName;
+        if(null!= activities) this.activities = activities;
+        if(null!= projects) this.projects = projects;
+        if(null!= workpackages) this.workpackages = workpackages;
+    }
+
+    @Transient
+    public Set<GrantedAuthority> getAuthorities(){
+
+        return this.roles.stream()
+                .map(Role::getAuthorities)
+                .flatMap(Set::stream)
+                .map(authority -> new SimpleGrantedAuthority(authority.getPermission()))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Role> addRoles(Set<Role> roles){
+
+        roles.stream().map(this::addRole);
+        return this.roles;
+    }
+
+    public Role addRole(Role role){
+
+        this.roles.add(role);
+        role.getUsers().add(this); /* set reverse connection*/
+
+        return role;
+    };
 
     @Override
     public void eraseCredentials() {
         password = null;
     }
+
 
     public Set<Activity> addActivities(Set<Activity> activities) {
 
@@ -149,5 +169,6 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
 
         return workpackage;
     }
+
 
 }

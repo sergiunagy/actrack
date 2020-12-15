@@ -7,7 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sena.activitytracker.acktrack.model.security.Role;
-import sena.activitytracker.acktrack.repositories.RoleRepository;
+import sena.activitytracker.acktrack.repositories.security.RoleRepository;
+import sena.activitytracker.acktrack.services.security.RoleServiceImpl;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -65,10 +66,10 @@ class RoleServiceImplTest extends BaseServiceTest{
     void findById() {
         when(roleRepository.findById(any())).thenReturn(Optional.of(developer));
 
-        Role foundRole = roleService.findById(developer.getId());
+        Optional<Role> foundRoleOptional = roleService.findById(developer.getId());
 
-        assertNotNull(foundRole);
-        assertTrue(developer.getId().equals(foundRole.getId()));
+        assertTrue(foundRoleOptional.isPresent());
+        assertTrue(developer.getId().equals(foundRoleOptional.get().getId()));
         verify(roleRepository, times(1)).findById(any());
     }
 

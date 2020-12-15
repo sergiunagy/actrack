@@ -3,10 +3,12 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.model.ProjectUserRole;
 import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.repositories.WorkpackageRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,9 +28,9 @@ public class WorkpackageServiceImpl implements WorkpackageService {
     }
 
     @Override
-    public Workpackage findById(UUID id) {
+    public Optional<Workpackage> findById(UUID id) {
 
-        return workpackageRepository.findById(id).orElse(null);
+        return workpackageRepository.findById(id);
     }
 
     @Override

@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,9 +30,9 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity findById(UUID id) {
+    public Optional<Activity> findById(UUID id) {
 
-        return activityRepository.findById(id).orElse(null);
+        return activityRepository.findById(id);
     }
 
     @Override

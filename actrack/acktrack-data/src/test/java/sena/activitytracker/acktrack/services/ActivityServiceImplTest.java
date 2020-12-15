@@ -74,10 +74,10 @@ class ActivityServiceImplTest extends BaseServiceTest{
     void findById() {
         when(activityRepository.findById(any())).thenReturn(Optional.of(review));
 
-        Activity foundActivity = activityService.findById(review.getId());
+        Optional<Activity> foundActivityOptional = activityService.findById(review.getId());
 
-        assertNotNull(foundActivity);
-        assertTrue(review.getId().equals(foundActivity.getId()));
+        assertTrue(foundActivityOptional.isPresent());
+        assertTrue(review.getId().equals(foundActivityOptional.get().getId()));
         verify(activityRepository, times(1)).findById(any());
     }
 

@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.repositories.ProjectRepository;
 
@@ -27,9 +28,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(UUID id) {
+    public Optional<Project> findById(UUID id) {
 
-        return projectRepository.findById(id).orElse(null);
+        return projectRepository.findById(id);
     }
 
     @Override

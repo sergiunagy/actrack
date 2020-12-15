@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import sena.activitytracker.acktrack.model.security.User;
-import sena.activitytracker.acktrack.services.UserService;
+import sena.activitytracker.acktrack.services.security.UserService;
 
 import java.util.Set;
 
@@ -26,7 +26,7 @@ public class AdministrativeView extends VerticalLayout {
         grid.addColumn(User::getId).setHeader("Id");
         grid.addColumn(User::getGivenName).setHeader("First name");
         grid.addColumn(User::getFamilyName).setHeader("Family Name");
-        grid.addColumn(User::getUid).setHeader("User id");
+        grid.addColumn(User::getId).setHeader("User id");
 
         this.add(grid);
     }

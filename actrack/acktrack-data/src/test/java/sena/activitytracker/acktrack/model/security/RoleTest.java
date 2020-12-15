@@ -32,4 +32,13 @@ class RoleTest extends BaseDomTest {
         assertNotNull(role);
         assertTrue(role.isNew());
     }
+
+    @Test
+    public void addUserTest(){
+
+        Role role = Role.builder().name("Test").build();
+        role.addAuthority(Authority.builder().permission("test.read").build());
+        assertNotNull(role);
+        assertTrue(role.isNew());
+    }
 }

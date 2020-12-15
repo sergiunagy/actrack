@@ -69,10 +69,10 @@ class WorkpackageServiceImplTest extends BaseServiceTest{
     void findById() {
         when(workpackageRepository.findById(any())).thenReturn(Optional.of(review));
 
-        Workpackage foundWorkpackage = workpackageService.findById(review.getId());
+        Optional<Workpackage> foundWorkpackageOptional = workpackageService.findById(review.getId());
 
-        assertNotNull(foundWorkpackage);
-        assertTrue(review.getId().equals(foundWorkpackage.getId()));
+        assertTrue(foundWorkpackageOptional.isPresent());
+        assertTrue(review.getId().equals(foundWorkpackageOptional.get().getId()));
         verify(workpackageRepository, times(1)).findById(any());
     }
 

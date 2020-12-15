@@ -3,10 +3,12 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.repositories.IssueRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,9 +28,9 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue findById(UUID id) {
+    public Optional<Issue> findById(UUID id) {
 
-        return issueRepository.findById(id).orElse(null);
+        return issueRepository.findById(id);
     }
 
     @Override

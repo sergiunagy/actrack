@@ -44,16 +44,18 @@ class UserTest extends BaseDomTest {
         developer.setAuthorities(new HashSet<>(Set.of(activityCreate, activityRead, activityUpdate, activityDelete)));
 
         userAdmin = User.builder()
-                .role(admin)
                 .familyName("Admin")
                 .givenName("Test")
                 .build();
 
+        userAdmin.addRole(admin);
+
         userDev = User.builder()
-                .role(developer)
                 .familyName("Developer")
                 .givenName("Test")
                 .build();
+        userDev.addRole(developer);
+
     }
 
     @Test

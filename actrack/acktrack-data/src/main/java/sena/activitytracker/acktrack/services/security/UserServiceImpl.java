@@ -1,12 +1,13 @@
-package sena.activitytracker.acktrack.services;
+package sena.activitytracker.acktrack.services.security;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.security.User;
-import sena.activitytracker.acktrack.repositories.UserRepository;
+import sena.activitytracker.acktrack.repositories.security.UserRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,9 +27,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(UUID id) {
+    public Optional<User> findById(UUID id) {
 
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id);
     }
 
     @Override

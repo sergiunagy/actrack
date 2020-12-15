@@ -72,10 +72,10 @@ class IssueServiceImplTest extends BaseServiceTest{
     void findById() {
         when(issueRepository.findById(any())).thenReturn(Optional.of(review));
 
-        Issue foundIssue = issueService.findById(review.getId());
+        Optional<Issue> foundIssueOptional = issueService.findById(review.getId());
 
-        assertNotNull(foundIssue);
-        assertTrue(review.getId().equals(foundIssue.getId()));
+        assertTrue(foundIssueOptional.isPresent());
+        assertTrue(review.getId().equals(foundIssueOptional.get().getId()));
         verify(issueRepository, times(1)).findById(any());
     }
 

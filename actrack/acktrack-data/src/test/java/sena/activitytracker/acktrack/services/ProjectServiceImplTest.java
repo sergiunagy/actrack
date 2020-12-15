@@ -83,10 +83,10 @@ class ProjectServiceImplTest extends BaseServiceTest{
     void findById() {
         when(projectRepository.findById(any())).thenReturn(Optional.of(alpha));
 
-        Project foundProject = projectService.findById(alpha.getId());
+        Optional<Project> foundProjectOptional = projectService.findById(alpha.getId());
 
-        assertNotNull(foundProject);
-        assertTrue(alpha.getId().equals(foundProject.getId()));
+        assertTrue(foundProjectOptional.isPresent());
+        assertTrue(alpha.getId().equals(foundProjectOptional.get().getId()));
         verify(projectRepository, times(1)).findById(any());
     }
 
