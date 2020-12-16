@@ -1,6 +1,5 @@
 package sena.activitytracker.acktrack.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,6 +58,6 @@ public class BaseEntity  implements Serializable {
     }
 
     @Transient
-    static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
+    static Function<Set,Set> checkedSet = set -> set==null? new HashSet<>():set;
 
 }

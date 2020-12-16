@@ -16,8 +16,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @ToString
 @Entity
 @Table(name = "workpackages")
@@ -41,7 +39,7 @@ public class Workpackage extends BaseEntity {
     @JoinTable(name = "workpackages_activities",
             joinColumns = @JoinColumn(name = "workpackage_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
-    private Set<Activity> activities = new HashSet<>();
+    private Set<Activity> activities;
 
     @ManyToMany(mappedBy = "workpackages")
     private Set<Issue> issues = new HashSet<>();
@@ -50,26 +48,24 @@ public class Workpackage extends BaseEntity {
     @JoinTable(name = "workpackage_user",
             joinColumns = @JoinColumn(name = "workpackage_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
-//    @Builder
-//    public Workpackage(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
-//                       String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
-//
-//        super(id, version, createdTimestamp, updatedTimestamp);
-//        this.name = name;
-//        this.description = description;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//        if (activities != null) this.activities = activities;
-//        if (issues != null) this.issues = issues;
-//        if(users!=null) this.users = users;
-//    }
+    @Builder
+    public Workpackage(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
+        super(id, version, createdTimestamp, updatedTimestamp);
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        if(activities != null) this.activities = activities;
+        if(issues != null) this.issues = issues;
+        if(users != null) this.users = users;
+    }
 
     public Activity addActivity(final Activity activity) {
 
         /* Initialize if null set*/
-        this.activities = setNullProtection.apply(this.activities);
+        this.activities = checkedSet.apply(this.activities);
         this.activities.add(activity);
         if(activity.getWorkpackages() != null) activity.getWorkpackages().add(this); /*todo: add error management for negative branch */
 
@@ -89,8 +85,8 @@ public class Workpackage extends BaseEntity {
 
     public User addUser(final User user) {
 
-        /* Initialize if null set*/
-        this.users = setNullProtection.apply(this.users);
+        /* Initialize if set*/
+        this.users = checkedSet.apply(this.users);
         this.users.add(user);
 
         if(user.getWorkpackages() != null) {

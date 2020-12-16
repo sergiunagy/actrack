@@ -18,7 +18,6 @@ class IssueTest extends BaseDomTest {
     @BeforeEach
     void setUp() {
         issue = Issue.builder()
-                .id(IDONE)
                 .issue_id("14a8")
                 .description("quality issue alpha")
                 .link("url quality")
@@ -64,7 +63,7 @@ class IssueTest extends BaseDomTest {
     void addWorkpackagesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> issue.addWorkpackages(emptySet));
+        assertTrue(issue.getWorkpackages().isEmpty());
     }
 
     @Test
@@ -124,6 +123,8 @@ class IssueTest extends BaseDomTest {
     void addActivitiesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> issue.addActivities(emptySet));
+        issue.addActivities(emptySet);
+
+        assertTrue(issue.getActivities().isEmpty());
     }
 }
