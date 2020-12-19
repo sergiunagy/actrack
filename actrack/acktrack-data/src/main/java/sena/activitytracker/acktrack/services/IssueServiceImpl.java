@@ -22,6 +22,7 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public Set<Issue> findAll() {
         Set<Issue> issues = new HashSet<>();
+
         issueRepository.findAll().forEach(issues::add);
 
         return issues;
@@ -42,6 +43,7 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public Set<Issue> saveAll(Set<Issue> issues) {
         Set<Issue> retIssues = new HashSet<>();
+
         issueRepository.saveAll(issues).forEach(retIssues::add);
 
         return retIssues;

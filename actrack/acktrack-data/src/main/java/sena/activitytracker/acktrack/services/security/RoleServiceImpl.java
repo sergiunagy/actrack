@@ -20,7 +20,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Set<Role> findAll() {
+
         Set<Role> roles = new HashSet<>();
+
         roleRepository.findAll().forEach(roles::add);
 
         return roles;
@@ -40,7 +42,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Set<Role> saveAll(Set<Role> roles) {
+
         Set<Role> retRoles = new HashSet<>();
+
         roleRepository.saveAll(roles).forEach(retRoles::add);
 
         return retRoles;

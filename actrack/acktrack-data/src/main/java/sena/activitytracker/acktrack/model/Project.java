@@ -95,9 +95,8 @@ public class Project extends BaseEntity {
         if (issues == null || issues.isEmpty())
             throw new RuntimeException("Null issue passed for Project id:" + this.getId());
 
-        for (Issue issue : issues) {
-            addIssue(issue);
-        }
+        issues.forEach(this::addIssue);
+
         return issues;
     }
 
@@ -106,20 +105,19 @@ public class Project extends BaseEntity {
         if (issue == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
 
-        issue.setProject(this);
         this.issues.add(issue);
+
+        issue.setProject(this);
 
         return issue;
     }
 
     public Set<User> addUsers(Set<User> users) {
 
-        if (users == null || users.isEmpty())
+        if (users == null)
             throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+        users.forEach(this::addUser);
 
-        for (User user : users) {
-            addUser(user);
-        }
         return users;
     }
 

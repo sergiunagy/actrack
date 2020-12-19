@@ -23,6 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Set<Activity> findAll() {
+
         Set<Activity> issues = new HashSet<>();
         activityRepository.findAll().forEach(issues::add);
 
@@ -43,10 +44,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Set<Activity> saveAll(Set<Activity> issues) {
-        Set<Activity> retActivitys = new HashSet<>();
-        activityRepository.saveAll(issues).forEach(retActivitys::add);
+        Set<Activity> retActivities = new HashSet<>();
 
-        return retActivitys;
+        activityRepository.saveAll(issues).forEach(retActivities::add);
+
+        return retActivities;
     }
 
     @Override
@@ -62,11 +64,19 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Set<Activity> findAllActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return activityRepository.findAllByDateBetween(startDate, endDate);
+        Set<Activity> foundActivities = new HashSet<>();
+
+        activityRepository.findAllByDateBetween(startDate, endDate).forEach(foundActivities::add);
+
+        return foundActivities;
     }
 
     public Set<Activity> findAllByDate(LocalDate date){
 
-        return activityRepository.findAllByDate(date);
+        Set<Activity> foundActivities = new HashSet<>();
+
+        activityRepository.findAllByDate(date).forEach(foundActivities::add);
+
+        return foundActivities;
     }
 }

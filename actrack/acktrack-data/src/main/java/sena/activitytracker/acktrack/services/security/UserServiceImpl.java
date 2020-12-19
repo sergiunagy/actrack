@@ -20,7 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<User> findAll() {
+
         Set<User> issues = new HashSet<>();
+
         userRepository.findAll().forEach(issues::add);
 
         return issues;
@@ -40,7 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<User> saveAll(Set<User> issues) {
+
         Set<User> retUsers = new HashSet<>();
+
         userRepository.saveAll(issues).forEach(retUsers::add);
 
         return retUsers;

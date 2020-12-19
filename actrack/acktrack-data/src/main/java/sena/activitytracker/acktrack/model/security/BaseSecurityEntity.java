@@ -17,7 +17,6 @@ import java.util.function.Function;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseSecurityEntity {
@@ -50,14 +49,15 @@ public class BaseSecurityEntity {
         return this.id ==null;
     }
 
-    public BaseSecurityEntity(Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp) {
+    public BaseSecurityEntity(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp) {
 
+        this.id = id;
         this.version = version;
         this.createdTimestamp = createdTimestamp;
         this.updatedTimestamp = updatedTimestamp;
     }
 
     @Transient
-    public static Function<Set,Set> setNullProtection = set -> set==null? new HashSet<>():set;
+    public static Function<Set,Set> checkedSet = set -> set==null? new HashSet<>():set;
 
 }

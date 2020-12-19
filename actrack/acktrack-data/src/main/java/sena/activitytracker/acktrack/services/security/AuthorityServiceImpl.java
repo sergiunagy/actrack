@@ -24,7 +24,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     @Override
     public Set<Authority> findAll() {
+
         Set<Authority> authorities = new HashSet<>();
+
         authorityRepository.findAll().forEach(authorities::add);
 
         return authorities;
@@ -46,6 +48,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     public Set<Authority> saveAll(Set<Authority> authoritySet) {
 
         Set<Authority> authorities = new HashSet<>();
+
         authorityRepository.saveAll(authoritySet).forEach(authorities::add);
 
         return authorities;

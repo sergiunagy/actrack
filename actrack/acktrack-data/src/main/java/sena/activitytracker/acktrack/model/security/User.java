@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -71,8 +72,8 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private Set<Workpackage> workpackages = new HashSet<>();
 
     @Builder
-    public User(Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, Set<Role> roles, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
-        super(version, createdTimestamp, updatedTimestamp);
+    public User(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, Set<Role> roles, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.username = username;
         this.password = password;
         this.accountNonExpired = accountNonExpired;
@@ -122,7 +123,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         if (activities == null || activities.isEmpty())
             throw new RuntimeException("Null or empty activities list passed for User id:" + this.getId());
 
-        this.activities = setNullProtection.apply(this.activities);
+        this.activities = checkedSet.apply(this.activities);
 
         for (Activity activity : activities) {
             addActivity(activity);
@@ -135,7 +136,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         if (activity == null)
             throw new RuntimeException("Null activity passed to addActivity for User id:" + this.getId());
 
-        this.activities = setNullProtection.apply(this.activities);
+        this.activities = checkedSet.apply(this.activities);
 
         activity.setUser(this);
         this.activities.add(activity);
@@ -145,14 +146,12 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
 
     public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {
 
-        if (workpackages == null || workpackages.isEmpty())
-            throw new RuntimeException("Null workapackages list passed for Project id:" + this.getId());
+        if (workpackages == null)
+            throw new RuntimeException("Null workpackages list passed for Project id:" + this.getId());
 
-        this.workpackages = setNullProtection.apply(this.workpackages);
+        this.workpackages = checkedSet.apply(this.workpackages);
+        workpackages.forEach(this::addWorkpackage);
 
-        for (Workpackage workpackage : workpackages) {
-            addWorkpackage(workpackage);
-        }
         return workpackages;
     }
 
@@ -162,7 +161,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         if (workpackage == null)
             throw new RuntimeException("Null workpackage passed to addIssue for Project id:" + this.getId());
 
-        this.workpackages = setNullProtection.apply(this.workpackages);
+        this.workpackages = checkedSet.apply(this.workpackages);
 
         workpackage.getUsers().add(this);
         this.workpackages.add(workpackage);

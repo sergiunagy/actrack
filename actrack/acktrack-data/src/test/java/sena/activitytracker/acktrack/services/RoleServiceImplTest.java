@@ -29,30 +29,32 @@ class RoleServiceImplTest extends BaseServiceTest{
     RoleServiceImpl roleService;
 
     Role developer, lead;
-    Set<Role> issueSet =new HashSet<>();
+    Set<Role> rolesSet =new HashSet<>();
 
     @BeforeEach
     void setUp() {
         /*Dummy project init*/
         developer = Role.builder()
+                .id(IDONE)
                 .name("Developer")
                 .description("Implements, tests, reviews")
                 .build();
 
         lead = Role.builder()
+                .id(IDTWO)
                 .name("Project lead")
                 .description("Assigns, manages, client interface")
                 .build();
 
 
-        issueSet.add(developer);
-        issueSet.add(lead);
+        rolesSet.add(developer);
+        rolesSet.add(lead);
     }
 
     @Test
     void findAll() {
 
-        when(roleRepository.findAll()).thenReturn(issueSet);
+        when(roleRepository.findAll()).thenReturn(rolesSet);
 
         Set<Role> foundRoles = roleService.findAll();
 
@@ -64,10 +66,14 @@ class RoleServiceImplTest extends BaseServiceTest{
 
     @Test
     void findById() {
+        // given setup role
+
+        // when
         when(roleRepository.findById(any())).thenReturn(Optional.of(developer));
 
         Optional<Role> foundRoleOptional = roleService.findById(developer.getId());
 
+        // expected
         assertTrue(foundRoleOptional.isPresent());
         assertTrue(developer.getId().equals(foundRoleOptional.get().getId()));
         verify(roleRepository, times(1)).findById(any());
@@ -87,9 +93,9 @@ class RoleServiceImplTest extends BaseServiceTest{
 
     @Test
     void saveAll() {
-        when(roleRepository.saveAll(any(Set.class))).thenReturn(issueSet);
+        when(roleRepository.saveAll(any(Set.class))).thenReturn(rolesSet);
 
-        Set<Role> foundRoles = roleService.saveAll(issueSet);
+        Set<Role> foundRoles = roleService.saveAll(rolesSet);
 
         assertNotNull(foundRoles);
         assertEquals(2, foundRoles.size());

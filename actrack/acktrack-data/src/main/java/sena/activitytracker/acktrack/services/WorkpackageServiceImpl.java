@@ -21,7 +21,9 @@ public class WorkpackageServiceImpl implements WorkpackageService {
 
     @Override
     public Set<Workpackage> findAll() {
+
         Set<Workpackage> workpackages = new HashSet<>();
+
         workpackageRepository.findAll().forEach(workpackages::add);
 
         return workpackages;
@@ -41,7 +43,9 @@ public class WorkpackageServiceImpl implements WorkpackageService {
 
     @Override
     public Set<Workpackage> saveAll(Set<Workpackage> workpackages) {
+
         Set<Workpackage> retWorkpackages = new HashSet<>();
+
         workpackageRepository.saveAll(workpackages).forEach(retWorkpackages::add);
 
         return retWorkpackages;

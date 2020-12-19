@@ -147,8 +147,11 @@ class ProjectTest extends BaseDomTest {
     @Test
     void addUsersEmpty() {
 
-        Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, () -> project.addUsers(emptySet));
+        Set<User> emptySet = new HashSet();
+
+        Set<User> projectUsers  = project.addUsers(emptySet);
+
+        Assertions.assertTrue(projectUsers.isEmpty());
     }
 
 

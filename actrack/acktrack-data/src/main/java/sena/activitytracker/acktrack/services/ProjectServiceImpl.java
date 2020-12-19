@@ -21,7 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Set<Project> findAll() {
+
         Set<Project> projects = new HashSet<>();
+
         projectRepository.findAll().forEach(projects::add);
 
         return projects;
@@ -41,7 +43,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Set<Project> saveAll(Set<Project> projects) {
+
         Set<Project> retProjects = new HashSet<>();
+
         projectRepository.saveAll(projects).forEach(retProjects::add);
 
         return retProjects;

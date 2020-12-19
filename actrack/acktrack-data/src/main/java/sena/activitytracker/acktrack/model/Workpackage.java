@@ -67,18 +67,18 @@ public class Workpackage extends BaseEntity {
         /* Initialize if null set*/
         this.activities = checkedSet.apply(this.activities);
         this.activities.add(activity);
-        if(activity.getWorkpackages() != null) activity.getWorkpackages().add(this); /*todo: add error management for negative branch */
+
+        activity.getWorkpackages().add(this); /*todo: add error management for negative branch */
 
         return activity;
     }
 
     public Set<Activity> addActivities(final Set<Activity> activities) {
 
-        if(activities != null){
-            activities.forEach(this::addActivity);
-        } else {
+        if(activities == null)
             throw new RuntimeException("Null value passed as set of activities to add to workpackage" + this.toString());
-        }
+
+        activities.forEach(this::addActivity);
 
         return activities;
     }
@@ -87,13 +87,9 @@ public class Workpackage extends BaseEntity {
 
         /* Initialize if set*/
         this.users = checkedSet.apply(this.users);
-        this.users.add(user);
 
-        if(user.getWorkpackages() != null) {
-            user.getWorkpackages().add(this);
-        } else {
-            throw new RuntimeException("Null value read for user workpackages. For:" + user);
-        }
+        this.users.add(user);
+        user.getWorkpackages().add(this);
 
         return user;
     }
