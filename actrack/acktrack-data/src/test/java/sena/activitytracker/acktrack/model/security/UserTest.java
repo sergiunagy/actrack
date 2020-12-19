@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.BaseDomTest;
+import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Workpackage;
-import sena.activitytracker.acktrack.model.security.User;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,44 +18,83 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest extends BaseDomTest {
 
     User userAdmin, userDev;
-    Role admin, developer;
-    Authority userCreate, userRead, userUpdate, userDelete, activityCreate, activityRead, activityUpdate, activityDelete;
+    Role roleAdmin, roleDev;
+    Authority authUserCreate, authUserRead, authUserUpdate, authUserDelete, authActivityCreate, authActivityRead, authActivityUpdate, authActivityDelete;
 
     @BeforeEach
     void setUp() {
 
-        userCreate = Authority.builder().permission("user.create").build();
-        userRead = Authority.builder().permission("user.read").build();
-        userUpdate = Authority.builder().permission("user.update").build();
-        userDelete = Authority.builder().permission("user.delete").build();
-        activityCreate = Authority.builder().permission("activity.create").build();
-        activityRead = Authority.builder().permission("activity.read").build();
-        activityUpdate = Authority.builder().permission("activity.update").build();
-        activityDelete = Authority.builder().permission("activity.delete").build();
+        /*Create dummy authorities*/
+        authUserCreate = Authority.builder().permission("user.create").build();
+        authUserRead = Authority.builder().permission("user.read").build();
+        authUserUpdate = Authority.builder().permission("user.update").build();
+        authUserDelete = Authority.builder().permission("user.delete").build();
+        authActivityCreate = Authority.builder().permission("activity.create").build();
+        authActivityRead = Authority.builder().permission("activity.read").build();
+        authActivityUpdate = Authority.builder().permission("activity.update").build();
+        authActivityDelete = Authority.builder().permission("activity.delete").build();
 
-        admin = Role.builder()
+        /*Create dummy roles*/
+        roleAdmin = Role.builder()
                 .name("administrator user")
                 .build();
-        developer = Role.builder()
+        roleDev = Role.builder()
                 .name("developer user")
                 .build();
 
-        admin.setAuthorities(new HashSet<>(Set.of(userCreate, userRead, userUpdate, userDelete, activityCreate, activityRead, activityUpdate, activityDelete)));
-        developer.setAuthorities(new HashSet<>(Set.of(activityCreate, activityRead, activityUpdate, activityDelete)));
+        /*Associate roles and authorities*/
+        roleAdmin.setAuthorities(new HashSet<>(Set.of(authUserCreate, authUserRead, authUserUpdate, authUserDelete,
+                                                    authActivityCreate, authActivityRead, authActivityUpdate, authActivityDelete)));
+        roleDev.setAuthorities(new HashSet<>(Set.of(authActivityCreate, authActivityRead, authActivityUpdate, authActivityDelete)));
 
+        /*create the users*/
         userAdmin = User.builder()
                 .familyName("Admin")
                 .givenName("Test")
                 .build();
 
-        userAdmin.addRole(admin);
-
         userDev = User.builder()
                 .familyName("Developer")
                 .givenName("Test")
                 .build();
-        userDev.addRole(developer);
 
+        /*Associate roles and users*/
+        userAdmin.addRole(roleAdmin);
+        userDev.addRole(roleDev);
+
+    }
+
+    @Test
+    void getIssuesTest() {
+
+        // given
+        /*3 issues with 2 wps and 3 activities*/
+        Issue i1 =  Issue.builder().shortName("dummy issue one").build();
+        Issue i2 =  Issue.builder().shortName("dummy issue two").build();
+        Issue i3 =  Issue.builder().shortName("dummy issue two").build();
+
+        Activity a1 = Activity.builder().description("dummy act one").build();
+        Activity a2 = Activity.builder().description("dummy act two").build();
+        Activity a3 = Activity.builder().description("dummy act three").build();
+
+        Workpackage w1 = Workpackage.builder().description("dummy wp one").build();
+        Workpackage w2 = Workpackage.builder().description("dummy wp two").build();
+
+        w1.addActivities(Set.of(a1,a2));
+        w2.addActivity(a3);
+
+        i1.addWorkpackage(w1);
+        i2.addWorkpackage(w2);
+        i3.addWorkpackage(w1);
+
+        userDev.addActivities(Set.of(a1,a2,a3));
+
+        // when
+        Set<Issue> foundIssues = userDev.getIssues();
+
+        //then
+        assertNotNull(foundIssues);
+        assertEquals(3, foundIssues.size());
     }
 
     @Test
@@ -108,7 +147,9 @@ class UserTest extends BaseDomTest {
     void addActivitiesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addActivities(emptySet));
+        Set<Activity> foundActivities = userAdmin.addActivities(emptySet);
+
+        assertTrue(foundActivities.isEmpty());
     }
 
     @Test
@@ -155,7 +196,9 @@ class UserTest extends BaseDomTest {
     void addWorkpackagesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> userAdmin.addWorkpackages(emptySet));
+        Set<Workpackage> foundWps = userAdmin.addWorkpackages(emptySet);
+
+        assertTrue(foundWps.isEmpty());
     }
 
     @Test

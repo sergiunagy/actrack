@@ -5,6 +5,7 @@ import sena.activitytracker.acktrack.model.BaseEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,21 +23,21 @@ public class Role extends BaseSecurityEntity {
     private String description;
 
     @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "role_authority",
     joinColumns = @JoinColumn(name = "ROLE_ID"),
     inverseJoinColumns = @JoinColumn(name = "authority_id"))
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     @Builder
     public Role(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, Set<User> users, Set<Authority> authorities) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
-        this.users = users;
-        this.authorities = authorities;
+        if(users != null) this.users = users;
+        if(authorities != null) this.authorities = authorities;
     }
 
     /* Initialize double linked relationship*/

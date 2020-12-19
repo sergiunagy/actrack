@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     /* Inherited from parent */
 
     /***********************************************************************************************
-    * Security instance fields*/
+    * Security instance fields- todo : extract to SecurityUserDetails*/
 
     private String username;
     private String password;
@@ -50,7 +51,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private Set<Role> roles = new HashSet<>();
 
     /***********************************************************************************************
-     * Employee details*/
+     * Employee details -  todo : extract to EmployeeUserDetails*/
 
     @Column(name = "family_name")
     private String familyName;
@@ -62,7 +63,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
      private Set<Activity> activities = new HashSet<>();
 
-    /*Eager fetching - JOIN fetches return duplicates so type should be Set:
+    /* Eager fetching - JOIN fetches may return duplicates so type should be Set:
     .  Ex: https://www.solidsyntax.be/2013/10/17/fetching-collections-hibernate/*/
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
@@ -80,9 +81,9 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
-        if(null!= roles) this.roles = roles;
         this.familyName = familyName;
         this.givenName = givenName;
+        if(null!= roles) this.roles = roles;
         if(null!= activities) this.activities = activities;
         if(null!= projects) this.projects = projects;
         if(null!= workpackages) this.workpackages = workpackages;
@@ -98,13 +99,37 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
                 .collect(Collectors.toSet());
     }
 
-    public Set<Role> addRoles(Set<Role> roles){
+    @Transient
+    public Set<Issue> getIssues(){
 
-        roles.stream().map(this::addRole);
+        /*Get the issues from the activities, there may be allocated workpackages that had no real actions taken*/
+
+        return this.getActivities().stream()
+                .flatMap(activity -> activity.getWorkpackages().stream())
+                .flatMap(workpackage->workpackage.getIssues().stream())
+                .collect(Collectors.toSet());
+    }
+
+    /*Security accessors*/
+
+    @Override
+    public void eraseCredentials() {
+        password = null;
+    }
+
+    /*******************************************************************
+    * *****Adders for bidirectional relationships***********************/
+
+    /*Roles*/
+    public Set<Role> addRoles(@NonNull final Set<Role> roles){
+
+        roles.forEach(this::addRole);
         return this.roles;
     }
 
-    public Role addRole(Role role){
+    public Role addRole(@NonNull final Role role){
+
+        this.roles = checkedSet.apply(this.roles);
 
         this.roles.add(role);
         role.getUsers().add(this); /* set reverse connection*/
@@ -112,62 +137,58 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
         return role;
     };
 
-    @Override
-    public void eraseCredentials() {
-        password = null;
-    }
+    /*Activities*/
+    public Set<Activity> addActivities(@NonNull final Set<Activity> activities) {
 
+        activities.forEach(this::addActivity);
 
-    public Set<Activity> addActivities(Set<Activity> activities) {
-
-        if (activities == null || activities.isEmpty())
-            throw new RuntimeException("Null or empty activities list passed for User id:" + this.getId());
-
-        this.activities = checkedSet.apply(this.activities);
-
-        for (Activity activity : activities) {
-            addActivity(activity);
-        }
         return activities;
     }
 
-    public Activity addActivity(Activity activity) {
-
-        if (activity == null)
-            throw new RuntimeException("Null activity passed to addActivity for User id:" + this.getId());
+    public Activity addActivity(@NonNull final Activity activity) {
 
         this.activities = checkedSet.apply(this.activities);
 
-        activity.setUser(this);
         this.activities.add(activity);
+        activity.setUser(this);
 
         return activity;
     }
 
-    public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {
+    /*Workpackages*/
+    public Set<Workpackage> addWorkpackages(@NonNull final Set<Workpackage> workpackages) {
 
-        if (workpackages == null)
-            throw new RuntimeException("Null workpackages list passed for Project id:" + this.getId());
-
-        this.workpackages = checkedSet.apply(this.workpackages);
         workpackages.forEach(this::addWorkpackage);
 
         return workpackages;
     }
 
 
-    public Workpackage addWorkpackage(Workpackage workpackage) {
-
-        if (workpackage == null)
-            throw new RuntimeException("Null workpackage passed to addIssue for Project id:" + this.getId());
+    public Workpackage addWorkpackage(@NonNull final Workpackage workpackage) {
 
         this.workpackages = checkedSet.apply(this.workpackages);
 
-        workpackage.getUsers().add(this);
         this.workpackages.add(workpackage);
+        workpackage.getUsers().add(this);
 
         return workpackage;
     }
 
+    /*Projects*/
+    public Project addProject(@NonNull final Project project){
 
+        this.projects = checkedSet.apply(this.projects);
+
+        this.projects.add(project);
+        project.getUsers().add(this);
+
+        return project;
+    }
+
+    public Set<Project> addProjects(@NonNull Set<Project> projects){
+
+        projects.forEach(this::addProject);
+
+        return this.projects;
+    }
 }

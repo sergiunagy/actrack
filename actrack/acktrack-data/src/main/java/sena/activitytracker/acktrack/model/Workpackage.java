@@ -39,7 +39,7 @@ public class Workpackage extends BaseEntity {
     @JoinTable(name = "workpackages_activities",
             joinColumns = @JoinColumn(name = "workpackage_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
-    private Set<Activity> activities;
+    private Set<Activity> activities = new HashSet<>();
 
     @ManyToMany(mappedBy = "workpackages")
     private Set<Issue> issues = new HashSet<>();
@@ -48,7 +48,7 @@ public class Workpackage extends BaseEntity {
     @JoinTable(name = "workpackage_user",
             joinColumns = @JoinColumn(name = "workpackage_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @Builder
     public Workpackage(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
