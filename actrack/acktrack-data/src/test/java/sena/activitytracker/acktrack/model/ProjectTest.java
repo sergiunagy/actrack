@@ -172,8 +172,13 @@ class ProjectTest extends BaseDomTest {
 
     @Test
     void addDuplicateUser(){
-        /*todo*/
-        assertFalse(true);
+        //when
+        project.addUser(sergiu);
+        project.addUser(sergiu);
+
+        //then
+        assertNotNull(project.getUsers());
+        assertEquals(1, project.getUsers().size());
     }
 
     @Test
