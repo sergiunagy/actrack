@@ -170,4 +170,112 @@ class ProjectTest extends BaseDomTest {
         assertTrue(sergiu.getProjects().stream().anyMatch(project1 -> project1 == project));
     }
 
+    @Test
+    void addDuplicateUser(){
+        /*todo*/
+        assertFalse(true);
+    }
+
+    @Test
+    void getWorkpackages(){
+
+        // given
+        Set<Workpackage> workpackages1 = new HashSet<>();
+        workpackages1.add(Workpackage.builder().name("wp1").build());
+        workpackages1.add(Workpackage.builder().name("wp2").build());
+
+        Set<Workpackage> workpackages2 = new HashSet<>();
+        workpackages2.add(Workpackage.builder().name("wp3").build());
+        workpackages2.add(Workpackage.builder().name("wp4").build());
+
+        Set<Issue> issues = new HashSet<>();
+        issues.add(Issue.builder().shortName("is1").workpackages(workpackages1).build());
+        issues.add(Issue.builder().shortName("is2").workpackages(workpackages2).build());
+
+        project.addIssues(issues);
+        // when
+        Set<Workpackage> foundWorkpackages = project.getWorkpackages();
+
+        // then
+        assertNotNull(foundWorkpackages);
+        assertEquals(4, foundWorkpackages.size());
+    }
+
+    @Test
+    void getWorkpackagesWDuplicates(){
+        /*If we have workpackages solving different issues, they should not appear duplicated in the list we return*/
+        // given
+        Set<Workpackage> workpackages = new HashSet<>();
+        workpackages.add(Workpackage.builder().name("wp1").build());
+        workpackages.add(Workpackage.builder().name("wp2").build());
+
+        Set<Issue> issues = new HashSet<>();
+        issues.add(Issue.builder().shortName("is1").workpackages(workpackages).build());
+        workpackages.add(Workpackage.builder().name("wp3").build());
+
+        issues.add(Issue.builder().shortName("is2").workpackages(workpackages).build());
+
+        project.addIssues(issues);
+        // when
+        Set<Workpackage> foundWorkpackages = project.getWorkpackages();
+
+        // then
+        assertNotNull(foundWorkpackages);
+        assertEquals(3, foundWorkpackages.size());
+    }
+
+
+    @Test
+    void getActivities(){
+        /*The object chain for retrieving activities associated to a Project is longer: Project-Issue-Workpackage-activities*/
+        // given
+        Set<Activity> activities1 = new HashSet<>();
+        activities1.add(Activity.builder().description("ac1").build());
+        activities1.add(Activity.builder().description("ac2").build());
+
+        Set<Activity> activities2 = new HashSet<>();
+        activities2.add(Activity.builder().description("ac3").build());
+        activities2.add(Activity.builder().description("ac4").build());
+
+        Set<Workpackage> workpackages = new HashSet<>();
+        workpackages.add(Workpackage.builder().name("wp1").activities(activities1).build());
+        workpackages.add(Workpackage.builder().name("wp2").activities(activities2).build());
+
+        Set<Issue> issues = new HashSet<>();
+        issues.add(Issue.builder().shortName("is1").workpackages(workpackages).build());
+
+        project.addIssues(issues);
+        // when
+        Set<Activity> foundActivities = project.getActivities();
+
+        // then
+        assertNotNull(foundActivities);
+        assertEquals(4, foundActivities.size());
+    }
+
+    @Test
+    void getActivitiesWDuplicates(){
+        /*If we have activities solving different workpackages, they should not appear duplicated in the list we return*/
+        // given
+        Set<Activity> activities = new HashSet<>();
+        activities.add(Activity.builder().description("ac1").build());
+        activities.add(Activity.builder().description("ac2").build());
+
+        Set<Workpackage> workpackages = new HashSet<>();
+        workpackages.add(Workpackage.builder().name("wp1").activities(activities).build());
+        activities.add(Activity.builder().description("ac3").build());
+        workpackages.add(Workpackage.builder().name("wp2").activities(activities).build());
+
+        Set<Issue> issues = new HashSet<>();
+        issues.add(Issue.builder().shortName("is1").workpackages(workpackages).build());
+
+        project.addIssues(issues);
+
+        // when
+        Set<Activity> foundActivities = project.getActivities();
+
+        // then
+        assertNotNull(foundActivities);
+        assertEquals(3, foundActivities.size());
+    }
 }

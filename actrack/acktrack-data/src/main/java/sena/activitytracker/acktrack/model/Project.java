@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -88,6 +89,23 @@ public class Project extends BaseEntity {
         if (users != null) this.users = users;
     }
 
+    @Transient
+    public Set<Workpackage> getWorkpackages(){
+
+        /*Get workpackages from associated issues*/
+        return this.issues.stream()
+                .flatMap(issue -> issue.getWorkpackages().stream())
+                .collect(Collectors.toSet());
+    }
+
+    @Transient
+    public Set<Activity> getActivities(){
+
+        return this.issues.stream()
+                .flatMap(issue -> issue.getWorkpackages().stream())
+                .flatMap(workpackage -> workpackage.getActivities().stream())
+                .collect(Collectors.toSet());
+    }
 
     /*Helper methods*/
     public Set<Issue> addIssues(Set<Issue> issues) {
@@ -106,7 +124,6 @@ public class Project extends BaseEntity {
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
 
         this.issues.add(issue);
-
         issue.setProject(this);
 
         return issue;
@@ -116,6 +133,7 @@ public class Project extends BaseEntity {
 
         if (users == null)
             throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+
         users.forEach(this::addUser);
 
         return users;
@@ -128,8 +146,6 @@ public class Project extends BaseEntity {
         if (user == null)
             throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
         /*if the user already exists,*/
-//        if(!user.isNew())
-//            return user;
 
         if (!user.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
             user.getProjects().add(this);
