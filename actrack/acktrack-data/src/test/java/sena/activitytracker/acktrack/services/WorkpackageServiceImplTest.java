@@ -36,11 +36,13 @@ class WorkpackageServiceImplTest extends BaseServiceTest{
     void setUp() {
         /*Dummy project init*/
         quality = Workpackage.builder()
+                .id(IDONE)
                 .name("fix quality")
                 .description("fix quality on alpha")
                 .build();
 
         review = Workpackage.builder()
+                .id(IDTWO)
                 .name("do reviews")
                 .description("do reviews on beta")
                 .build();

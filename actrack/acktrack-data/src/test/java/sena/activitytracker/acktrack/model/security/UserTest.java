@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
-import sena.activitytracker.acktrack.model.Activity;
-import sena.activitytracker.acktrack.model.BaseDomTest;
-import sena.activitytracker.acktrack.model.Issue;
-import sena.activitytracker.acktrack.model.Workpackage;
+import sena.activitytracker.acktrack.model.*;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -146,8 +143,7 @@ class UserTest extends BaseDomTest {
     @Test
     void addActivitiesEmpty() {
 
-        Set emptySet = new HashSet();
-        Set<Activity> foundActivities = userAdmin.addActivities(emptySet);
+        Set<Activity> foundActivities = userAdmin.addActivities(new HashSet());
 
         assertTrue(foundActivities.isEmpty());
     }
@@ -195,8 +191,7 @@ class UserTest extends BaseDomTest {
     @Test
     void addWorkpackagesEmpty() {
 
-        Set emptySet = new HashSet();
-        Set<Workpackage> foundWps = userAdmin.addWorkpackages(emptySet);
+        Set<Workpackage> foundWps = userAdmin.addWorkpackages(new HashSet());
 
         assertTrue(foundWps.isEmpty());
     }
@@ -219,4 +214,48 @@ class UserTest extends BaseDomTest {
         assertTrue(workpackage.getUsers().stream().anyMatch(user1 -> user1 == userAdmin));
     }
 
+    @Test
+    void addProjectTest(){
+        // given
+        Project p1 = Project.builder().name("p1").build();
+
+        // when
+        userDev.addProject(p1);
+
+        // then
+        Set<Project> foundProjects = userDev.getProjects();
+        assertNotNull(foundProjects);
+        assertEquals(1, foundProjects.size());
+        assertEquals("p1", foundProjects.stream().findAny().get().getName());
+    }
+
+    @Test
+    void addProjectsTest(){
+        // given
+        Set<Project> projects = new HashSet<>();
+        projects.add(Project.builder().name("p1").build());
+        projects.add(Project.builder().name("p2").build());
+
+        //when
+        userDev.addProjects(projects);
+
+        //then
+        Set<Project> foundProjects = userDev.getProjects();
+        assertNotNull(foundProjects);
+        assertEquals(2, foundProjects.size());
+    }
+
+    @Test
+    void addProjectsNullTest() {
+
+        Assertions.assertThrows(RuntimeException.class, ()-> userDev.addProjects(null));
+    }
+
+    @Test
+    void addProjectsEmptyTest() {
+
+        Set<Project> foundProjects = userDev.addProjects(new HashSet());
+
+        assertTrue(foundProjects.isEmpty());
+    }
 }

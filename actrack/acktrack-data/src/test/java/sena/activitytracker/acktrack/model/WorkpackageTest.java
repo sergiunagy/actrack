@@ -65,7 +65,6 @@ class WorkpackageTest extends BaseDomTest {
         Set returnedSet = workpackage.addActivities(emptySet);
 
         assertTrue(returnedSet.isEmpty());
-        assertNull(workpackage.getActivities());
     }
 
 }
