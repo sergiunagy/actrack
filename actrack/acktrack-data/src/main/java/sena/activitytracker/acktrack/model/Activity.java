@@ -1,9 +1,7 @@
 package sena.activitytracker.acktrack.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import sena.activitytracker.acktrack.model.security.BaseSecurityEntity;
 import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
@@ -58,9 +56,7 @@ public class Activity extends BaseEntity {
     }
 
 
-    public User addUser(User user) {
-
-        if (user == null) throw new RuntimeException("Null User passed to activity" + this.getId());
+    public User addUser(@NonNull User user) {
 
         user.getActivities().add(this);
         this.user = user;

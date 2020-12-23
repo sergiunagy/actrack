@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.model;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.transaction.annotation.Transactional;
+import sena.activitytracker.acktrack.model.security.BaseSecurityEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -71,21 +72,17 @@ public class Issue extends BaseEntity {
 
     /*Helper methods*/
 
-    public Workpackage addWorkpackage(Workpackage workpackage) {
+    public Workpackage addWorkpackage(@NonNull Workpackage workpackage) {
 
-        if (workpackage == null)
-            throw new RuntimeException("Null workpackage passed to addIssue for Project id:" + this.getId());
+        this.workpackages= BaseEntity.checkedSet.apply(this.workpackages);
 
-        workpackage.getIssues().add(this);
         this.workpackages.add(workpackage);
+        workpackage.getIssues().add(this);
 
         return workpackage;
     }
 
-    public Set<Workpackage> addWorkpackages(Set<Workpackage> workpackages) {
-
-        if (workpackages == null) /* Empty Set means nothing will execute in the forEach, so no need to check*/
-            throw new RuntimeException("Null workpackages list passed for Project id:" + this.getId());
+    public Set<Workpackage> addWorkpackages(@NonNull Set<Workpackage> workpackages) {
 
         workpackages.forEach(this::addWorkpackage);
 
@@ -93,9 +90,7 @@ public class Issue extends BaseEntity {
     }
     public Activity addActivity(Activity activity) {
 
-        /* Null checks */
-        if (activity == null || activity.getIssues()==null)
-            throw new RuntimeException("Null activity passed to addIssue for Project id:" + this.getId());
+        this.activities = BaseEntity.checkedSet.apply(this.activities);
 
         /* Append the object and update both sides of the relationship*/
         this.activities.add(activity);
@@ -106,9 +101,6 @@ public class Issue extends BaseEntity {
 
 
     public Set<Activity> addActivities(Set<Activity> activities) {
-
-        if (activities == null) /* Empty Set means nothing will execute in the forEach, so no need to check*/
-            throw new RuntimeException("Null activities list passed for Project id:" + this.getId());
 
         activities.forEach(this::addActivity);
 

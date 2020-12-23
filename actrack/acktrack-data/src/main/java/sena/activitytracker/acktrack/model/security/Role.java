@@ -41,21 +41,21 @@ public class Role extends BaseSecurityEntity {
     }
 
     /* Initialize double linked relationship*/
-    public Authority addAuthority(final Authority authority){
+    public Authority addAuthority(@NonNull final Authority authority){
 
         /*initilize the set if null*/
         this.authorities= BaseSecurityEntity.checkedSet.apply(this.authorities);
+
         this.authorities.add(authority);
-        if(authority.getRoles() != null)  authority.getRoles().add(this); /* todo: error management*/
+        authority.getRoles().add(this);
 
         return authority;
     }
 
     /* Initialize double linked relationship*/
-    public Set<Authority> addAllAuthorities(final Set<Authority> authorities){
+    public Set<Authority> addAllAuthorities(@NonNull final Set<Authority> authorities){
 
-        if(null != authorities)
-            authorities.forEach(this::addAuthority);
+        authorities.forEach(this::addAuthority);
 
         return authorities;
     }

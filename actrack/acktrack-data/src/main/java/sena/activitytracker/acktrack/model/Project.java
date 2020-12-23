@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.transaction.annotation.Transactional;
+import sena.activitytracker.acktrack.model.security.BaseSecurityEntity;
 import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.model.security.User;
 
@@ -108,20 +109,16 @@ public class Project extends BaseEntity {
     }
 
     /*Helper methods*/
-    public Set<Issue> addIssues(Set<Issue> issues) {
-
-        if (issues == null || issues.isEmpty())
-            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+    public Set<Issue> addIssues(@NonNull Set<Issue> issues) {
 
         issues.forEach(this::addIssue);
 
         return issues;
     }
 
-    public Issue addIssue(Issue issue) {
+    public Issue addIssue(@NonNull Issue issue) {
 
-        if (issue == null)
-            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
+        this.issues = BaseEntity.checkedSet.apply(this.issues);
 
         this.issues.add(issue);
         issue.setProject(this);
@@ -129,28 +126,22 @@ public class Project extends BaseEntity {
         return issue;
     }
 
-    public Set<User> addUsers(Set<User> users) {
-
-        if (users == null)
-            throw new RuntimeException("Null issue passed for Project id:" + this.getId());
+    public Set<User> addUsers(@NonNull Set<User> users) {
 
         users.forEach(this::addUser);
 
         return users;
     }
 
-    /*todo: check if user exists and only add if not already existing*/
     @Transactional
-    public User addUser(User user) {
+    public User addUser(@NonNull User user) {
 
-        if (user == null)
-            throw new RuntimeException("Null issue passed to addIssue for Project id:" + this.getId());
-        /*if the user already exists,*/
 
-        if (!user.getProjects().stream().anyMatch(project -> project.getId() == this.getId())) {
+        /*if the user already exists don't add - a new user may register update timestamps otherwise*/
+        if(this.users.stream().noneMatch(user1 -> user1.getUsername()==user.getUsername())){
             user.getProjects().add(this);
+            this.users.add(user);
         }
-        this.users.add(user);
 
         return user;
     }

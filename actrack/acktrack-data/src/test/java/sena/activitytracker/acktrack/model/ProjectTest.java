@@ -24,8 +24,8 @@ class ProjectTest extends BaseDomTest {
     @BeforeEach
     void setUp() {
 
-        sergiu= User.builder().givenName("Sergiu").build();
-        mihai = User.builder().givenName("Mihai").build();
+        sergiu= User.builder().givenName("Sergiu").username("sena").build();
+        mihai = User.builder().givenName("Mihai").username("mipo").build();
         users = new HashSet<>();
         users.add(sergiu);
         users.add(mihai);
@@ -91,7 +91,7 @@ class ProjectTest extends BaseDomTest {
     void addIssuesEmpty() {
 
         Set emptySet = new HashSet();
-        Assertions.assertThrows(RuntimeException.class, ()-> project.addIssues(emptySet));
+        assertTrue(project.addIssues(emptySet).isEmpty());
     }
 
 

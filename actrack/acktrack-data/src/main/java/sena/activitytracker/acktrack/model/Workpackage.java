@@ -62,7 +62,7 @@ public class Workpackage extends BaseEntity {
         if(users != null) this.users = users;
     }
 
-    public Activity addActivity(final Activity activity) {
+    public Activity addActivity(@NonNull final Activity activity) {
 
         /* Initialize if null set*/
         this.activities = checkedSet.apply(this.activities);
@@ -73,17 +73,14 @@ public class Workpackage extends BaseEntity {
         return activity;
     }
 
-    public Set<Activity> addActivities(final Set<Activity> activities) {
-
-        if(activities == null)
-            throw new RuntimeException("Null value passed as set of activities to add to workpackage" + this.toString());
+    public Set<Activity> addActivities(@NonNull final Set<Activity> activities) {
 
         activities.forEach(this::addActivity);
 
         return activities;
     }
 
-    public User addUser(final User user) {
+    public User addUser(@NonNull final User user) {
 
         /* Initialize if set*/
         this.users = checkedSet.apply(this.users);
@@ -94,10 +91,9 @@ public class Workpackage extends BaseEntity {
         return user;
     }
 
-    public Set<User> addUsers(final Set<User> users) {
+    public Set<User> addUsers(@NonNull final Set<User> users) {
 
-        if(users != null)
-            users.forEach(this::addUser);
+        users.forEach(this::addUser);
 
         return users;
     }
