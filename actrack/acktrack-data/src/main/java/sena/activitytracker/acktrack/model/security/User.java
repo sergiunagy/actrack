@@ -30,8 +30,9 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
      * Database behavior setup */
     /* Inherited from parent */
 
+
     /***********************************************************************************************
-    * Security instance fields- todo : extract to SecurityUserDetails*/
+    * Security instance fields */
 
     private String username;
     private String password;
@@ -51,7 +52,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private Set<Role> roles = new HashSet<>();
 
     /***********************************************************************************************
-     * Employee details -  todo : extract to EmployeeUserDetails*/
+     * Employee details */
 
     @Column(name = "family_name")
     private String familyName;
