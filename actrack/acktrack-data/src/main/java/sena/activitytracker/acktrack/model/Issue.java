@@ -88,7 +88,7 @@ public class Issue extends BaseEntity {
 
         return workpackages;
     }
-    public Activity addActivity(Activity activity) {
+    public Activity addActivity(@NonNull Activity activity) {
 
         this.activities = BaseEntity.checkedSet.apply(this.activities);
 
@@ -100,7 +100,7 @@ public class Issue extends BaseEntity {
     }
 
 
-    public Set<Activity> addActivities(Set<Activity> activities) {
+    public Set<Activity> addActivities(@NonNull Set<Activity> activities) {
 
         activities.forEach(this::addActivity);
 

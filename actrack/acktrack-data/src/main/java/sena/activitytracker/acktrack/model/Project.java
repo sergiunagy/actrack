@@ -147,7 +147,7 @@ public class Project extends BaseEntity {
     }
 
 
-    private boolean userExistsForProject(User user){
+    private boolean userExistsForProject(@NonNull User user){
 
         return users.stream().anyMatch(usr -> usr.getId()==user.getId());
     }
