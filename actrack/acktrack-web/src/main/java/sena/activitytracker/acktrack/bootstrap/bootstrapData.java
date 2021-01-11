@@ -31,7 +31,6 @@ public class bootstrapData implements CommandLineRunner {
     private final ActivityService activityService;
     private final UserService userService;
     private final RoleService roleService;
-    private final ProjectUserRolesService projectUserRolesService;
 
     public static String TEXT500 = "Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio " +
             "urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper " +
@@ -46,17 +45,15 @@ public class bootstrapData implements CommandLineRunner {
     Activity qualact, revact, bugfixact;
     User sergiu, ade, mihai;
     Role developer_on_alpha, plead_on_alpha, dev_beta, lead_beta;
-    ProjectUserRole pdev_alpha, plead_alpha, pdev_beta, plead_beta;
 
 
     @Autowired
-    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, ActivityService activityRepository, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService) {
+    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, ActivityService activityRepository, UserService userService, RoleService roleService,ActivityService activityService) {
         this.projectService = projectService;
         this.issueService = issueService;
         this.workpackageService = workpackageService;
         this.userService = userService;
         this.roleService = roleService;
-        this.projectUserRolesService = projectUserRolesService;
         this.activityService = activityService;
     }
 
@@ -279,19 +276,16 @@ public class bootstrapData implements CommandLineRunner {
         sergiu = User.builder()
                 .familyName("Nagy")
                 .givenName("Sergiu")
-                .uid("u1")
                 .build();
 
         mihai = User.builder()
                 .familyName("Popa")
                 .givenName("Mihai")
-                .uid("u2")
                 .build();
 
         ade = User.builder()
                 .familyName("Nagy")
                 .givenName("Adelina")
-                .uid("u3")
                 .build();
     }
 

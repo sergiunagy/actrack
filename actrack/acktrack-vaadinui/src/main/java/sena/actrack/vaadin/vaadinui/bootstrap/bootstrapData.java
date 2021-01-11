@@ -35,7 +35,6 @@ public class bootstrapData implements CommandLineRunner {
     private final UserService userService;
     private final RoleService roleService;
     private final AuthorityService authorityService;
-    private final ProjectUserRolesService projectUserRolesService;
 
     /*Users available*/
     Project alpha, beta, gamma;
@@ -54,7 +53,7 @@ public class bootstrapData implements CommandLineRunner {
 
 
     @Autowired
-    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ProjectUserRolesService projectUserRolesService, ActivityService activityService, AuthorityService authorityService) {
+    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ActivityService activityService, AuthorityService authorityService) {
 
         log.info("VAADIN: bootstrap creator..");
         this.projectService = projectService;
@@ -63,7 +62,6 @@ public class bootstrapData implements CommandLineRunner {
         this.authorityService = authorityService;
         this.userService = userService;
         this.roleService = roleService;
-        this.projectUserRolesService = projectUserRolesService;
         this.activityService = activityService;
     }
 

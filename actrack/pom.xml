@@ -6,8 +6,8 @@
 
     <modules>
         <module>acktrack-data</module>
-<!--		<module>acktrack-web</module>-->
-		<module>acktrack-vaadinui</module>
+		<module>acktrack-web</module>
+<!--		<module>acktrack-vaadinui</module>-->
 	</modules>
 
     <parent>

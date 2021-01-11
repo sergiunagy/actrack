@@ -68,9 +68,7 @@ public class Project extends BaseEntity {
 
 
     @Builder
-    public Project(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
-                   String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<Role> roles, Set<User> users, Set<ProjectUserRole> projectUserRoles) {
-
+    public Project(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<User> users) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
@@ -89,6 +87,7 @@ public class Project extends BaseEntity {
         if (issues != null) this.issues = issues;
         if (users != null) this.users = users;
     }
+
 
     @Transient
     public Set<Workpackage> getWorkpackages(){
