@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <!--    Adjust to the device screen size-->
+    <meta name="viewport" content="width= device-width, initial-scale=1.0">
+
+    <title>template_page_w_navbar</title>
+
+    <!--    Bootstrap CSS CDN - link the CSS and mark the relationship as stylesheet-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></head>
+    <!--    Link own, custom css-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--    Get nicer fonts-->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Activities tracker </h3>
+                <h6>administrative</h6>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#" >
+                        <i class="fas fa-home"></i>
+                        Activities
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-briefcase"></i>
+                        Employees
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-briefcase"></i>
+                        Projects
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-briefcase"></i>
+                        Issues
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-briefcase"></i>
+                        Workpackages
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-briefcase"></i>
+                        Reports
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                    <h2>Activities report</h2>
+                </div>
+            </nav>
+
+            <div class="table-header container-fluid">
+                <div class=" row">
+                    <div class="act-desc col-sm">
+                        Id
+                    </div>
+                    <div class="act-desc col-sm">
+                        Short description
+                    </div>
+                    <div class="act-user col-sm">
+                        Assigned user
+                    </div>
+                    <div class="act-wp col-sm">
+                        Workpackage
+                    </div>
+                    <div class="act-iss col-sm">
+                        Issue id
+                    </div>
+                    <div class="act-pj col-sm">
+                        Project id
+                    </div>
+                </div> <!--  End table header -->
+                <div class="line line-table-header"></div>
+
+            </div>
+        </div>
+    </div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="colapsible_nav.js"> </script>
+
+
+</body>
+</html>
