@@ -1,8 +1,5 @@
-/*
-    DEMO STYLE
-*/
-
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+/*Reset margin for all*/
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -16,6 +13,17 @@ p {
     color: #999;
 }
 
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/*Style the Navbar header*/
+.sidebar-header{
+    padding: 20px;
+}
+
 a,
 a:hover,
 a:focus {
@@ -25,12 +33,16 @@ a:focus {
 }
 
 .navbar {
-    padding: 10px 10px;
+    padding-left: 0;
     background: #fff;
     border: none;
     border-radius: 0;
     margin-bottom: 10px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container-fluid{
+    padding-left: 0;
 }
 
 .navbar-btn {
@@ -107,13 +119,6 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
 
 ul ul a {
     font-size: 0.9em !important;
@@ -125,32 +130,15 @@ ul.CTAs {
     padding: 20px;
 }
 
-/*ul.CTAs a {*/
-/*    text-align: center;*/
-/*    font-size: 0.9em !important;*/
-/*    display: block;*/
-/*    border-radius: 5px;*/
-/*    margin-bottom: 5px;*/
-/*}*/
-
-/*a.download {*/
-/*    background: #fff;*/
-/*    color: #7386D5;*/
-/*}*/
-
-/*a.article,*/
-/*a.article:hover {*/
-/*    background: #6d7fcc !important;*/
-/*    color: #fff !important;*/
-/*}*/
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 
 #content {
     width: 100%;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }

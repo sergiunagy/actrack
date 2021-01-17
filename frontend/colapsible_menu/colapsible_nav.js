@@ -5,3 +5,4 @@ document.querySelector('#sidebarCollapse').addEventListener(
   handler=> document.querySelector('#sidebar').classList.toggle('active')
 );
 
+
