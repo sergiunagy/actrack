@@ -10,7 +10,7 @@ public class StartPageController {
 
     @GetMapping({"/","/index", "index.html"})
     public String getIndexPage(){
-
-        return "index";
+        /*TODO : user role identification and predirect to proper landing page*/
+        return "redirect:/administrative"; /*todo: remove - Hardwired to Admin temorarily*/
     }
 }
