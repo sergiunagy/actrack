@@ -75,8 +75,8 @@ public class bootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Web app: Data loader..");
-        bootstrapNActivities(10);
         initData();
+        bootstrapNActivities(10);
     }
 
     private void initData() {
@@ -422,15 +422,18 @@ public class bootstrapData implements CommandLineRunner {
 
         Set<Activity> activities = new HashSet<>();
 
-        IntStream.range(0, MAXRANGE).parallel().forEach(
+        IntStream.range(0, MAXRANGE).forEach(
                 idx -> {
                     activities.add(Activity.builder()
                             .date(LocalDate.now().minusDays((MAXRANGE - idx)))
+                            .duration(Duration.of(7,ChronoUnit.HOURS))
                             .description("activity" + idx)
                             .build());
                 }
         );
-
+        /*set all activities on me :)*/
+        activities.forEach(sergiu::addActivity);
+        userService.save(sergiu);
         activityService.saveAll(activities);
     }
 }

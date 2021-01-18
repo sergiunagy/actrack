@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "activities")
-public class Activity extends BaseEntity {
+public class Activity extends BaseEntity implements Comparable<Activity>{
 
     @Lob
     @Column(name = "description")
@@ -62,5 +62,11 @@ public class Activity extends BaseEntity {
         this.user = user;
 
         return this.user;
+    }
+
+    @Override
+    public int compareTo(Activity comparedActivity) {
+
+        return date.compareTo(comparedActivity.date);
     }
 }
