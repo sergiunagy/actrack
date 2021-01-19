@@ -8,7 +8,9 @@
     <title>Activities overview</title>
 
     <!--    Bootstrap CSS CDN - link the CSS and mark the relationship as stylesheet-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"
+            th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
     <!--    Link own, custom css-->
     <link rel="stylesheet" href="/css/style.css">
 
@@ -32,37 +34,37 @@
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#" >
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-tasks"></i>
                         Activities
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-briefcase"></i>
-                        Employees
+                        <i class="fas fa-user-friends"></i>
+                        Teammates
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-code-branch"></i>
                         Projects
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-unlink"></i>
                         Issues
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-cubes"></i>
                         Workpackages
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-clipboard-list"></i>
                         Reports
                     </a>
                 </li>
@@ -135,11 +137,17 @@
         </div>
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"
+        th:src="@{/webjars/jquery/3.5.1/jquery.slim.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"
+            th:src=" @{/webjars/popper.js/2.5.4/umd/popper.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+            integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"
+            th:href="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}">
+    </script>
+
     <script src="/js/colapsible_nav.js"> </script>
 
 
