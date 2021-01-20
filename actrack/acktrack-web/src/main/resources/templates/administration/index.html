@@ -18,6 +18,7 @@
     <!--    Get nicer fonts-->
     <script defer src="/js/solid.js" ></script>
     <script defer src="/js/fontawesome.js" ></script>
+    <link rel="stylesheet" href="../../static/css/style.css">
 
 </head>
 
@@ -85,12 +86,9 @@
                 </div>
             </nav>
 
-            <div class="container-fluid">
+            <div class="container-fluid grid-striped">
                 <div class="table-header">
                     <div class="row">
-                        <div class="act-desc col-sm">
-                            Id
-                        </div>
                         <div class="act-desc col-sm">
                             Date
                         </div>
@@ -113,9 +111,6 @@
                 </div>
                 <div class="line line-table-header"></div>
                 <div th:each="activity : ${activities}" class="row report-row">
-                    <div th:text="${activity.getId()}" class="act-desc col-sm">
-                        1234
-                    </div>
                     <div th:text="${activity.getDate()}" class="act-desc col-sm">
                         10-02-2019
                     </div>
