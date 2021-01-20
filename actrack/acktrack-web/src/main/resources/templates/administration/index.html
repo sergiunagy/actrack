@@ -85,32 +85,34 @@
                 </div>
             </nav>
 
-            <div class="table-header container-fluid">
-                <div class=" row">
-                    <div class="act-desc col-sm">
-                        Id
-                    </div>
-                    <div class="act-desc col-sm">
-                        Date
-                    </div>
-                    <div class="act-desc col-sm">
-                        Hours Effort
-                    </div>
-                    <div class="act-user col-sm">
-                        Assigned user
-                    </div>
-                    <div class="act-wp col-sm">
-                        Workpackage
-                    </div>
-                    <div class="act-iss col-sm">
-                        Issue id
-                    </div>
-                    <div class="act-pj col-sm">
-                        Project id
-                    </div>
-                </div> <!--  End table header -->
+            <div class="container-fluid">
+                <div class="table-header">
+                    <div class="row">
+                        <div class="act-desc col-sm">
+                            Id
+                        </div>
+                        <div class="act-desc col-sm">
+                            Date
+                        </div>
+                        <div class="act-desc col-sm">
+                            Hours Effort
+                        </div>
+                        <div class="act-user col-sm">
+                            Assigned user
+                        </div>
+                        <div class="act-wp col-sm">
+                            Workpackage
+                        </div>
+                        <div class="act-iss col-sm">
+                            Issue id
+                        </div>
+                        <div class="act-pj col-sm">
+                            Project id
+                        </div>
+                    </div> <!--  End table header -->
+                </div>
                 <div class="line line-table-header"></div>
-                <div th:each="activity : ${activities}" class="row">
+                <div th:each="activity : ${activities}" class="row report-row">
                     <div th:text="${activity.getId()}" class="act-desc col-sm">
                         1234
                     </div>

@@ -4,21 +4,6 @@ body {
     background: #fafafa;
 }
 
-/*#sidebar{*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    font-size: 1.1em;*/
-/*    font-weight: 600;*/
-/*    line-height: 1.7em;*/
-/*    color: #999;*/
-/*}*/
-/*p {*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    font-size: 1.1em;*/
-/*    font-weight: 300;*/
-/*    line-height: 1.7em;*/
-/*    color: #999;*/
-/*}*/
-
 * {
     margin: 0px;
     padding: 0px;
@@ -43,7 +28,6 @@ a:focus {
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 10px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -68,8 +52,18 @@ a:focus {
     margin: 5px 0;
 }
 
-.table-header {
-    margin-bottom: 10px;
+.table-header .row{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #c9bfff;
+    font-weight: bold;
+}
+
+.report-row:hover{
+    background-color: #eaeeff;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
 /* ---------------------------------------------------
