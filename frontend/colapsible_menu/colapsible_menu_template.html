@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <!--    Adjust to the device screen size-->
@@ -10,7 +9,7 @@
     <!--    Bootstrap CSS CDN - link the CSS and mark the relationship as stylesheet-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></head>
     <!--    Link own, custom css-->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../colapsible_menu/css/style.css">
 
     <!--    Get nicer fonts-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -81,42 +80,44 @@
                 </div>
             </nav>
 
-            <div class="table-header container-fluid">
-                <div class=" row">
-                    <div class="act-desc col-sm">
-                        Id
-                    </div>
-                    <div class="act-desc col-sm">
-                        Date
-                    </div>
-                    <div class="act-desc col-sm">
-                        Hours Effort
-                    </div>
-                    <div class="act-user col-sm">
-                        Assigned user
-                    </div>
-                    <div class="act-wp col-sm">
-                        Workpackage
-                    </div>
-                    <div class="act-iss col-sm">
-                        Issue id
-                    </div>
-                    <div class="act-pj col-sm">
-                        Project id
-                    </div>
-                </div> <!--  End table header -->
+            <div class="container-fluid">
+                <div class="table-header">
+                    <div class="row">
+                        <div class="act-desc col-sm">
+                            Id
+                        </div>
+                        <div class="act-desc col-sm">
+                            Date
+                        </div>
+                        <div class="act-desc col-sm">
+                            Hours Effort
+                        </div>
+                        <div class="act-user col-sm">
+                            Assigned user
+                        </div>
+                        <div class="act-wp col-sm">
+                            Workpackage
+                        </div>
+                        <div class="act-iss col-sm">
+                            Issue id
+                        </div>
+                        <div class="act-pj col-sm">
+                            Project id
+                        </div>
+                    </div> <!--  End table header -->
+                </div>
                 <div class="line line-table-header"></div>
-                <div class=" row">
-                    <div class="act-desc col-sm">
+                <div class="row report-row">
+                    <div  class="act-desc col-sm">
                         1234
                     </div>
-                    <div class="act-desc col-sm">
+                    <div  class="act-desc col-sm">
                         10-02-2019
                     </div>
-                    <div class="act-desc col-sm">
+                    <div  class="act-desc col-sm">
                         7
                     </div>
-                    <div class="act-user col-sm">
+                    <div  class="act-user col-sm">
                         Dummy User
                     </div>
                     <div class="act-wp col-sm">
@@ -139,7 +140,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="/js/colapsible_nav.js"> </script>
+
+    <script src="../colapsible_menu/js/colapsible_nav.js"> </script>
 
 
 </body>
