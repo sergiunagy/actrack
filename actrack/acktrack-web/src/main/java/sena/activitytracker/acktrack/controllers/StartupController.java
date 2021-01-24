@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class StartPageController {
+public class StartupController {
 
     @GetMapping({"/","/index", "index.html"})
     public String getIndexPage(){
