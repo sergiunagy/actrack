@@ -3,6 +3,8 @@ package sena.activitytracker.acktrack.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.dtos.ActivityDTO;
+import sena.activitytracker.acktrack.mappers.ActivityMapper;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
 
@@ -11,6 +13,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @AllArgsConstructor
@@ -18,6 +23,17 @@ import java.util.UUID;
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final ActivityMapper activityMapper;
+
+//    public Set<ActivityDTO> listAllActivities(){
+//
+//        Set<ActivityDTO> activityDTOS = new HashSet<>();
+//        activityDTOS = StreamSupport.stream(activityRepository.findAll().spliterator(), false)
+//                .map(activityMapper::toActivityDTO)
+//                .collect(Collectors.toSet());
+//
+//        return activityDTOS;
+//    }
 
     @Override
     public Set<Activity> findAll() {
