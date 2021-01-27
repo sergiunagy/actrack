@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.Activity;
-import sena.activitytracker.acktrack.model.Activity;
-import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
 
 import java.time.LocalDate;
@@ -24,10 +22,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Set<Activity> findAll() {
 
-        Set<Activity> issues = new HashSet<>();
-        activityRepository.findAll().forEach(issues::add);
+        Set<Activity> activities = new HashSet<>();
+        activityRepository.findAll().forEach(activities::add);
 
-        return issues;
+        return activities;
     }
 
     @Override

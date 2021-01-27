@@ -2,11 +2,9 @@ package sena.activitytracker.acktrack.services.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sena.activitytracker.acktrack.model.security.Authority;
-import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.repositories.security.AuthorityRepository;
 
 import java.util.HashSet;

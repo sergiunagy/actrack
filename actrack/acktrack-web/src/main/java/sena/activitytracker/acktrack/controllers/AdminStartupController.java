@@ -5,12 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import sena.activitytracker.acktrack.model.Activity;
-import sena.activitytracker.acktrack.services.ActivityService;
-import sena.activitytracker.acktrack.services.ActivityServiceImpl;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor

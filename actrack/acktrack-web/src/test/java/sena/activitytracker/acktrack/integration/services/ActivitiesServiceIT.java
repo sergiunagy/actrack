@@ -3,25 +3,17 @@ package sena.activitytracker.acktrack.integration.services;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sena.activitytracker.acktrack.bootstrap.bootstrapData;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
-import sena.activitytracker.acktrack.services.ActivityService;
-import sena.activitytracker.acktrack.services.ActivityServiceImpl;
 
-import javax.swing.text.html.Option;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
