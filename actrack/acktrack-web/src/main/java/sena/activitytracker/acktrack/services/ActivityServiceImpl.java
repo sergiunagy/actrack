@@ -25,15 +25,15 @@ public class ActivityServiceImpl implements ActivityService {
     private final ActivityRepository activityRepository;
     private final ActivityMapper activityMapper;
 
-//    public Set<ActivityDTO> listAllActivities(){
-//
-//        Set<ActivityDTO> activityDTOS = new HashSet<>();
-//        activityDTOS = StreamSupport.stream(activityRepository.findAll().spliterator(), false)
-//                .map(activityMapper::toActivityDTO)
-//                .collect(Collectors.toSet());
-//
-//        return activityDTOS;
-//    }
+    public Set<ActivityDTO> listAllActivities(){
+
+        Set<ActivityDTO> activityDTOS = new HashSet<>();
+        activityDTOS = StreamSupport.stream(activityRepository.findAll().spliterator(), false)
+                .map(activityMapper::toActivityDTO)
+                .collect(Collectors.toSet());
+
+        return activityDTOS;
+    }
 
     @Override
     public Set<Activity> findAll() {

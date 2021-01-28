@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.services;
 
+import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
 
 import java.time.LocalDate;
@@ -9,4 +10,5 @@ import java.util.UUID;
 public interface ActivityService extends CrudService<Activity, UUID> {
 
     Set<Activity> findAllActivitiesBetweenDates(LocalDate startDate, LocalDate endDate);
+    Set<ActivityDTO> listAllActivities();
 }

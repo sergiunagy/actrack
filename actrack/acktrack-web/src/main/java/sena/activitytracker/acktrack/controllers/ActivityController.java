@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.services.ActivityService;
 
@@ -25,12 +26,14 @@ public class ActivityController {
 
         /*Phase 1: return an activities report for all users - no DTOs yet
          * todo: in the future we'll implement and intermediate DTO layer to abstract the data module*/
-        Set<Activity> activities = activityService.findAll();
+        Set<ActivityDTO> activities = activityService.listAllActivities();
         /*pass the activities ordered by date:*/
         model.addAttribute("activities",
-                activities.stream()
-                        .sorted()
-                        .collect(Collectors.toList()));
+                activities); /*todo: make sorted again . Need Comparator for DTO*/
+//        model.addAttribute("activities",
+//                activities.stream()
+//                        .sorted()
+//                        .collect(Collectors.toList()));
 
         return LIST_ACTIVITIES_PAGE;
     }
