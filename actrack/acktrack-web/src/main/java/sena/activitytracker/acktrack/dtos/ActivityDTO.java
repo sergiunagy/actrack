@@ -28,8 +28,8 @@ public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO
     private Set<String> workpackageIds = new HashSet<>();
     private Set<String> issueIds = new HashSet<>();
     private Set<String> projectId = new HashSet<>();
-    private User userName;
-    private User userUID;
+    private String userName;
+    private String userUID;
 
     @Override
     public int compareTo(ActivityDTO comparedActivity) {
