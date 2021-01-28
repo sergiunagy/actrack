@@ -3,6 +3,7 @@ package sena.activitytracker.acktrack.dtos;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.model.security.User;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ActivityDTO extends BaseEntityDto{
+public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO>{
 
     private String description;
     private LocalDate date;
@@ -30,4 +31,9 @@ public class ActivityDTO extends BaseEntityDto{
     private User userName;
     private User userUID;
 
+    @Override
+    public int compareTo(ActivityDTO comparedActivity) {
+
+        return date.compareTo(comparedActivity.date);
+    }
 }

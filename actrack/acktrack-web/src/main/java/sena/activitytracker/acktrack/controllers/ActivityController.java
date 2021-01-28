@@ -9,6 +9,7 @@ import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.services.ActivityService;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,12 +29,11 @@ public class ActivityController {
          * todo: in the future we'll implement and intermediate DTO layer to abstract the data module*/
         Set<ActivityDTO> activities = activityService.listAllActivities();
         /*pass the activities ordered by date:*/
+
         model.addAttribute("activities",
-                activities); /*todo: make sorted again . Need Comparator for DTO*/
-//        model.addAttribute("activities",
-//                activities.stream()
-//                        .sorted()
-//                        .collect(Collectors.toList()));
+                activities.stream()
+                        .sorted(Comparator.reverseOrder())
+                        .collect(Collectors.toList()));
 
         return LIST_ACTIVITIES_PAGE;
     }
