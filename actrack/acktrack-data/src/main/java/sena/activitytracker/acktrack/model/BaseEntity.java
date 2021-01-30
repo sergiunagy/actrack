@@ -19,7 +19,7 @@ import java.util.function.Function;
 @Getter
 @NoArgsConstructor
 @MappedSuperclass
-public class BaseEntity  implements Serializable {
+public abstract class BaseEntity  implements Serializable {
 
     /* Using a UUID is an overkill in the base use case. But it also has no observable drawbacks */
     /* docs : https://thorben-janssen.com/generate-uuids-primary-keys-hibernate/ */

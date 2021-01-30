@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class BaseEntityDto {
+public abstract class BaseEntityDto {
 
     /*READ ONLY VALUES*/
     private UUID id;
