@@ -120,7 +120,11 @@
                         Dummy User
                     </div>
                     <div class="act-wp col-sm">
-                        Dummy Workpackage
+                        <div th:each="wpId : ${activity.getWorkpackageIds()}" class="row cell-row" >
+                            <div th:text="${wpId}" class="act-wp-id">
+                                dummy_wp_id
+                            </div>
+                        </div>
                     </div>
                     <div class="act-iss col-sm">
                         1234456789
