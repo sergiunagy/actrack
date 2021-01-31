@@ -43,7 +43,7 @@ public class bootstrapData implements CommandLineRunner {
     /*Users available*/
     Project alpha, beta, gamma;
     Issue quality, review, bugfix;
-    Workpackage qualfix, revido, bugfixdo;
+    Workpackage wp1, wp2, wp3, wp4;
     Activity qualact, revact, bugfixact;
 
     User        sergiu, ade, mihai, cicero, maximus;
@@ -108,12 +108,12 @@ public class bootstrapData implements CommandLineRunner {
         alpha.addIssue(quality);
 
         // add wp
-        quality.getWorkpackages().add(qualfix);
+        quality.getWorkpackages().add(wp1);
         // add activity
         quality.getActivities().add(qualact);
 
         /* configure wps for alpha*/
-        qualfix.addActivity(qualact);
+        wp1.addActivity(qualact);
 
         /* configure activities for alpha */
         sergiu.addActivity(qualact);
@@ -134,8 +134,9 @@ public class bootstrapData implements CommandLineRunner {
         beta.addIssue(bugfix);
 
         // add wp
-        review.getWorkpackages().add(revido);
-        bugfix.getWorkpackages().add(bugfixdo);
+        review.getWorkpackages().add(wp2);
+        bugfix.getWorkpackages().add(wp3);
+        bugfix.getWorkpackages().add(wp4);
 
         // add activity
         bugfix.getActivities().add(bugfixact);
@@ -143,8 +144,9 @@ public class bootstrapData implements CommandLineRunner {
         review.getActivities().add(revact);
 
         /* configure wps for alpha*/
-        revido.getActivities().add(revact);
-        bugfixdo.getActivities().add(bugfixact);
+        wp2.getActivities().add(revact);
+        wp3.getActivities().add(bugfixact);
+        wp4.getActivities().add(bugfixact);
 
 
         /* configure activities for alpha */
@@ -330,20 +332,26 @@ public class bootstrapData implements CommandLineRunner {
 
     private void initWorkpackages() {
 
-        qualfix = workpackageService.save(Workpackage.builder()
+        wp1 = workpackageService.save(Workpackage.builder()
                 .name("fix quality")
                 .description("fix quality on alpha")
                 .build());
 
-        revido = workpackageService.save(Workpackage.builder()
+        wp2 = workpackageService.save(Workpackage.builder()
                 .name("do reviews")
                 .description("do reviews on beta")
                 .build());
 
-        bugfixdo = workpackageService.save(Workpackage.builder()
+        wp3 = workpackageService.save(Workpackage.builder()
                 .name("do bugfixing")
                 .description("do bugfixing on beta")
                 .build());
+
+        wp4 = workpackageService.save(Workpackage.builder()
+                .name("Extra wp4")
+                .description("Wp4 description")
+                .build());
+
     }
 
 
