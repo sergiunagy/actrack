@@ -42,7 +42,7 @@ public class bootstrapData implements CommandLineRunner {
 
     /*Users available*/
     Project alpha, beta, gamma;
-    Issue quality, review, bugfix;
+    Issue iss1, iss2, iss3, iss4;
     Workpackage wp1, wp2, wp3, wp4;
     Activity qualact, revact, bugfixact;
 
@@ -105,12 +105,12 @@ public class bootstrapData implements CommandLineRunner {
         alpha.addUser(mihai);
 
         // has a quality issue
-        alpha.addIssue(quality);
+        alpha.addIssue(iss1);
 
         // add wp
-        quality.getWorkpackages().add(wp1);
+        iss1.getWorkpackages().add(wp1);
         // add activity
-        quality.getActivities().add(qualact);
+        iss1.getActivities().add(qualact);
 
         /* configure wps for alpha*/
         wp1.addActivity(qualact);
@@ -130,18 +130,21 @@ public class bootstrapData implements CommandLineRunner {
         beta.addUser(ade);
 
         // has a quality and a bug issues
-        beta.addIssue(review);
-        beta.addIssue(bugfix);
+        beta.addIssue(iss2);
+        beta.addIssue(iss3);
+        beta.addIssue(iss4);
 
         // add wp
-        review.getWorkpackages().add(wp2);
-        bugfix.getWorkpackages().add(wp3);
-        bugfix.getWorkpackages().add(wp4);
+        iss2.getWorkpackages().add(wp2);
+        iss3.getWorkpackages().add(wp3);
+        iss3.getWorkpackages().add(wp4);
+        iss4.getWorkpackages().add(wp2);
 
         // add activity
-        bugfix.getActivities().add(bugfixact);
-        bugfix.getActivities().add(revact);  // assume the review affects a bugfix so we get more complexity
-        review.getActivities().add(revact);
+        iss4.getActivities().add(revact);
+        iss3.getActivities().add(bugfixact);
+        iss3.getActivities().add(revact);  // assume the review affects a bugfix so we get more complexity
+        iss2.getActivities().add(revact);
 
         /* configure wps for alpha*/
         wp2.getActivities().add(revact);
@@ -356,20 +359,26 @@ public class bootstrapData implements CommandLineRunner {
 
 
     private void initIssues() {
-        quality = issueService.save(Issue.builder()
+        iss1 = issueService.save(Issue.builder()
                 .issue_id("14a8")
                 .description("quality issue alpha")
                 .link("url quality")
                 .build());
 
-        review = issueService.save(Issue.builder()
-                .issue_id("aaaa")
+        iss2 = issueService.save(Issue.builder()
+                .issue_id("222a")
                 .description("review issue beta")
                 .link("url review")
                 .build());
 
-        bugfix = issueService.save(Issue.builder()
+        iss3 = issueService.save(Issue.builder()
                 .issue_id("111a")
+                .description("bug issue beta")
+                .link("url bug")
+                .build());
+
+        iss4 = issueService.save(Issue.builder()
+                .issue_id("444a")
                 .description("bug issue beta")
                 .link("url bug")
                 .build());
@@ -428,19 +437,37 @@ public class bootstrapData implements CommandLineRunner {
         int MAXRANGE = n; //days
 
         Set<Activity> activities = new HashSet<>();
+        Set<Issue> issues = new HashSet<>();
+        Set<Workpackage> workpackages = new HashSet<>();
 
         IntStream.range(0, MAXRANGE).forEach(
                 idx -> {
-                    activities.add(Activity.builder()
+                    Activity act = activityService.save(Activity.builder()
                             .date(LocalDate.now().minusDays((MAXRANGE - idx)))
-                            .duration(Duration.of(7,ChronoUnit.HOURS))
+                            .duration(Duration.of(6,ChronoUnit.HOURS))
                             .description("activity" + idx)
                             .build());
+
+                    Issue iss = issueService.save(Issue.builder()
+                            .description("Issue"+idx)
+                            .link("Issue review")
+                            .build());
+
+                    Workpackage wp  = workpackageService.save(Workpackage.builder()
+                            .name("Extra wp " + idx)
+                            .description("generated dummy "+idx)
+                            .build());
+
+                    iss.addWorkpackage(wp);
+                    wp.addActivity(act);
+                    /*set all dummy activities on me :)*/
+                    sergiu.addActivity(act);
+
+                    issueService.save(iss);
+                    workpackageService.save(wp);
+                    userService.save(sergiu);
+                    activityService.save(act);
                 }
         );
-        /*set all activities on me :)*/
-        activities.forEach(sergiu::addActivity);
-        userService.save(sergiu);
-        activityService.saveAll(activities);
     }
 }

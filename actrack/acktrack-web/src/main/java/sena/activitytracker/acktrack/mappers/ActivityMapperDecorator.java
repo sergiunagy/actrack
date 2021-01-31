@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Workpackage;
 
 import java.util.HashSet;
@@ -32,6 +33,8 @@ public abstract class ActivityMapperDecorator implements ActivityMapper{
         if( userName != null)  activityDTO.setUserName(userName);
         /* workpackage ids*/
         activityDTO.setWorkpackageIds(assembleworkpackageIds(activity.getWorkpackages()));
+        /* issue ids */
+        activityDTO.setIssueIds(assembleIssueIds(activity.getIssues()));
 
         return activityDTO;
     }
@@ -60,9 +63,20 @@ public abstract class ActivityMapperDecorator implements ActivityMapper{
         Set<String> wpids = new HashSet<>();
 
         if( workpackages !=null){
-            workpackages.forEach(workpackage -> wpids.add(workpackage.getId().toString()));
+            workpackages.forEach(workpackage -> wpids.add(workpackage.getName()));
         }
 
         return wpids;
+    }
+
+    private Set<String> assembleIssueIds(Set<Issue> issues){
+
+        Set<String> issueIds = new HashSet<>();
+
+        if( issues !=null){
+            issues.forEach(issue -> issueIds.add(issue.getIssue_id()));
+        }
+
+        return issueIds;
     }
 }
