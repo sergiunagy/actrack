@@ -127,7 +127,11 @@
                         </div>
                     </div>
                     <div class="act-iss col-sm">
-                        1234456789
+                        <div th:each="issId : ${activity.getIssueIds()}" class="row cell-row" >
+                            <div th:text="${issId}" class="act-wp-id">
+                                dummy_issue_id
+                            </div>
+                        </div>
                     </div>
                     <div class="act-pj col-sm">
                         1234456789
