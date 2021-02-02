@@ -27,9 +27,9 @@ public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO
     /* Properties requiring assembly*/
     private Set<String> workpackageIds = new HashSet<>();
     private Set<String> issueIds = new HashSet<>();
-    private Set<String> projectId = new HashSet<>();
+    private Set<String> projectIds = new HashSet<>();
     private String userName;
-    private String userUID;
+    private String userUID; /*TODO: should this be output to the UI ?*/
 
     @Override
     public int compareTo(ActivityDTO comparedActivity) {

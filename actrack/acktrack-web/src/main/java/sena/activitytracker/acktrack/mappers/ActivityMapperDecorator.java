@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Issue;
+import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.model.Workpackage;
 
 import java.util.HashSet;
@@ -35,8 +36,26 @@ public abstract class ActivityMapperDecorator implements ActivityMapper{
         activityDTO.setWorkpackageIds(assembleworkpackageIds(activity.getWorkpackages()));
         /* issue ids */
         activityDTO.setIssueIds(assembleIssueIds(activity.getIssues()));
-
+        /* project ids*/
+        activityDTO.setProjectIds(assembleProjectIds(activity));
         return activityDTO;
+    }
+
+    /*
+    Walk the Activity owner hierarchy tree to the owning project
+    - one Activity should only have one project. But if there is an error and several
+    projects are associated, this should NOT crash the app.
+    TODO: investigate protecting against multiple Proj to an activity
+    * */
+    private Set<String> assembleProjectIds(Activity activity) {
+
+        Set<String> projectIds = new HashSet<>();
+
+        activity.getIssues().stream()
+                .map(Issue::getProject)
+                .forEach(project -> projectIds.add(project.getId().toString()));
+
+        return projectIds;
     }
 
     /*
