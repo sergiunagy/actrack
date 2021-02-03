@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Controller
 public class ActivityController {
-    private static final String LIST_ACTIVITIES_PAGE = "/overview/administrative_overview";
+    private static final String LIST_ACTIVITIES_PAGE = "/activities/activities_list";
 
     private final ActivityService activityService;
 
