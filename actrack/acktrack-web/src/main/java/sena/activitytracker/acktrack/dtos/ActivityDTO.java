@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.dtos;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,19 @@ public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO
     private Set<String> projectIds = new HashSet<>();
     private String userName;
     private String userUID; /*TODO: should this be output to the UI ?*/
+
+    @Builder
+    public ActivityDTO(String description, LocalDate date, Duration duration, Boolean isExported, Set<String> workpackageIds, Set<String> issueIds, Set<String> projectIds, String userName, String userUID) {
+        this.description = description;
+        this.date = date;
+        this.duration = duration;
+        this.isExported = isExported;
+        this.workpackageIds = workpackageIds;
+        this.issueIds = issueIds;
+        this.projectIds = projectIds;
+        this.userName = userName;
+        this.userUID = userUID;
+    }
 
     @Override
     public int compareTo(ActivityDTO comparedActivity) {
