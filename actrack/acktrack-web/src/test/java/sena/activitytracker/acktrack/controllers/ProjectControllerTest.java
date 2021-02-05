@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import sena.activitytracker.acktrack.dtos.ProjectDTO;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.services.ProjectService;
 
@@ -26,7 +27,7 @@ class ProjectControllerTest {
     /*TODO : switch to DTOs after implementation*/
     public static final String LIST_PROJECTS_PAGE = "/projects/projects_list";
 
-    Set<Project> projectSet;
+    Set<ProjectDTO> projectSet;
 
     @Mock
     ProjectService projectService;
@@ -39,8 +40,8 @@ class ProjectControllerTest {
     void setUp() {
         /*Set of mock projects*/
         projectSet = new HashSet<>();
-        projectSet.add(Project.builder().actualStartDate(LocalDate.now()).build());
-        projectSet.add(Project.builder().actualStartDate(LocalDate.now()).build());
+        projectSet.add(ProjectDTO.builder().actualStartDate(LocalDate.now()).build());
+        projectSet.add(ProjectDTO.builder().actualStartDate(LocalDate.now()).build());
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(projectController)

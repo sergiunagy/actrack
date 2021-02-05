@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sena.activitytracker.acktrack.dtos.ProjectDTO;
+import sena.activitytracker.acktrack.mappers.ProjectMapper;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.repositories.ProjectRepository;
 
@@ -27,6 +29,8 @@ class ProjectServiceImplTest extends BaseServiceTest{
 
     Project alpha, beta;
     Set<Project> projectSet=new HashSet<>();
+    ProjectMapper projectMapper;
+
 
     @BeforeEach
     void setUp() {
@@ -70,7 +74,7 @@ class ProjectServiceImplTest extends BaseServiceTest{
 
         when(projectRepository.findAll()).thenReturn(projectSet);
 
-        Set<Project> foundProjects = projectService.findAll();
+        Set<ProjectDTO> foundProjects = projectService.findAll();
 
         assertNotNull(foundProjects);
         assertEquals(2, foundProjects.size());
@@ -82,7 +86,7 @@ class ProjectServiceImplTest extends BaseServiceTest{
     void findById() {
         when(projectRepository.findById(any())).thenReturn(Optional.of(alpha));
 
-        Optional<Project> foundProjectOptional = projectService.findById(alpha.getId());
+        Optional<ProjectDTO> foundProjectOptional = projectService.findById(alpha.getId());
 
         assertTrue(foundProjectOptional.isPresent());
         assertTrue(alpha.getId().equals(foundProjectOptional.get().getId()));
@@ -94,7 +98,7 @@ class ProjectServiceImplTest extends BaseServiceTest{
 
         when(projectRepository.save(any(Project.class))).thenReturn(alpha);
 
-        Project foundProject = projectService.save(alpha);
+        ProjectDTO foundProject = projectService.save(projectMapper.toProjectDTO(alpha));
 
         assertNotNull(foundProject);
         assertTrue(alpha.getId().equals(foundProject.getId()));
@@ -105,7 +109,10 @@ class ProjectServiceImplTest extends BaseServiceTest{
     void saveAll() {
         when(projectRepository.saveAll(any(Set.class))).thenReturn(projectSet);
 
-        Set<Project> foundProjects = projectService.saveAll(projectSet);
+        Set<ProjectDTO> dtos = new HashSet<>();
+        projectSet.forEach(project -> dtos.add(projectMapper.toProjectDTO(project)));
+
+        Set<ProjectDTO> foundProjects = projectService.saveAll(dtos);
 
         assertNotNull(foundProjects);
         assertEquals(2, foundProjects.size());
@@ -115,7 +122,7 @@ class ProjectServiceImplTest extends BaseServiceTest{
     @Test
     void delete() {
 
-        projectService.delete(alpha);
+        projectService.delete(projectMapper.toProjectDTO(alpha));
 
         verify(projectRepository, times(1)).delete(any());
     }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import sena.activitytracker.acktrack.dtos.ProjectDTO;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.services.ProjectService;
 
@@ -23,7 +24,7 @@ public class ProjectController {
     public String listProjects(Model model){
 
         /*TODO: replace with DTO*/
-        Set<Project> projects = projectService.findAll();
+        Set<ProjectDTO> projects = projectService.findAll();
 
         model.addAttribute("projects", projects); /*todo: sort by creation date*/
 

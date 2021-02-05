@@ -9,6 +9,7 @@ import sena.activitytracker.acktrack.model.*;
 import sena.activitytracker.acktrack.model.security.Authority;
 import sena.activitytracker.acktrack.model.security.Role;
 import sena.activitytracker.acktrack.model.security.User;
+import sena.activitytracker.acktrack.repositories.ProjectRepository;
 import sena.activitytracker.acktrack.services.*;
 import sena.activitytracker.acktrack.services.security.AuthorityService;
 import sena.activitytracker.acktrack.services.security.RoleService;
@@ -32,7 +33,7 @@ public class bootstrapData implements CommandLineRunner {
             "Vivamus luctus egestas leo. Maecenas sollicitudin. Nullam rhoncus aliquam met";
 
     /*Injected repository handles*/
-    private final ProjectService projectService;
+    private final ProjectRepository projectService;
     private final IssueService issueService;
     private final WorkpackageService workpackageService;
     private final ActivityService activityService;
@@ -57,7 +58,7 @@ public class bootstrapData implements CommandLineRunner {
 
 
     @Autowired
-    public bootstrapData(ProjectService projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ActivityService activityService, AuthorityService authorityService) {
+    public bootstrapData(ProjectRepository projectService, IssueService issueService, WorkpackageService workpackageService, UserService userService, RoleService roleService, ActivityService activityService, AuthorityService authorityService) {
 
         log.info("VAADIN: bootstrap creator..");
         this.projectService = projectService;
