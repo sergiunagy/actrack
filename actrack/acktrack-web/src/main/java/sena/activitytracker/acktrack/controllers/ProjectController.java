@@ -9,7 +9,9 @@ import sena.activitytracker.acktrack.dtos.ProjectDTO;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.services.ProjectService;
 
+import java.util.Comparator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -23,10 +25,13 @@ public class ProjectController {
     @GetMapping("/list_projects")
     public String listProjects(Model model){
 
-        /*TODO: replace with DTO*/
         Set<ProjectDTO> projects = projectService.findAll();
 
-        model.addAttribute("projects", projects); /*todo: sort by creation date*/
+        model.addAttribute("projects",
+                projects.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList())
+        );
 
         return LIST_PROJECTS_PAGE;
     }

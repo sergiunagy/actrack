@@ -53,7 +53,7 @@ public abstract class ActivityMapperDecorator implements ActivityMapper{
 
         activity.getIssues().stream()
                 .map(Issue::getProject)
-                .forEach(project -> projectIds.add(project.getId().toString()));
+                .forEach(project -> projectIds.add(project.getName()));
 
         return projectIds;
     }

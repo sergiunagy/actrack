@@ -22,7 +22,7 @@
 </head>
 
 <body>
-<!--/*@thymesVar id="projects" type="java.util.List<sena.activitytracker.acktrack.model.Project>"*/-->
+<!--/*@thymesVar id="projects" type="java.util.List<sena.activitytracker.acktrack.dtos.ProjectDTO>"*/-->
 
 <div class="wrapper">
     <!-- Sidebar  -->
@@ -131,13 +131,13 @@
                 <div th:text="${project.getMainLocation()}" class="act-loc col-sm">
                     Location
                 </div>
-                <div class="act-nois col-sm">
+                <div th:text="${project.getNoOpenIssues()}" class="act-nois col-sm">
                     Number Open Issues
                 </div>
-                <div class="act-notm col-sm">
+                <div th:text="${project.getNoTeamMembers()}" class="act-notm col-sm">
                     Number Team-members
                 </div>
-                <div class="act-hrs col-sm">
+                <div th:text="${project.getHoursWorked()}" class="act-hrs col-sm">
                     Hours worked
                 </div>
             </div>
