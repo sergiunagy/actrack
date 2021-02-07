@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sena.activitytracker.acktrack.dtos.ProjectDTO;
 import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Project;
 
 import java.util.Optional;
@@ -55,7 +56,11 @@ public abstract class ProjectMapperDecorator implements ProjectMapper{
     }
 
     private int getTeamMembersCount(Project project) {
-        return (int) project.getUsers().stream()
+        return (int) project.getIssues().stream()
+                .flatMap(issue -> issue.getWorkpackages().stream())
+                .flatMap(workpackage -> workpackage.getActivities().stream())
+                .map(activity -> activity.getUser())
+                .distinct()
                 .count();
     }
 
