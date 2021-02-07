@@ -61,7 +61,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private String givenName;
 
     /*Todo: Lazy load for activities. Also batch the load by date*/
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user") /* remove activities if user is removed ? */
      private Set<Activity> activities = new HashSet<>();
 
     /* Eager fetching - JOIN fetches may return duplicates so type should be Set:

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import sena.activitytracker.acktrack.bootstrap.bootstrapData;
+import sena.activitytracker.acktrack.bootstrap.BootstrapData_obsolete;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.repositories.ActivityRepository;
 
@@ -41,13 +41,13 @@ public class ActivitiesServiceIT {
     @Test
     void saveLargeTextActivity() {
 
-        String expectedText = bootstrapData.TEXT500 + "5A5A";
+        String expectedText = BootstrapData_obsolete.TEXT500 + "5A5A";
 
         LocalDate date = LocalDate.of(2020, 8, 14);
         Activity largeTextActivity = Activity.builder()
                 .duration(Duration.of(8, ChronoUnit.HOURS))
                 .date(date)
-                .description(bootstrapData.TEXT500+"5A5A")
+                .description(BootstrapData_obsolete.TEXT500+"5A5A")
                 .isExported(false)
                 .build();
 
