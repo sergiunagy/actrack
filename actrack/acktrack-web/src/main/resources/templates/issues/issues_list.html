@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--    Adjust to the device screen size-->
+    <meta name="viewport" content="width= device-width, initial-scale=1.0">
+
+    <title>Issues list</title>
+
+    <!--    Bootstrap CSS CDN - link the CSS and mark the relationship as stylesheet-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <!--    Link own, custom css-->
+    <link rel="stylesheet" href="/css/googleapifonts.css" type="text/css"></link>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--    Get nicer fonts-->
+    <script defer src="/js/solid.js" ></script>
+    <script defer src="/js/fontawesome.js" ></script>
+
+</head>
+
+<body>
+<!--Temporary link direct to Issue until DTO is setup-->
+<!--/*@thymesVar id="issues" type="java.util.List<sena.activitytracker.acktrack.model.Issue>"*/-->
+
+<!--/*@thymesVar id="projects" type="java.util.List<sena.activitytracker.acktrack.dtos.ProjectDTO>"*/-->
+
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Activities tracker </h3>
+            <h6>administrative</h6>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="/list_activities" >
+                    <i class="fas fa-tasks"></i>
+                    Activities
+                </a>
+            </li>
+            <li>
+                <a href="/list_teammates">
+                    <i class="fas fa-user-friends"></i>
+                    Teammates
+                </a>
+            </li>
+            <li class="active">
+                <a href="/list_projects">
+                    <i class="fas fa-code-branch"></i>
+                    Projects
+                </a>
+            </li>
+            <li>
+                <a href="/list_issues">
+                    <i class="fas fa-unlink"></i>
+                    Issues
+                </a>
+            </li>
+            <li>
+                <a href="/list_workpackages">
+                    <i class="fas fa-cubes"></i>
+                    Workpackages
+                </a>
+            </li>
+            <li>
+                <a href="/list_reports">
+                    <i class="fas fa-clipboard-list"></i>
+                    Reports
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn">
+                    <i class="fas fa-align-left"></i>
+                </button>
+                <h2>Projects report</h2>
+            </div>
+        </nav>
+
+        <div class="container-fluid grid-striped">
+            <div class="table-header">
+                <div class="row">
+                    <div class="iss-id col-sm">
+                        Issue ID
+                    </div>
+                    <div class="iss-desc col-sm">
+                        Short Description
+                    </div>
+                    <div class="iss-tl col-sm">
+                        Tool link
+                    </div>
+                    <div class="iss-dt col-sm">
+                        Created on
+                    </div>
+                    <div class="iss-prj col-sm">
+                        Project id
+                    </div>
+                    <div class="iss-nowp col-sm">
+                        Number Workpackages
+                    </div>
+                    <div class="iss-noac col-sm">
+                        Number Activities
+                    </div>
+                    <div class="iss-hrs col-sm">
+                        Hours worked
+                    </div>
+                    <div class="iss-stat col-sm">
+                        Status
+                    </div>
+                </div> <!--  End table header -->
+            </div>
+            <div class="line line-table-header"></div>
+            <div th:each="issue : ${issues}" class="row report-row">
+                <div th:text="${issue.getIssue_id()}" class="iss-id col-sm">
+                    iss_id
+                </div>
+                <div th:text="${issue.getShortName()}" class="iss-desc col-sm">
+                   Description template for issues . Charcter limitation ?
+                </div>
+                <div th:text="${issue.getLink()}"class="iss-tl col-sm">
+                    Tool link
+                </div>
+                <div th:text="${issue.getCreatedDate()}" class="iss-dt col-sm">
+                    Created on
+                </div>
+                <div class="iss-prj col-sm">
+                    Project id
+                </div>
+                <div class="iss-nowp col-sm">
+                    Number Workpackages
+                </div>
+                <div class="iss-noac col-sm">
+                    Number Activities
+                </div>
+                <div class="iss-hrs col-sm">
+                    Hours worked
+                </div>
+                <div th:text="${issue.getClosedDate()}" class="iss-stat col-sm">
+                    Status - 'OPEN' or date of closure
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"
+        th:src="@{/webjars/jquery/3.5.1/jquery.slim.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"
+        th:src=" @{/webjars/popper.js/2.5.4/umd/popper.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"
+        th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}">
+</script>
+
+<script src="/js/colapsible_nav.js"> </script>
+
+
+</body>
+</html>
