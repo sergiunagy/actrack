@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import sena.activitytracker.acktrack.dtos.IssueDTO;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.services.IssueService;
 
@@ -26,7 +27,7 @@ class IssueControllerTest {
     public static final String LIST_ISSUES_PAGE = "/issues/issues_list";
 
 
-    Set<Issue> issueSet = new HashSet<>();
+    Set<IssueDTO> issueSet = new HashSet<>();
 
 
     @Mock
@@ -41,8 +42,8 @@ class IssueControllerTest {
     void setUp() {
         /* Create a list of Issues to be returned with the mock service */
         /*Todo change from Issue to IssueDTO*/
-        issueSet.add(Issue.builder().issue_id("Issue1").build());
-        issueSet.add(Issue.builder().issue_id("Issue2").build());
+        issueSet.add(IssueDTO.builder().issue_id("Issue1").build());
+        issueSet.add(IssueDTO.builder().issue_id("Issue2").build());
 
         mockMvc = MockMvcBuilders.standaloneSetup(issueController).build();
     }

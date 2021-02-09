@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sena.activitytracker.acktrack.dtos.IssueDTO;
+import sena.activitytracker.acktrack.mappers.IssueMapper;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.repositories.IssueRepository;
 
@@ -29,6 +31,7 @@ class IssueServiceImplTest extends BaseServiceTest{
 
     Issue review, quality;
     Set<Issue> issueSet =new HashSet<>();
+    IssueMapper issueMapper;
 
     @BeforeEach
     void setUp() {
@@ -57,7 +60,7 @@ class IssueServiceImplTest extends BaseServiceTest{
 
         when(issueRepository.findAll()).thenReturn(issueSet);
 
-        Set<Issue> foundIssues = issueService.findAll();
+        Set<IssueDTO> foundIssues = issueService.findAll();
 
         assertNotNull(foundIssues);
         assertEquals(2, foundIssues.size());
@@ -69,7 +72,7 @@ class IssueServiceImplTest extends BaseServiceTest{
     void findById() {
         when(issueRepository.findById(any())).thenReturn(Optional.of(review));
 
-        Optional<Issue> foundIssueOptional = issueService.findById(review.getId());
+        Optional<IssueDTO> foundIssueOptional = issueService.findById(review.getId());
 
         assertTrue(foundIssueOptional.isPresent());
         assertTrue(review.getId().equals(foundIssueOptional.get().getId()));
@@ -81,7 +84,7 @@ class IssueServiceImplTest extends BaseServiceTest{
 
         when(issueRepository.save(any(Issue.class))).thenReturn(review);
 
-        Issue foundIssue = issueService.save(review);
+        IssueDTO foundIssue = issueService.save(issueMapper.toIssueDTO(review));
 
         assertNotNull(foundIssue);
         assertTrue(review.getId().equals(foundIssue.getId()));
@@ -91,8 +94,9 @@ class IssueServiceImplTest extends BaseServiceTest{
     @Test
     void saveAll() {
         when(issueRepository.saveAll(any(Set.class))).thenReturn(issueSet);
-
-        Set<Issue> foundIssues = issueService.saveAll(issueSet);
+        Set<IssueDTO> issueDTOSet = new HashSet<>();
+        issueSet.forEach(issue -> issueDTOSet.add(issueMapper.toIssueDTO(issue)));
+        Set<IssueDTO> foundIssues = issueService.saveAll(issueDTOSet);
 
         assertNotNull(foundIssues);
         assertEquals(2, foundIssues.size());
@@ -102,7 +106,7 @@ class IssueServiceImplTest extends BaseServiceTest{
     @Test
     void delete() {
 
-        issueService.delete(review);
+        issueService.delete(issueMapper.toIssueDTO(review));
 
         verify(issueRepository, times(1)).delete(any());
     }

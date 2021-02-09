@@ -6,10 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import sena.activitytracker.acktrack.dtos.IssueDTO;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.services.IssueService;
 
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -22,9 +25,9 @@ public class IssueController {
     @GetMapping("/list_issues")
     public String listIssues(Model model){
 
-        Set<Issue> issueSet = issueService.findAll();
-        /*TODO : to DTO list ordered by creation date*/
-        model.addAttribute("issues", issueSet);
+        Set<IssueDTO> issueSet = issueService.findAll();
+
+        model.addAttribute("issues", issueSet.stream().collect(Collectors.toCollection(TreeSet::new)));
 
         return LIST_ISSUES_PAGE;
     }

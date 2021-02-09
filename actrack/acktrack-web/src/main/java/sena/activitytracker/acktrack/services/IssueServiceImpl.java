@@ -1,9 +1,14 @@
 package sena.activitytracker.acktrack.services;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.dtos.IssueDTO;
+import sena.activitytracker.acktrack.dtos.ProjectDTO;
+import sena.activitytracker.acktrack.mappers.IssueMapper;
 import sena.activitytracker.acktrack.model.Issue;
+import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.repositories.IssueRepository;
 
 import java.util.HashSet;
@@ -17,41 +22,52 @@ import java.util.UUID;
 public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
+    private final IssueMapper issueMapper;
 
     @Override
-    public Set<Issue> findAll() {
+    public Set<IssueDTO> findAll() {
+        Set<IssueDTO> issueDTOSet = new HashSet<>();
+
+        issueRepository.findAll().forEach(
+                issue -> issueDTOSet.add(
+                        issueMapper.toIssueDTO(issue)));
+
+        return issueDTOSet;
+    }
+
+    @Override
+    public Optional<IssueDTO> findById(@NonNull UUID id) {
+
+        Optional<Issue> issueOptional = issueRepository.findById(id);
+
+        return Optional.of(issueMapper.toIssueDTO(issueOptional.get())); /* If we get a null behind the optional return that*/
+    }
+
+    @Override
+    public IssueDTO save(@NonNull IssueDTO issueDTO) {
+
+        Issue savedIssue = issueRepository.save(issueMapper.toIssue(issueDTO));
+
+        return issueMapper.toIssueDTO(savedIssue);
+    }
+
+    @Override
+    public Set<IssueDTO> saveAll(Set<IssueDTO> issueDTOs) {
+
         Set<Issue> issues = new HashSet<>();
+        Set<IssueDTO> savedIssueDTOs = new HashSet<>();
 
-        issueRepository.findAll().forEach(issues::add);
+        issueDTOs.forEach(issueDTO -> issues.add(issueMapper.toIssue(issueDTO)));
 
-        return issues;
+        issueRepository.saveAll(issues).forEach(issue -> savedIssueDTOs.add(issueMapper.toIssueDTO(issue)));
+
+        return savedIssueDTOs;
     }
 
     @Override
-    public Optional<Issue> findById(UUID id) {
+    public void delete(IssueDTO issueDTO) {
 
-        return issueRepository.findById(id);
-    }
-
-    @Override
-    public Issue save(Issue issue) {
-
-        return issueRepository.save(issue);
-    }
-
-    @Override
-    public Set<Issue> saveAll(Set<Issue> issues) {
-        Set<Issue> retIssues = new HashSet<>();
-
-        issueRepository.saveAll(issues).forEach(retIssues::add);
-
-        return retIssues;
-    }
-
-    @Override
-    public void delete(Issue issue) {
-
-        issueRepository.delete(issue);
+        issueRepository.delete(issueMapper.toIssue(issueDTO));
     }
 
     @Override
