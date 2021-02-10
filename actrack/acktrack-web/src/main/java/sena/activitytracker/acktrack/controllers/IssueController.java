@@ -10,6 +10,7 @@ import sena.activitytracker.acktrack.dtos.IssueDTO;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.services.IssueService;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -27,7 +28,10 @@ public class IssueController {
 
         Set<IssueDTO> issueSet = issueService.findAll();
 
-        model.addAttribute("issues", issueSet.stream().collect(Collectors.toCollection(TreeSet::new)));
+        model.addAttribute("issues",
+                issueSet.stream()
+                        .sorted(Comparator.reverseOrder())
+                        .collect(Collectors.toList()));
 
         return LIST_ISSUES_PAGE;
     }

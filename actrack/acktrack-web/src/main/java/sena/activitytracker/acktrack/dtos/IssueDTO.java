@@ -1,9 +1,6 @@
 package sena.activitytracker.acktrack.dtos;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Project;
@@ -41,7 +38,7 @@ public class IssueDTO extends BaseEntityDto implements Comparable<IssueDTO>{
     private int hoursWorked;
 
     @Builder
-    public IssueDTO(String issue_id, String shortName, String description, String link, LocalDate createdDate, LocalDate closedDate, String projectName, int noOfActivities, int noOfWorkpackages, int hoursWorked) {
+    public IssueDTO(@NonNull String issue_id, String shortName, String description, String link, @NonNull LocalDate createdDate, LocalDate closedDate, String projectName, int noOfActivities, int noOfWorkpackages, int hoursWorked) {
         this.issue_id = issue_id;
         this.shortName = shortName;
         this.description = description;
@@ -57,5 +54,10 @@ public class IssueDTO extends BaseEntityDto implements Comparable<IssueDTO>{
     @Override
     public int compareTo(IssueDTO compareIssue) {
         return this.createdDate.compareTo(compareIssue.createdDate);
+    }
+
+    public String isClosed(){
+
+        return (this.closedDate!=null)? "Closed on: "+ this.closedDate.toString(): "OPEN";
     }
 }

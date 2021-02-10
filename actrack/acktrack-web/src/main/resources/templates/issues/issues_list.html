@@ -22,10 +22,7 @@
 </head>
 
 <body>
-<!--Temporary link direct to Issue until DTO is setup-->
-<!--/*@thymesVar id="issues" type="java.util.List<sena.activitytracker.acktrack.model.Issue>"*/-->
-
-<!--/*@thymesVar id="projects" type="java.util.List<sena.activitytracker.acktrack.dtos.ProjectDTO>"*/-->
+<!--/*@thymesVar id="issues" type="java.util.List<sena.activitytracker.acktrack.dtos.IssueDTO>"*/-->
 
 <div class="wrapper">
     <!-- Sidebar  -->
@@ -48,17 +45,17 @@
                     Teammates
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/list_projects">
                     <i class="fas fa-code-branch"></i>
                     Projects
                 </a>
-            </li>
             <li>
+            <li class="active">
                 <a href="/list_issues">
-                    <i class="fas fa-unlink"></i>
-                    Issues
-                </a>
+                        <i class="fas fa-unlink"></i>
+                        Issues
+                    </a>
             </li>
             <li>
                 <a href="/list_workpackages">
@@ -122,11 +119,12 @@
             </div>
             <div class="line line-table-header"></div>
             <div th:each="issue : ${issues}" class="row report-row">
+
                 <div th:text="${issue.getIssue_id()}" class="iss-id col-sm">
                     iss_id
                 </div>
                 <div th:text="${issue.getShortName()}" class="iss-desc col-sm">
-                   Description template for issues . Charcter limitation ?
+                   Description template for issues .
                 </div>
                 <div th:text="${issue.getLink()}"class="iss-tl col-sm">
                     Tool link
@@ -134,19 +132,19 @@
                 <div th:text="${issue.getCreatedDate()}" class="iss-dt col-sm">
                     Created on
                 </div>
-                <div class="iss-prj col-sm">
+                <div th:text="${issue.getProjectName()}" class="iss-prj col-sm">
                     Project id
                 </div>
-                <div class="iss-nowp col-sm">
+                <div th:text="${issue.getNoOfWorkpackages()}" class="iss-nowp col-sm">
                     Number Workpackages
                 </div>
-                <div class="iss-noac col-sm">
+                <div th:text="${issue.getNoOfActivities()}" class="iss-noac col-sm">
                     Number Activities
                 </div>
-                <div class="iss-hrs col-sm">
+                <div th:text="${issue.getHoursWorked()}" class="iss-hrs col-sm">
                     Hours worked
                 </div>
-                <div th:text="${issue.getClosedDate()}" class="iss-stat col-sm">
+                <div th:text="${issue.isClosed()}" class="iss-stat col-sm">
                     Status - 'OPEN' or date of closure
                 </div>
             </div>

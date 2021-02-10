@@ -12,6 +12,7 @@ import sena.activitytracker.acktrack.dtos.IssueDTO;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.services.IssueService;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,9 +42,15 @@ class IssueControllerTest {
     @BeforeEach
     void setUp() {
         /* Create a list of Issues to be returned with the mock service */
-        /*Todo change from Issue to IssueDTO*/
-        issueSet.add(IssueDTO.builder().issue_id("Issue1").build());
-        issueSet.add(IssueDTO.builder().issue_id("Issue2").build());
+        issueSet.add(IssueDTO.builder()
+                .issue_id("Issue1")
+                .createdDate(LocalDate.now())  /* we need a create date for a comparable object */
+                .build());
+
+        issueSet.add(IssueDTO.builder()
+                .issue_id("Issue2")
+                .createdDate(LocalDate.now())  /* we need a create date for a comparable object */
+                .build());
 
         mockMvc = MockMvcBuilders.standaloneSetup(issueController).build();
     }
