@@ -6,8 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sena.activitytracker.acktrack.dtos.IssueDTO;
 import sena.activitytracker.acktrack.dtos.ProjectDTO;
 import sena.activitytracker.acktrack.mappers.ProjectMapper;
+import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.repositories.ProjectRepository;
 
@@ -23,13 +25,14 @@ class ProjectServiceImplTest extends BaseServiceTest{
 
     @Mock
     ProjectRepository projectRepository;
+    @Mock
+    ProjectMapper projectMapper;
 
     @InjectMocks
     ProjectServiceImpl projectService;
 
     Project alpha, beta;
     Set<Project> projectSet=new HashSet<>();
-    ProjectMapper projectMapper;
 
 
     @BeforeEach
@@ -72,57 +75,80 @@ class ProjectServiceImplTest extends BaseServiceTest{
     @Test
     void findAll() {
 
+        /* given*/
+        ProjectDTO dummyDTO = ProjectDTO.builder().build();
+        /* when */
         when(projectRepository.findAll()).thenReturn(projectSet);
-
+        when(projectMapper.toProjectDTO(any(Project.class))).thenReturn(dummyDTO); /* findAll returns a Set.
+                                                                                This will be overwritten since it is same object.
+                                                                                So there is no point in counting objects, count the calls instead*/
+        /* trigger */
         Set<ProjectDTO> foundProjects = projectService.findAll();
 
         assertNotNull(foundProjects);
-        assertEquals(2, foundProjects.size());
         verify(projectRepository, times(1)).findAll();
-
+        verify(projectMapper, times(2)).toProjectDTO(any());
     }
 
     @Test
     void findById() {
+
+        /* given*/
+        ProjectDTO dummyDTO = ProjectDTO.builder().build();
+
+        /* when */
         when(projectRepository.findById(any())).thenReturn(Optional.of(alpha));
+        when(projectMapper.toProjectDTO(any(Project.class))).thenReturn(dummyDTO);
 
         Optional<ProjectDTO> foundProjectOptional = projectService.findById(alpha.getId());
 
         assertTrue(foundProjectOptional.isPresent());
-        assertTrue(alpha.getId().equals(foundProjectOptional.get().getId()));
         verify(projectRepository, times(1)).findById(any());
+        verify(projectMapper, times(1)).toProjectDTO(any());
+
     }
 
     @Test
     void save() {
+        ProjectDTO dummyDto = ProjectDTO.builder().build();
 
         when(projectRepository.save(any(Project.class))).thenReturn(alpha);
+        when(projectMapper.toProject(any(ProjectDTO.class))).thenReturn(alpha);
+        when(projectMapper.toProjectDTO(any(Project.class))).thenReturn(dummyDto);
 
-        ProjectDTO foundProject = projectService.save(projectMapper.toProjectDTO(alpha));
+        ProjectDTO foundProject = projectService.save(dummyDto);
 
         assertNotNull(foundProject);
-        assertTrue(alpha.getId().equals(foundProject.getId()));
         verify(projectRepository, times(1)).save(any());
+        verify(projectMapper, times(1)).toProject(any());
+        verify(projectMapper, times(1)).toProjectDTO(any());
     }
 
     @Test
     void saveAll() {
+
+        Set<ProjectDTO> dtoSet = new HashSet<>();
+        dtoSet.add(ProjectDTO.builder().build());
+        dtoSet.add(ProjectDTO.builder().build());
+
         when(projectRepository.saveAll(any(Set.class))).thenReturn(projectSet);
+        when(projectMapper.toProject(any(ProjectDTO.class))).thenReturn(alpha);
+        when(projectMapper.toProjectDTO(any(Project.class))).thenReturn(dtoSet.stream().findAny().get());
 
-        Set<ProjectDTO> dtos = new HashSet<>();
-        projectSet.forEach(project -> dtos.add(projectMapper.toProjectDTO(project)));
-
-        Set<ProjectDTO> foundProjects = projectService.saveAll(dtos);
+        Set<ProjectDTO> foundProjects = projectService.saveAll(dtoSet);
 
         assertNotNull(foundProjects);
-        assertEquals(2, foundProjects.size());
         verify(projectRepository, times(1)).saveAll(any());
+        verify(projectMapper, times(2)).toProject(any());
+        verify(projectMapper, times(2)).toProjectDTO(any());
+
     }
 
     @Test
     void delete() {
+        ProjectDTO dummyDto = ProjectDTO.builder().build();
 
-        projectService.delete(projectMapper.toProjectDTO(alpha));
+        projectService.delete(dummyDto);
 
         verify(projectRepository, times(1)).delete(any());
     }
