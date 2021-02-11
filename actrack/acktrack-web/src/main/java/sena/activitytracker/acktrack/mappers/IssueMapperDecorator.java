@@ -19,6 +19,7 @@ public abstract class IssueMapperDecorator implements IssueMapper {
         this.issueMapper = issueMapper;
     }
 
+    @Override
     public IssueDTO toIssueDTO(Issue issue){
 
         IssueDTO issueDTO = issueMapper.toIssueDTO(issue);
