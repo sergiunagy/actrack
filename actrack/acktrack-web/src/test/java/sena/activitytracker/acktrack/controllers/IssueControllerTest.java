@@ -27,16 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class IssueControllerTest {
     public static final String LIST_ISSUES_PAGE = "/issues/issues_list";
 
-
-    Set<IssueDTO> issueSet = new HashSet<>();
-
-
     @Mock
     IssueService issueService;
 
     @InjectMocks
     IssueController issueController;
 
+    Set<IssueDTO> issueSet = new HashSet<>();
     MockMvc mockMvc;
 
     @BeforeEach
