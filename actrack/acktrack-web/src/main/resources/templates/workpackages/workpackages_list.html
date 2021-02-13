@@ -130,13 +130,13 @@
                 <div th:text="${workpackage.getEndDate()}" class="wp-endd col-sm">
                     End Date
                 </div>
-                <div th:each= "issue: ${workpackage.getIssues()}" class="wp-iss col-sm">
-                    <div th:text="${issue.getIssue_id()}" class="wp-iss col-sm">
+                <div class="wp-iss col-sm">
+                    <div class="wp-iss col-sm">
                         Associated Issues
                     </div>
                 </div>
-                <div th:each= "user: ${workpackage.getUsers()}" class="wp-usrs col-sm">
-                    <div th:text="${user.getUserName()}" class="wp-iss col-sm">
+                <div class="wp-usrs col-sm">
+                    <div class="wp-usr col-sm">
                         Team members working on this
                     </div>
                 </div>

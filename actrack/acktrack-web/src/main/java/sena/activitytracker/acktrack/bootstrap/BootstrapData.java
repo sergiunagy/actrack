@@ -258,6 +258,7 @@ public class BootstrapData implements CommandLineRunner {
         IntStream.range(0,n_workpackages).forEach(id->{
             workpackages.add(Workpackage.builder()
                     .name(WP_SUFFIX+id)
+                    .startDate(LocalDate.now().minusDays(id))
                     .description("Description " + WP_SUFFIX +id)
                     .build());
         });

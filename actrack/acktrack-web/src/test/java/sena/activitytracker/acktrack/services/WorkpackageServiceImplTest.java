@@ -6,6 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sena.activitytracker.acktrack.dtos.ProjectDTO;
+import sena.activitytracker.acktrack.dtos.WorkpackageDTO;
+import sena.activitytracker.acktrack.mappers.WorkpackageMapper;
+import sena.activitytracker.acktrack.model.Project;
 import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.repositories.WorkpackageRepository;
 
@@ -23,6 +27,8 @@ class WorkpackageServiceImplTest extends BaseServiceTest{
 
     @Mock
     WorkpackageRepository workpackageRepository;
+    @Mock
+    WorkpackageMapper workpackageMapper;
 
     @InjectMocks
     WorkpackageServiceImpl workpackageService;
@@ -53,54 +59,82 @@ class WorkpackageServiceImplTest extends BaseServiceTest{
     @Test
     void findAll() {
 
+        /* given*/
+        WorkpackageDTO dummyDTO = WorkpackageDTO.builder().build();
+        /* when */
         when(workpackageRepository.findAll()).thenReturn(workpackageSet);
+        when(workpackageMapper.toWorkpackageDTO(any(Workpackage.class))).thenReturn(dummyDTO); /* findAll returns a Set.
+                                                                                This will be overwritten since it is same object.
+                                                                                So there is no point in counting objects, count the calls instead*/
 
-        Set<Workpackage> foundWorkpackages = workpackageService.findAll();
+        Set<WorkpackageDTO> foundWorkpackages = workpackageService.findAll();
 
         assertNotNull(foundWorkpackages);
-        assertEquals(2, foundWorkpackages.size());
         verify(workpackageRepository, times(1)).findAll();
+        verify(workpackageMapper, times(2)).toWorkpackageDTO(any());
+
 
     }
 
     @Test
     void findById() {
-        when(workpackageRepository.findById(any())).thenReturn(Optional.of(review));
+        /* given*/
+        WorkpackageDTO dummyDTO = WorkpackageDTO.builder().build();
 
-        Optional<Workpackage> foundWorkpackageOptional = workpackageService.findById(review.getId());
+        /* when */
+        when(workpackageRepository.findById(any())).thenReturn(Optional.of(review));
+        when(workpackageMapper.toWorkpackageDTO(any(Workpackage.class))).thenReturn(dummyDTO);
+
+        Optional<WorkpackageDTO> foundWorkpackageOptional = workpackageService.findById(review.getId());
 
         assertTrue(foundWorkpackageOptional.isPresent());
-        assertTrue(review.getId().equals(foundWorkpackageOptional.get().getId()));
         verify(workpackageRepository, times(1)).findById(any());
+        verify(workpackageMapper, times(1)).toWorkpackageDTO(any());
     }
 
     @Test
     void save() {
+        /* given*/
+        WorkpackageDTO dummyDTO = WorkpackageDTO.builder().build();
 
-        when(workpackageRepository.save(any(Workpackage.class))).thenReturn(review);
+        /* when */
+        when(workpackageRepository.save(any())).thenReturn(review);
+        when(workpackageMapper.toWorkpackage(any(WorkpackageDTO.class))).thenReturn(review);
+        when(workpackageMapper.toWorkpackageDTO(any(Workpackage.class))).thenReturn(dummyDTO);
 
-        Workpackage foundWorkpackage = workpackageService.save(review);
+
+        WorkpackageDTO foundWorkpackage = workpackageService.save(dummyDTO);
 
         assertNotNull(foundWorkpackage);
-        assertTrue(review.getId().equals(foundWorkpackage.getId()));
         verify(workpackageRepository, times(1)).save(any());
+        verify(workpackageMapper, times(1)).toWorkpackageDTO(any());
+        verify(workpackageMapper, times(1)).toWorkpackage(any());
     }
 
     @Test
     void saveAll() {
-        when(workpackageRepository.saveAll(any(Set.class))).thenReturn(workpackageSet);
+        Set<WorkpackageDTO> dtoSet = new HashSet<>();
+        dtoSet.add(WorkpackageDTO.builder().build());
+        dtoSet.add(WorkpackageDTO.builder().build());
 
-        Set<Workpackage> foundWorkpackages = workpackageService.saveAll(workpackageSet);
+        when(workpackageRepository.saveAll(any(Set.class))).thenReturn(workpackageSet);
+        when(workpackageMapper.toWorkpackage(any(WorkpackageDTO.class))).thenReturn(review);
+        when(workpackageMapper.toWorkpackageDTO(any(Workpackage.class))).thenReturn(dtoSet.stream().findAny().get());
+
+        Set<WorkpackageDTO> foundWorkpackages = workpackageService.saveAll(dtoSet);
 
         assertNotNull(foundWorkpackages);
-        assertEquals(2, foundWorkpackages.size());
         verify(workpackageRepository, times(1)).saveAll(any());
+        verify(workpackageMapper, times(2)).toWorkpackage(any());
+        verify(workpackageMapper, times(2)).toWorkpackageDTO(any());
     }
 
     @Test
     void delete() {
+        /* given*/
+        WorkpackageDTO dummyDTO = WorkpackageDTO.builder().build();
 
-        workpackageService.delete(review);
+        workpackageService.delete(dummyDTO);
 
         verify(workpackageRepository, times(1)).delete(any());
     }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import sena.activitytracker.acktrack.dtos.WorkpackageDTO;
 import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.services.WorkpackageService;
 
@@ -23,9 +24,10 @@ public class WorkpackageController {
     @GetMapping("/list_workpackages")
     public String listWorkpackages(Model model){
 
-        Set<Workpackage> workpackages = workpackageService.findAll();
+        Set<WorkpackageDTO> workpackages = workpackageService.findAll();
 
-        model.addAttribute("workpackages", workpackages.stream().collect(Collectors.toList())); /*todo: sort*/
+        model.addAttribute("workpackages",
+                workpackages.stream().collect(Collectors.toList())); /*todo: sort*/
         return LIST_WORKPACKAGES_PAGE;
     }
 }

@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import sena.activitytracker.acktrack.dtos.WorkpackageDTO;
 import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.services.WorkpackageService;
 
@@ -32,15 +33,15 @@ class WorkpackageControllerTest {
     @InjectMocks
     WorkpackageController workpackageController;
 
-    Set<Workpackage> workpackageSet = new HashSet<>();
+    Set<WorkpackageDTO> workpackageSet = new HashSet<>();
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        workpackageSet.add(Workpackage.builder()
+        workpackageSet.add(WorkpackageDTO.builder()
                 .startDate(LocalDate.now())
                 .build());
-        workpackageSet.add(Workpackage.builder()
+        workpackageSet.add(WorkpackageDTO.builder()
                 .startDate(LocalDate.now().minusDays(1))
                 .build());
 
