@@ -122,7 +122,7 @@
             <div class="line line-table-header"></div>
             <div th:each="workpackage : ${workpackages}" class="row report-row">
                 <div th:text="${workpackage.getName()}" class="wp-compid col-sm">
-                    Company assigned ID
+                    Wp ID
                 </div>
                 <div th:text="${workpackage.getStartDate()}" class="wp-strd col-sm">
                     Start Date
@@ -130,13 +130,13 @@
                 <div th:text="${workpackage.getEndDate()}" class="wp-endd col-sm">
                     End Date
                 </div>
-                <div class="wp-iss col-sm">
-                    <div class="wp-iss col-sm">
-                        Associated Issues
+                <div th:each="issueId : ${workpackage.getIssueIds()}" class="wp-iss col-sm">
+                    <div th:text = "${issueId}" class="wp-iss col-sm">
+                        Associated Issue
                     </div>
                 </div>
-                <div class="wp-usrs col-sm">
-                    <div class="wp-usr col-sm">
+                <div th:each="userId: ${workpackage.getUserIds()}" class="wp-usrs col-sm">
+                    <div th:text="${userId}" class="wp-usr col-sm">
                         Team members working on this
                     </div>
                 </div>

@@ -1,6 +1,8 @@
 package sena.activitytracker.acktrack.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 public class ActivityController {
     private static final String LIST_ACTIVITIES_PAGE = "/activities/activities_list";
