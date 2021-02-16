@@ -141,13 +141,13 @@
                             Team members working on this
                     </div>
                 </div>
-                <div class="wp-usrs-no col-sm">
+                <div th:text="${workpackage.getNoOfUsers()}" class="wp-usrs-no col-sm">
                     Number of assigned Team members
                 </div>
-                <div class="wp-act-no col-sm">
+                <div th:text="${workpackage.getNoOfActivities()}" class="wp-act-no col-sm">
                     No of activities
                 </div>
-                <div class="wp-hrs col-sm">
+                <div th:text="${workpackage.getHoursBooked()}" class="wp-hrs col-sm">
                     Hours booked on wp
                 </div>
             </div>

@@ -27,11 +27,10 @@ public class WorkpackageDTO extends BaseEntityDto{
     private Set<String> issueIds = new HashSet<>();
     private Set<String> userIds = new HashSet<>();
 
-    private int usersCount ;
     private int hoursBooked;
 
     @Builder
-    public WorkpackageDTO(String name, String description, LocalDate startDate, LocalDate endDate, Set<String> activityIds, Set<String> issueIds, Set<String> userIds, int usersCount, int hoursBooked) {
+    public WorkpackageDTO(String name, String description, LocalDate startDate, LocalDate endDate, Set<String> activityIds, Set<String> issueIds, Set<String> userIds, int hoursBooked) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -39,14 +38,16 @@ public class WorkpackageDTO extends BaseEntityDto{
         this.activityIds = activityIds;
         this.issueIds = issueIds;
         this.userIds = userIds;
-        this.usersCount = usersCount;
         this.hoursBooked = hoursBooked;
     }
-
 
     public int getNoOfActivities(){
 
         return activityIds.size();
+    }
+    public int getNoOfUsers(){
+
+        return userIds.size();
     }
 
 }
