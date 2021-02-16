@@ -5,7 +5,7 @@
     <!--    Adjust to the device screen size-->
     <meta name="viewport" content="width= device-width, initial-scale=1.0">
 
-    <title>Workpackages list</title>
+    <title>Users list</title>
 
     <!--    Bootstrap CSS CDN - link the CSS and mark the relationship as stylesheet-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -22,8 +22,10 @@
 </head>
 
 <body>
-<!--/*@thymesVar id="workpackages" type="java.util.List<sena.activitytracker.acktrack.dtos.WorkpackageDTO>"*/-->
-<!--/*@thymesVar id="issue" type="sena.activitytracker.acktrack.dtos.IssueDTO"*/-->
+<!--todo: remove repo link keep only DTO link after implementation-->
+<!--/*@thymesVar id="users" type="java.util.List<sena.activitytracker.acktrack.model.security.User>"*/-->
+
+<!--/*@thymesVar id="replace users" type="java.util.List<sena.activitytracker.acktrack.dtos.UserDTO>"*/-->
 
 <div class="wrapper">
     <!-- Sidebar  -->
@@ -41,7 +43,7 @@
                 </a>
             </li>
             <li>
-                <a href="/list_teammates">
+                <a class="active" href="/list_teammates">
                     <i class="fas fa-user-friends"></i>
                     Teammates
                 </a>
@@ -58,7 +60,7 @@
                     Issues
                 </a>
             </li>
-            <li class="active">
+            <li >
                 <a href="/list_workpackages">
                     <i class="fas fa-cubes"></i>
                     Workpackages
@@ -82,69 +84,65 @@
                 <button type="button" id="sidebarCollapse" class="btn">
                     <i class="fas fa-align-left"></i>
                 </button>
-                <h2>Projects report</h2>
+                <h2>Users overview</h2>
             </div>
         </nav>
 
         <div class="container-fluid grid-striped">
             <div class="table-header">
                 <div class="row">
-                    <div class="wp-compid col-sm">
-                        Company assigned ID
+                    <div class="usr-id col-sm">
+                        UserId
                     </div>
-                    <div class="wp-strd col-sm">
-                        Start Date
+                    <div class="usr-nm col-sm">
+                        Name
                     </div>
-                    <div class="wp-endd col-sm">
-                        End Date
+                    <div class="usr-rls col-sm">
+                        Roles
                     </div>
-                    <div class="wp-iss col-sm">
-                        Associated Issues
+                    <div class="usr-pjs col-sm">
+                        Projects
                     </div>
-                    <div class="wp-usrs col-sm">
-                        Team members working on this
+                    <div class="usr-acc-exp col-sm">
+                        Account expired
                     </div>
-                    <div class="wp-usrs-no col-sm">
-                        Number of assigned Team members
+                    <div class="usr-acc-lk col-sm">
+                        Account locked
                     </div>
-                    <div class="wp-act-no col-sm">
-                        No of activities
+                    <div class="usr-crd-exp col-sm">
+                        Credentials non-expired
                     </div>
-                    <div class="wp-hrs col-sm">
-                        Hours booked on wp
+                   <div class="usr-acc-en col-sm">
+                        Account enabled
                     </div>
+
                 </div> <!--  End table header -->
             </div>
             <div class="line line-table-header"></div>
-            <div th:each="workpackage : ${workpackages}" class="row report-row">
-                <div th:text="${workpackage.getName()}" class="wp-compid col-sm">
+            <div th:each="user : ${users}" class="row report-row">
+                <div th:text="${user.getFamilyName() + ' ' + user.getGivenName()}" class="wp-compid col-sm">
                     Wp ID
                 </div>
-                <div th:text="${workpackage.getStartDate()}" class="wp-strd col-sm">
-                    Start Date
+                <div class="usr-nm col-sm">
+                    Name
                 </div>
-                <div th:text="${workpackage.getEndDate()}" class="wp-endd col-sm">
-                    End Date
+                <div class="usr-rls col-sm">
+                    Roles
                 </div>
-                <div  class="wp-iss col-sm">
-                    <div th:each="issueId : ${workpackage.getIssueIds()}" th:text = "${issueId}" class="row cell-row col-sm">
-                        Associated Issue
-                    </div>
+                <div class="usr-pjs col-sm">
+                    Projects
                 </div>
-
-                <div class="wp-usrs col-sm">
-                    <div th:each="userId: ${workpackage.getUserIds()}" th:text="${userId}" class="row cell-row col-sm" >
-                            Team members working on this
-                    </div>
+                <div class="usr-acc-exp col-sm">
+                    Account expired
                 </div>
-                <div th:text="${workpackage.getNoOfUsers()}" class="wp-usrs-no col-sm">
-                    Number of assigned Team members
+                <div class="usr-acc-lk col-sm">
+                    Account locked
                 </div>
-                <div th:text="${workpackage.getNoOfActivities()}" class="wp-act-no col-sm">
-                    No of activities
+                <div class="usr-crd-exp col-sm">
+                    Credentials non-expired
                 </div>
-                <div th:text="${workpackage.getHoursBooked()}" class="wp-hrs col-sm">
-                    Hours booked on wp
+                <div class="usr-acc-en col-sm">
+                    Account enabled
                 </div>
             </div>
 
