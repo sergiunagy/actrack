@@ -120,11 +120,11 @@
             </div>
             <div class="line line-table-header"></div>
             <div th:each="user : ${users}" class="row report-row">
-                <div th:text="${user.getFamilyName() + ' ' + user.getGivenName()}" class="wp-compid col-sm">
-                    Wp ID
+                <div th:text= "${user.getUsername()}" class="usr-id col-sm">
+                    UserId
                 </div>
-                <div class="usr-nm col-sm">
-                    Name
+                <div th:text="${user.getFamilyName() + ' ' + user.getGivenName()}" class="usr-nm col-sm">
+                    Wp ID
                 </div>
                 <div class="usr-rls col-sm">
                     Roles
