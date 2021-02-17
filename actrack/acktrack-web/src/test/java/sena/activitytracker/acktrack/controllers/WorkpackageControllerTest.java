@@ -33,11 +33,12 @@ class WorkpackageControllerTest {
     @InjectMocks
     WorkpackageController workpackageController;
 
-    Set<WorkpackageDTO> workpackageSet = new HashSet<>();
+    Set<WorkpackageDTO> workpackageSet;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
+        workpackageSet = new HashSet<>();
         workpackageSet.add(WorkpackageDTO.builder()
                 .startDate(LocalDate.now())
                 .build());

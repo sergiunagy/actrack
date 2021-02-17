@@ -33,11 +33,12 @@ class IssueControllerTest {
     @InjectMocks
     IssueController issueController;
 
-    Set<IssueDTO> issueSet = new HashSet<>();
+    Set<IssueDTO> issueSet ;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
+        issueSet = new HashSet<>();
         /* Create a list of Issues to be returned with the mock service */
         issueSet.add(IssueDTO.builder()
                 .issue_id("Issue1")
