@@ -10,6 +10,7 @@ import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.security.UserService;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,7 +26,8 @@ public class UserController {
 
         Set<UserDTO> users = userService.findAll();
 
-        model.addAttribute("users", users);
+        /* Set for uniqueness, List for using specific ordering*/
+        model.addAttribute("users", users.stream().collect(Collectors.toList()));
         return LIST_USERS_PAGE;
     }
 }

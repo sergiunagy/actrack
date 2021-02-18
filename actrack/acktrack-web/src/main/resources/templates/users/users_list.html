@@ -22,10 +22,7 @@
 </head>
 
 <body>
-<!--todo: remove repo link keep only DTO link after implementation-->
-<!--/*@thymesVar id="users" type="java.util.List<sena.activitytracker.acktrack.model.security.User>"*/-->
-
-<!--/*@thymesVar id="replace users" type="java.util.List<sena.activitytracker.acktrack.dtos.UserDTO>"*/-->
+<!--/*@thymesVar id="users" type="java.util.List<sena.activitytracker.acktrack.dtos.UserDTO>"*/-->
 
 <div class="wrapper">
     <!-- Sidebar  -->
@@ -42,8 +39,8 @@
                     Activities
                 </a>
             </li>
-            <li>
-                <a class="active" href="/list_teammates">
+            <li class="active">
+                <a href="/list_teammates">
                     <i class="fas fa-user-friends"></i>
                     Teammates
                 </a>
@@ -127,7 +124,10 @@
                     Wp ID
                 </div>
                 <div class="usr-rls col-sm">
-                    Roles
+                    <div th:each="role: ${user.getRolesSet()}"
+                         th:text= "${role}" class="row cell-row">
+                        Roles
+                    </div>
                 </div>
                 <div class="usr-pjs col-sm">
                     Projects
