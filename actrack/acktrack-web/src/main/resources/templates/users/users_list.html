@@ -121,7 +121,7 @@
                     UserId
                 </div>
                 <div th:text="${user.getFamilyName() + ' ' + user.getGivenName()}" class="usr-nm col-sm">
-                    Wp ID
+                    Names
                 </div>
                 <div class="usr-rls col-sm">
                     <div th:each="role: ${user.getRolesSet()}"
@@ -130,18 +130,21 @@
                     </div>
                 </div>
                 <div class="usr-pjs col-sm">
-                    Projects
+                    <div th:each="project: ${user.getProjectsSet()}"
+                         th:text= "${project}" class="row cell-row">
+                        Projects
+                    </div>
                 </div>
-                <div class="usr-acc-exp col-sm">
+                <div th:text="${user.isAccountNonExpired()}==True? Not-Expired: Expired" class="usr-acc-exp col-sm">
                     Account expired
                 </div>
-                <div class="usr-acc-lk col-sm">
+                <div th:text="${user.isAccountNonLocked()}==True? Not-Locked: Locked" class="usr-acc-lk col-sm">
                     Account locked
                 </div>
-                <div class="usr-crd-exp col-sm">
+                <div th:text="${user.isCredentialsNonExpired()}==True? Not-Expired: Expired" class="usr-crd-exp col-sm">
                     Credentials non-expired
                 </div>
-                <div class="usr-acc-en col-sm">
+                <div th:text="${user.isEnabled()} ==True? Enabled: Disabled" class="usr-acc-en col-sm">
                     Account enabled
                 </div>
             </div>

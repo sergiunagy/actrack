@@ -48,6 +48,8 @@ public class UserDTO extends BaseEntityDto{
     * - credentials expiration date
     * - vacation days
     * - trainings
+    * - roles on specific projects
+    * - authorities overview
     * */
 
     @Builder
