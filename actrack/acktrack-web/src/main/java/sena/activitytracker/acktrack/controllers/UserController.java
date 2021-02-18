@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import sena.activitytracker.acktrack.dtos.UserDTO;
 import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.security.UserService;
 
@@ -22,7 +23,7 @@ public class UserController {
     @GetMapping("/list_teammates")
     public String listUsers(Model model){
 
-        Set<User> users = userService.findAll();
+        Set<UserDTO> users = userService.findAll();
 
         model.addAttribute("users", users);
         return LIST_USERS_PAGE;

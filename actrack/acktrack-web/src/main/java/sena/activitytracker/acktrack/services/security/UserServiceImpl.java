@@ -3,6 +3,8 @@ package sena.activitytracker.acktrack.services.security;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sena.activitytracker.acktrack.dtos.UserDTO;
+import sena.activitytracker.acktrack.mappers.UserMapper;
 import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.repositories.security.UserRepository;
 
@@ -17,43 +19,52 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
-    public Set<User> findAll() {
+    public Set<UserDTO> findAll() {
 
-        Set<User> issues = new HashSet<>();
+        Set<UserDTO> users = new HashSet<>();
 
-        userRepository.findAll().forEach(issues::add);
+        userRepository.findAll().forEach(user -> users.add(userMapper.toUserDTO(user)));
 
-        return issues;
+        return users;
     }
 
     @Override
-    public Optional<User> findById(UUID id) {
+    public Optional<UserDTO> findById(UUID id) {
 
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isPresent())
+            return Optional.ofNullable(userMapper.toUserDTO(user.get()));
+        else
+            return Optional.empty();
     }
 
     @Override
-    public User save(User issue) {
+    public UserDTO save(UserDTO userDTO) {
 
-        return userRepository.save(issue);
+       return  userMapper.toUserDTO(userRepository.save(userMapper.toUser(userDTO)));
     }
 
     @Override
-    public Set<User> saveAll(Set<User> issues) {
+    public Set<UserDTO> saveAll(Set<UserDTO> userDTOs) {
 
-        Set<User> retUsers = new HashSet<>();
+        Set<UserDTO> retUserDTOs = new HashSet<>();
+        Set<User> users = new HashSet<>();
 
-        userRepository.saveAll(issues).forEach(retUsers::add);
+        userDTOs.forEach(userDTO -> users.add(userMapper.toUser(userDTO)));
 
-        return retUsers;
+        userRepository.saveAll(users).forEach(user -> retUserDTOs.add(userMapper.toUserDTO(user)));
+
+        return retUserDTOs;
     }
 
     @Override
-    public void delete(User issue) {
+    public void delete(UserDTO userDTO) {
 
-        userRepository.delete(issue);
+        userRepository.delete(userMapper.toUser(userDTO));
     }
 
     @Override

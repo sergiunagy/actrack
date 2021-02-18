@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import sena.activitytracker.acktrack.dtos.UserDTO;
 import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.security.UserService;
 
@@ -34,15 +35,15 @@ class UserControllerTest {
     private UserController userController;
 
     MockMvc mockMvc;
-    Set<User> userSet;
+    Set<UserDTO> userSet;
 
     @BeforeEach
     void setUp() {
         /* Create a couple of dummy users before each test*/
         userSet = new HashSet<>();
 
-        userSet.add(User.builder().username("test1").build());
-        userSet.add(User.builder().username("test2").build());
+        userSet.add(UserDTO.builder().username("test1").build());
+        userSet.add(UserDTO.builder().username("test2").build());
 
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }

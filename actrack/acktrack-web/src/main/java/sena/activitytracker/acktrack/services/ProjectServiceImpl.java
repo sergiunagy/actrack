@@ -29,9 +29,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         Set<ProjectDTO> projectDTOs = new HashSet<>();
 
-        projectDTOs = StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .map(projectMapper::toProjectDTO)
-                .collect(Collectors.toSet());
+        projectRepository.findAll().forEach(project -> projectDTOs.add(projectMapper.toProjectDTO(project)));
+
+
+//        projectDTOs = StreamSupport.stream(projectRepository.findAll().spliterator(), false)
+//                .map(projectMapper::toProjectDTO)
+//                .collect(Collectors.toSet());
 
         return projectDTOs;
     }

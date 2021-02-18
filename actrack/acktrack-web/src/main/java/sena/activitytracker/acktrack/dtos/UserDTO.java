@@ -1,5 +1,6 @@
 package sena.activitytracker.acktrack.dtos;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -48,4 +49,22 @@ public class UserDTO extends BaseEntityDto{
     * - trainings
     * */
 
+    @Builder
+    public UserDTO(String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String familyName, String givenName, Set<String> rolesSet, Set<String> activitiyIdsBetweenDates, Set<String> allActivitiesIds, Set<String> allActivitiesCount, int hoursBookedBetweenDates, Set<String> projectsSet, Set<String> workpackagesSet) {
+        this.username = username;
+        this.password = password;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.rolesSet = rolesSet;
+        this.activitiyIdsBetweenDates = activitiyIdsBetweenDates;
+        this.allActivitiesIds = allActivitiesIds;
+        this.allActivitiesCount = allActivitiesCount;
+        this.hoursBookedBetweenDates = hoursBookedBetweenDates;
+        this.projectsSet = projectsSet;
+        this.workpackagesSet = workpackagesSet;
+    }
 }
