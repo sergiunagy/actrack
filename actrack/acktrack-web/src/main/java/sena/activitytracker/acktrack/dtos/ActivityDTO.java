@@ -10,15 +10,17 @@ import sena.activitytracker.acktrack.model.Workpackage;
 import sena.activitytracker.acktrack.model.security.User;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO>{
+public class ActivityDTO extends BaseEntityDto{
 
     private String description;
     private LocalDate date;
@@ -33,7 +35,10 @@ public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO
     private String userUID; /*TODO: should this be output to the UI ?*/
 
     @Builder
-    public ActivityDTO(String description, LocalDate date, Duration duration, Boolean isExported, Set<String> workpackageIds, Set<String> issueIds, Set<String> projectIds, String userName, String userUID) {
+    public ActivityDTO(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String description,
+                       LocalDate date, Duration duration, Boolean isExported, Set<String> workpackageIds,
+                       Set<String> issueIds, Set<String> projectIds, String userName, String userUID) {
+        super(id, version, createdTimestamp, updatedTimestamp);
         this.description = description;
         this.date = date;
         this.duration = duration;
@@ -43,11 +48,5 @@ public class ActivityDTO extends BaseEntityDto implements Comparable<ActivityDTO
         this.projectIds = projectIds;
         this.userName = userName;
         this.userUID = userUID;
-    }
-
-    @Override
-    public int compareTo(ActivityDTO comparedActivity) {
-
-        return date.compareTo(comparedActivity.date);
     }
 }
