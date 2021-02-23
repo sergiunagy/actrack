@@ -12,7 +12,9 @@ import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.services.ActivityService;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +43,8 @@ class ActivityControllerTest {
     void setUp() {
         /*Initialize with a mock Activities list*/
         activitySet = new HashSet<>();
-        activitySet.add(ActivityDTO.builder().date(LocalDate.now()).build());
-        activitySet.add(ActivityDTO.builder().date(LocalDate.now()).build());
+        activitySet.add(ActivityDTO.builder().createdTimestamp(Timestamp.valueOf(LocalDateTime.now())).date(LocalDate.now().minusDays(1)).build());
+        activitySet.add(ActivityDTO.builder().createdTimestamp(Timestamp.valueOf(LocalDateTime.now())).date(LocalDate.now()).build());
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(activityController)

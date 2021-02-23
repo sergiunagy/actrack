@@ -27,11 +27,11 @@ public class ActivitiesServiceIT {
 
     @Test
     void testLoadActivitiesBetweenDates() {
-        int TEN = 10;
+        int N = 121; /*120 bootstraped activities plus one in the setup*/
 
         Set<Activity> databaseActivities = new HashSet<>();
         activityService.findAll().forEach(databaseActivities::add);
-        assertEquals(10, databaseActivities.size());
+        assertEquals(N, databaseActivities.size());
         Set<Activity> datedActivities = activityService.findAllByDateBetween(LocalDate.now().minusDays(5), LocalDate.now());
 
         System.out.println(datedActivities);
