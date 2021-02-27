@@ -6,7 +6,7 @@ import sena.activitytracker.acktrack.services.CrudService;
 
 import java.util.UUID;
 
-public interface UserService extends CrudService<UserDTO, UUID> {
+public interface UserService extends CrudService<UserDTO, Long> {
 
 
 }

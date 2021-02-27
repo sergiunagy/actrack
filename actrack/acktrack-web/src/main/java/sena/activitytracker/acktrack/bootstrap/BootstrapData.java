@@ -20,8 +20,10 @@ import sena.activitytracker.acktrack.repositories.security.AuthorityRepository;
 import sena.activitytracker.acktrack.repositories.security.RoleRepository;
 import sena.activitytracker.acktrack.repositories.security.UserRepository;
 
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
@@ -313,15 +315,16 @@ public class BootstrapData implements CommandLineRunner {
         int ACT_RANGE_MAX = n_activities;
 
         IntStream.range(0, n_activities).forEach(id -> {
-            activities.add(Activity.builder()
+            Activity a = Activity.builder()
                     .duration(Duration.ofHours(id))
                     .date(LocalDate.now().minusDays(ACT_RANGE_MAX - id))
                     .isExported(false)
                     .description("Activity actions description for activity_" + id)
-                    .build());
+                    .build();
+            activities.add(activityRepository.save(a));
         });
-
-        activityRepository.saveAll(activities);
+        /* todo: check problem with persisting by save-all . Seems Timestamp does not have enough resolution if we
+        *   store using saveall */
     }
 
     private void initRolesAndAuthorities() {

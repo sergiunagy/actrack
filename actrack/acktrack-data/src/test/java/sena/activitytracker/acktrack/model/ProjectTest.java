@@ -35,7 +35,7 @@ class ProjectTest extends BaseDomTest {
         roles.add(developer);
 
         project = Project.builder()
-                .id(IDONE)
+                .id(Long.valueOf(1))
                 .name("alpha")
                 .description("dummy alpha")
                 .mainLocation("Alpha location")

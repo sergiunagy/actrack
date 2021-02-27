@@ -34,7 +34,8 @@ public class ActivityController {
 
         model.addAttribute("activities",
                 activities.stream()
-                        .sorted((a1, a2)-> a2.getCreatedTimestamp().compareTo(a1.getCreatedTimestamp()))
+                        .sorted(Comparator.comparing(ActivityDTO::getCreatedTimestamp).reversed())
+//                        .sorted(Comparator.comparing((a1, a2)-> a2.getCreatedTimestamp().compareTo(a1.getCreatedTimestamp())))
                         .collect(Collectors.toList()));
 
         return LIST_ACTIVITIES_PAGE;

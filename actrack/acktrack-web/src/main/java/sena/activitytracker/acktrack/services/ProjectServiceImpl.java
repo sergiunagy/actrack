@@ -41,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public Optional<ProjectDTO> findById(@NonNull UUID id) {
+    public Optional<ProjectDTO> findById(@NonNull Long id) {
 
         Optional<Project> projectOptional = projectRepository.findById(id);
 
@@ -76,7 +76,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteById(@NonNull UUID id) {
+    public void deleteById(@NonNull Long id) {
         projectRepository.deleteById(id);
     }
 }

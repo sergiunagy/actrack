@@ -90,8 +90,8 @@ class IssueTest extends BaseDomTest {
         final String TXT1 = "first";
         final String TXT2 = "2nd ";
         Set<Activity> activities = new HashSet<>();
-        activities.add(Activity.builder().id(IDONE).description(TXT1).build());
-        activities.add(Activity.builder().id(IDTWO).description(TXT2).build());
+        activities.add(Activity.builder().id(Long.valueOf(1)).description(TXT1).build());
+        activities.add(Activity.builder().id(Long.valueOf(2)).description(TXT2).build());
 
         // when
         Set<Activity> boundWorkpackages = issue.addActivities(activities);

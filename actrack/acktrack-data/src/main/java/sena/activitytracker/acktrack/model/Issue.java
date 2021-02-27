@@ -56,7 +56,7 @@ public class Issue extends BaseEntity {
     private Project project;
 
     @Builder
-    public Issue(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
+    public Issue(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String shortName, String issue_id, String description, String link, LocalDate createdDate, LocalDate closedDate, Set<Workpackage> workpackages, Set<Activity> activities, Project project) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.shortName = shortName;
         this.issue_id = issue_id;

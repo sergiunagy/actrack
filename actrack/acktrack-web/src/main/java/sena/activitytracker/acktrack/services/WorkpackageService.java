@@ -5,5 +5,5 @@ import sena.activitytracker.acktrack.model.Workpackage;
 
 import java.util.UUID;
 
-public interface WorkpackageService extends CrudService<WorkpackageDTO, UUID> {
+public interface WorkpackageService extends CrudService<WorkpackageDTO, Long> {
 }

@@ -45,7 +45,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Optional<Activity> findById(UUID id) {
+    public Optional<Activity> findById(Long id) {
 
         return activityRepository.findById(id);
     }
@@ -72,7 +72,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         activityRepository.deleteById(id);
     }
 

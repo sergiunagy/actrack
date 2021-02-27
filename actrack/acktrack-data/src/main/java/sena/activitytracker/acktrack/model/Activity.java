@@ -19,6 +19,8 @@ import java.util.UUID;
 @Table(name = "activities")
 public class Activity extends BaseEntity implements Comparable<Activity>{
 
+//    private static BaseCounter baseCounter;
+
     @Lob
     @Column(name = "description")
     private String description;
@@ -43,7 +45,7 @@ public class Activity extends BaseEntity implements Comparable<Activity>{
     private User user;
 
     @Builder
-    public Activity(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
+    public Activity(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, // Base object properties
                     String description, LocalDate date, Duration duration, Boolean isExported, Set<Workpackage> workpackages, Set<Issue> issues, User user) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.description = description;

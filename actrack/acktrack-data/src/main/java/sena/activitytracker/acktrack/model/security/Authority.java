@@ -22,7 +22,7 @@ public class Authority extends BaseSecurityEntity{
     private Set<Role> roles= new HashSet<>();
 
     @Builder
-    public Authority(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String permission, Set<Role> roles) {
+    public Authority(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String permission, Set<Role> roles) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.permission = permission;
         if(roles != null) this.roles = roles;

@@ -31,7 +31,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     @Override
-    public Optional<Authority> findById(UUID uuid) {
+    public Optional<Authority> findById(Long uuid) {
 
         return authorityRepository.findById(uuid);
     }
@@ -59,7 +59,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     @Override
-    public void deleteById(UUID uuid) {
+    public void deleteById(Long uuid) {
 
         authorityRepository.deleteById(uuid);
 

@@ -35,7 +35,7 @@ public class ActivityDTO extends BaseEntityDto{
     private String userUID; /*TODO: should this be output to the UI ?*/
 
     @Builder
-    public ActivityDTO(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String description,
+    public ActivityDTO(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String description,
                        LocalDate date, Duration duration, Boolean isExported, Set<String> workpackageIds,
                        Set<String> issueIds, Set<String> projectIds, String userName, String userUID) {
         super(id, version, createdTimestamp, updatedTimestamp);

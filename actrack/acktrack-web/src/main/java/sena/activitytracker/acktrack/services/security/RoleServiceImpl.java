@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Optional<Role> findById(UUID id) {
+    public Optional<Role> findById(Long id) {
 
         return roleRepository.findById(id);
     }
@@ -57,7 +57,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         roleRepository.deleteById(id);
     }
 }

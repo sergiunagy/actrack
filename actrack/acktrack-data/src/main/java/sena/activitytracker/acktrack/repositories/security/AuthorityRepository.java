@@ -5,5 +5,5 @@ import sena.activitytracker.acktrack.model.security.Authority;
 
 import java.util.UUID;
 
-public interface AuthorityRepository extends CrudRepository<Authority, UUID> {
+public interface AuthorityRepository extends CrudRepository<Authority, Long> {
 }

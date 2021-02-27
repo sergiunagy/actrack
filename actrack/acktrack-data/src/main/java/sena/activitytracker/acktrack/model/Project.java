@@ -68,7 +68,7 @@ public class Project extends BaseEntity {
 
 
     @Builder
-    public Project(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<User> users) {
+    public Project(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, String notes, String mainLocation, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate, LocalDate actualEndDate, LocalDate plannedSopDate, LocalDate actualSopDate, String customerName, String customerId, String productLine, Boolean active, Set<Issue> issues, Set<User> users) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;

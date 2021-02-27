@@ -5,5 +5,5 @@ import sena.activitytracker.acktrack.model.Issue;
 
 import java.util.UUID;
 
-public interface IssueRepository extends CrudRepository<Issue, UUID> {
+public interface IssueRepository extends CrudRepository<Issue, Long> {
 }

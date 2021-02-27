@@ -23,12 +23,8 @@ public class BaseSecurityEntity {
     /* Using a UUID is an overkill in the base use case. But it also has no observable drawbacks */
     /* docs : https://thorben-janssen.com/generate-uuids-primary-keys-hibernate/ */
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name="UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     /* Using versioning may also be overkill in the base case: https://www.baeldung.com/jpa-optimistic-locking*/
     /* Optimistic Locking versioning property for securing concurrent access*/
@@ -46,10 +42,10 @@ public class BaseSecurityEntity {
     /*Returns True if object has an ID allocated*/
     public boolean isNew(){
 
-        return this.id ==null;
+        return this.id == null;
     }
 
-    public BaseSecurityEntity(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp) {
+    public BaseSecurityEntity(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp) {
 
         this.id = id;
         this.version = version;

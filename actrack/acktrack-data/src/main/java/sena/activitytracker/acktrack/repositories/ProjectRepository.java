@@ -6,7 +6,7 @@ import sena.activitytracker.acktrack.model.Project;
 import java.util.Set;
 import java.util.UUID;
 
-public interface ProjectRepository extends CrudRepository<Project, UUID> {
+public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     Set<Project> findAll();
 }

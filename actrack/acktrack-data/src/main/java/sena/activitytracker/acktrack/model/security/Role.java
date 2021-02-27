@@ -32,7 +32,7 @@ public class Role extends BaseSecurityEntity {
     private Set<Authority> authorities = new HashSet<>();
 
     @Builder
-    public Role(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, Set<User> users, Set<Authority> authorities) {
+    public Role(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, Set<User> users, Set<Authority> authorities) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;

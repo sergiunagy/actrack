@@ -36,7 +36,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Optional<IssueDTO> findById(@NonNull UUID id) {
+    public Optional<IssueDTO> findById(@NonNull Long id) {
 
         Optional<Issue> issueOptional = issueRepository.findById(id);
 
@@ -71,7 +71,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         issueRepository.deleteById(id);
     }
 }

@@ -16,7 +16,7 @@ class ActivityTest extends BaseDomTest {
     @BeforeEach
     void setUp() {
         activity = Activity.builder()
-                .id(IDONE)
+                .id(Long.valueOf(1))
                 .description("Check quality issues")
                 .date(LocalDate.of(2020, 10, 20))
                 .isExported(false)

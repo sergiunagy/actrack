@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-public interface ActivityRepository extends CrudRepository<Activity, UUID> {
+public interface ActivityRepository extends CrudRepository<Activity, Long> {
 
     Set<Activity> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
 

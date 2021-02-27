@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public abstract class BaseEntityDto {
 
-    private UUID id;
+    private Long id;
     private Long version;
     private Timestamp createdTimestamp;
     private Timestamp updatedTimestamp;

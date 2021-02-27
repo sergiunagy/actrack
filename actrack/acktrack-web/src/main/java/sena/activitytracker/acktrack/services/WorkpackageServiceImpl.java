@@ -40,7 +40,7 @@ public class WorkpackageServiceImpl implements WorkpackageService {
     }
 
     @Override
-    public Optional<WorkpackageDTO> findById(@NonNull UUID id) {
+    public Optional<WorkpackageDTO> findById(@NonNull Long id) {
 
         Optional<Workpackage> workpackageOptional = workpackageRepository.findById(id);
 
@@ -75,7 +75,7 @@ public class WorkpackageServiceImpl implements WorkpackageService {
     }
 
     @Override
-    public void deleteById(@NonNull UUID id) {
+    public void deleteById(@NonNull Long id) {
         workpackageRepository.deleteById(id);
     }
 }

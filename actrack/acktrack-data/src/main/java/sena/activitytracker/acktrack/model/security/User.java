@@ -74,7 +74,7 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private Set<Workpackage> workpackages = new HashSet<>();
 
     @Builder
-    public User(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, Set<Role> roles, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
+    public User(long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, Set<Role> roles, String familyName, String givenName, Set<Activity> activities, Set<Project> projects, Set<Workpackage> workpackages) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.username = username;
         this.password = password;

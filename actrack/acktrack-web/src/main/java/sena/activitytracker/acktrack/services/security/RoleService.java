@@ -6,9 +6,9 @@ import sena.activitytracker.acktrack.services.CrudService;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RoleService extends CrudService<Role, UUID> {
+public interface RoleService extends CrudService<Role, Long> {
 
     public Role save(Role role) ;
 
-    public Optional<Role> findById(UUID uuid);
+    public Optional<Role> findById(Long uuid);
 }

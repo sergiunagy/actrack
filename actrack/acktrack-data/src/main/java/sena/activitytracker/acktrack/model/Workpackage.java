@@ -51,7 +51,7 @@ public class Workpackage extends BaseEntity {
     private Set<User> users = new HashSet<>();
 
     @Builder
-    public Workpackage(UUID id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
+    public Workpackage(Long id, Long version, Timestamp createdTimestamp, Timestamp updatedTimestamp, String name, String description, LocalDate startDate, LocalDate endDate, Set<Activity> activities, Set<Issue> issues, Set<User> users) {
         super(id, version, createdTimestamp, updatedTimestamp);
         this.name = name;
         this.description = description;
