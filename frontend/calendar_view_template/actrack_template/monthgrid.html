@@ -16,14 +16,12 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class='wrapper'>
-<!--        navigation side panel: TODO - make fragment-->
+    <div class="wrapper"> <!--        navigation side panel: TODO - make fragment-->
         <nav class="sidebar active">
             <div class="sidebar-header">
                 <h3>Activities tracker </h3>
                 <h6>administrative</h6>
             </div>
-
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#" >
@@ -62,18 +60,97 @@
                     </a>
                 </li>
             </ul>
-
         </nav>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn">
-                    <i class="fas fa-align-left"></i>
-                </button>
-                <h2>Activities calendar</h2>
+        <!--        header menu bar-->
+        <div class="content">
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <h2>Activities calendar</h2>
+                </div>
+            </nav>
+            <div class="container-fluid calendar">
+                <div class="table-header">
+                    <div class="row">
+
+                        <div class="col-sm-1">
+                            -
+                        </div>
+                        <div class="col-sm justify-content-md-center">
+                            <div class="col-md-auto">
+                                Monday
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            Tuesday
+                        </div>
+                        <div class="col-sm">
+                            Wednesday
+                        </div>
+                        <div class="col-sm">
+                            Thursday
+                        </div>
+                        <div class="col-sm">
+                            Friday
+                        </div>
+                        <div class="col-sm">
+                            Saturday
+                        </div>
+                        <div class="col-sm">
+                            Sunday
+                        </div>
+                    </div>
+                </div>
+                <div class="row act-cal-row">
+                    <div class="cw-col col-sm-1">
+                        cw1
+                    </div>
+                    <div class="act-cell col-sm">
+                        <div  class="row cell-date justify-content-md-center">
+                                11.11.2021
+                        </div>
+                        <div class="row cell-data">
+                            <div class="col-sm cell-col1">
+                                Act
+                            </div>
+                            <div class="col-sm cell-col2">
+                                Hrs
+                            </div>
+                        </div>
+                        <div class="row cell-time-card">
+                            <div class="col-sm cell-col1">
+                                Coming
+                            </div>
+                            <div class="col-sm cell-col2">
+                                Going
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        Tuesday
+                    </div>
+                    <div class="col-sm">
+                        Wednesday
+                    </div>
+                    <div class="col-sm">
+                        Thursday
+                    </div>
+                    <div class="col-sm">
+                        Friday
+                    </div>
+                    <div class="col-sm">
+                        Saturday
+                    </div>
+                    <div class="col-sm">
+                        Sunday
+                    </div>
+                </div>
             </div>
-            <div id='calendar'></div>
+        </div>
+        <!-- Calendar content-->
 
-        </nav>
 
     </div>
 

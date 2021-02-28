@@ -11,7 +11,7 @@ body {
 }
 
 /* ---------------------------------------------------
-    SIDEBAR STYLE
+    Global STYLE
 ----------------------------------------------------- */
 
 .wrapper {
@@ -19,6 +19,9 @@ body {
     width: 100%;
     align-items: stretch;
 }
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
 
 /*Style the Navbar header*/
 .sidebar-header{
@@ -82,4 +85,27 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
+}
+
+/* ---------------------------------------------------
+    Content STYLE
+----------------------------------------------------- */
+.content {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding-left: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container-fluid{
+    padding-left: 0;
 }
