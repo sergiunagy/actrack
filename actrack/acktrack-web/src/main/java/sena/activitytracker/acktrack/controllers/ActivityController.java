@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Controller
 public class ActivityController {
     private static final String LIST_ACTIVITIES_PAGE = "/activities/activities_list";
+    private static final String BOOKINGS_CALENDAR_PAGE = "/activities/bookings_calendar";
 
     private final ActivityService activityService;
 
@@ -39,5 +40,11 @@ public class ActivityController {
                         .collect(Collectors.toList()));
 
         return LIST_ACTIVITIES_PAGE;
+    }
+
+    @GetMapping("/get_bookings_calendar") /*todo: temporarily mapped on reports, change this when scenario implementation is complete*/
+    private String showBookingsCalendar(Model model){
+
+        return BOOKINGS_CALENDAR_PAGE;
     }
 }
