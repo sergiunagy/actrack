@@ -19,7 +19,7 @@
   <div class="wrapper">
 
   <!-- Sidebar  -->
-    <nav id="sidebar">
+    <nav id="sidebar" class="bg-info text-white mr-1">
     <div class="sidebar-header">
       <h3>Activities tracker </h3>
       <h6>administrative</h6>
@@ -67,8 +67,9 @@
   </nav>
 
     <!-- Page Content  -->
-    <div id="content container-fluid">
-      <div class="row-fluid">
+    <div id="content container-fluid ml-0">
+<!--      set to full width and a bottom margin-->
+      <div class="row-fluid mb-4">
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
           <div class="container-fluid">
             <button type="button" id="sidebarCollapse" class="btn">
@@ -83,57 +84,59 @@
         <div class="container-fluid">
           <div class="row">
           <div class="col">
-            <div class="row mb-3">
+<!--            WEEKDAYS-->
+            <div class="row no-gutters mb-2 days-row">
 
               <div class="col-1">
                 <!--    blank placeholder cell-->
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 calendar-cell bg-info text-white">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Monday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Tuesday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Wednesday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Thursday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Friday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Saturday</h5>
                 </div>
               </div>
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 bg-info text-white calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center font-weight-bold">Sunday</h5>
                 </div>
               </div>
             </div>
-            <div class = "row">
+<!--            Calendar content-->
+            <div class = "row no-gutters mb-1">
               <div class="col-1">
-                <div class="card mr-1 lead text-center bg-info text-white h-100">
+                <div class="card mb-1 lead text-center bg-info text-white h-100">
                   <div class="card-body">
                     <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
                     <span class="align-middle"> Total: </span>
@@ -142,15 +145,16 @@
                 </div>
               </div>
               <!--    calendar cell template-->
+              <!--              MONDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-dark">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">ACT:</div>
-                      <div class="col">-</div>
+                      <div class="col"></div>
                       <div class="col">HRS:</div>
                     </div>
                     <div class="row card-t1-vals text-center">
@@ -164,7 +168,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -183,13 +187,14 @@
                   </div>
                 </div>
               </div>
+              <!--              TUESDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -210,7 +215,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -229,13 +234,14 @@
                   </div>
                 </div>
               </div>
+              <!--              WEDNESDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -256,7 +262,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -275,13 +281,14 @@
                   </div>
                 </div>
               </div>
+              <!--              THURSDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -302,7 +309,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -321,13 +328,14 @@
                   </div>
                 </div>
               </div>
+              <!--              FRIDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -348,7 +356,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -367,13 +375,14 @@
                   </div>
                 </div>
               </div>
+              <!--              SATURDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card mb-1 calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -394,7 +403,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -413,13 +422,14 @@
                   </div>
                 </div>
               </div>
+              <!--              SUNDAY-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card calendar-cell">
                   <!-- date-->
-                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -440,7 +450,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -460,11 +470,11 @@
                 </div>
               </div>
             </div>
-            <div class = "row">
+            <div class = "row mb-1">
               <div class="col-1">
-                <div class="card mr-1 lead text-center bg-info text-white h-100">
+                <div class="card mb-1 lead text-center bg-info text-white h-100 ">
                   <div class="card-body">
-                    <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
+                    <span class="align-middle font-weight-bold border-bottom"> CW-2 </span>
                     <span class="align-middle"> Total: </span>
                     <span class="align-middle"> 40 </span>
                   </div>
@@ -472,12 +482,12 @@
               </div>
               <!--    calendar cell template-->
               <div class="col">
-                <div class="card mr-1 calendar-cell">
+                <div class="card calendar-cell">
                   <!-- date-->
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -498,7 +508,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -523,7 +533,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -544,7 +554,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -569,7 +579,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -590,7 +600,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -615,7 +625,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -636,7 +646,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -661,7 +671,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -682,7 +692,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -707,7 +717,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -728,7 +738,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -753,7 +763,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -774,7 +784,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -794,7 +804,7 @@
                 </div>
               </div>
             </div>
-            <div class = "row">
+            <div class = "row mb-1">
               <div class="col-1">
                 <div class="card mr-1 lead text-center bg-info text-white h-100">
                   <div class="card-body">
@@ -811,7 +821,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -832,7 +842,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -857,7 +867,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -878,7 +888,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -903,7 +913,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -924,7 +934,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -949,7 +959,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -970,7 +980,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -995,7 +1005,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1016,7 +1026,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1041,7 +1051,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1062,7 +1072,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1087,7 +1097,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1108,7 +1118,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1128,7 +1138,7 @@
                 </div>
               </div>
             </div>
-            <div class = "row">
+            <div class = "row mb-1">
               <div class="col-1">
                 <div class="card mr-1 lead text-center bg-info text-white h-100">
                   <div class="card-body">
@@ -1145,7 +1155,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1166,7 +1176,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1191,7 +1201,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1212,7 +1222,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1237,7 +1247,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1258,7 +1268,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1283,7 +1293,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1304,7 +1314,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1329,7 +1339,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1350,7 +1360,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1375,7 +1385,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1396,7 +1406,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1421,7 +1431,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1442,7 +1452,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1462,7 +1472,7 @@
                 </div>
               </div>
             </div>
-            <div class = "row">
+            <div class = "row mb-1">
               <div class="col-1">
                 <div class="card mr-1 lead text-center bg-info text-white h-100">
                   <div class="card-body">
@@ -1479,7 +1489,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1500,7 +1510,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1525,7 +1535,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1546,7 +1556,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1571,7 +1581,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1592,7 +1602,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1617,7 +1627,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1638,7 +1648,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1663,7 +1673,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1684,7 +1694,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1709,7 +1719,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1730,7 +1740,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>
@@ -1755,7 +1765,7 @@
                   <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
                   <div class="card-body">
                     <!-- Activities and hours count-->
-                    <div class="row bg-success text-white card-t1">
+                    <div class="row bg-light card-t1">
                       <div class="col">
                         ACT:
                       </div>
@@ -1776,7 +1786,7 @@
                       </div>
                     </div>
                     <!-- coming and going rows-->
-                    <div class="row bg-success text-white card-t1-vals">
+                    <div class="row bg-light card-t1-vals">
                       <div class="col">
                         COMING
                       </div>

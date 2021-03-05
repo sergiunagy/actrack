@@ -48,7 +48,6 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
 }
 
 #sidebar ul.components {
@@ -67,11 +66,6 @@ a:focus {
     background: #fff;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-    color: #fafafaff;
-    background: #6d7fcc;
-}
 
 a[data-toggle="collapse"] {
     position: relative;
@@ -147,6 +141,10 @@ ul ul a {
 .grid-striped .report-row:nth-of-type(even) {
     background-color: #9ebfff;
 }
+
+/******************
+Calendar controls
+ */
 
 /* ---------------------------------------------------
     MEDIAQUERIES
