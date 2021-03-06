@@ -7,1732 +7,1826 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--    Link own, custom css-->
+  <link rel="stylesheet" href="../calendar_view_template/css/style.css">
+  <!--    Get nicer fonts-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-  <title>Hello, world!</title>
+
 </head>
 <body>
-<div class="jumbotron jumbotron-fluid bg-info text-white ">
-  <div class="container">
-    <h1 class="display-1 text-center"> Activities Booking </h1>
-    <p class="lead"> </p>
-  </div>
-</div>
+<div class="wrapper">
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <div class="row mb-3">
+  <!-- Sidebar  -->
+  <nav id="sidebar" class="bg-info text-white mr-1">
+    <div class="sidebar-header">
+      <h3>Activities tracker </h3>
+      <h6>administrative</h6>
+    </div>
 
-        <div class="col-1">
-          <!--    blank placeholder cell-->
+    <ul class="list-unstyled components">
+      <li class="active">
+        <a href="#" >
+          <i class="fas fa-tasks"></i>
+          Activities
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-user-friends"></i>
+          Teammates
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-code-branch"></i>
+          Projects
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-unlink"></i>
+          Issues
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-cubes"></i>
+          Workpackages
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-clipboard-list"></i>
+          Reports
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <!-- Page Content  -->
+  <div id="content container-fluid ml-0">
+    <!--      set to full width and a bottom margin-->
+    <div class="row-fluid mb-4">
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container-fluid">
+          <button type="button" id="sidebarCollapse" class="btn">
+            <i class="fas fa-align-left"></i>
+          </button>
+          <h2>Activities report</h2>
         </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Monday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Tuesday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Wednesday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Thursday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Friday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Saturday</h5>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center font-weight-bold">Sunday</h5>
-          </div>
-        </div>
-      </div>
-      <div class = "row">
-        <div class="col-1">
-          <div class="card mr-1 lead text-center bg-info text-white h-100">
-            <div class="card-body">
-              <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
-              <span class="align-middle"> Total: </span>
-              <span class="align-middle"> 40 </span>
-            </div>
-          </div>
-        </div>
-        <!--    calendar cell template-->
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
+      </nav>
+    </div>
+    <!--    calendar content -->
+    <div class="row">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <!--            WEEKDAYS-->
+            <div class="row no-gutters mb-2 days-row">
+
+              <div class="col-1">
+                <!--    blank placeholder cell-->
+              </div>
+              <div class="col">
+                <div class="card mb-1 calendar-cell bg-info text-white">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Monday</h5>
                 </div>
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Tuesday</h5>
                 </div>
               </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Wednesday</h5>
                 </div>
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Thursday</h5>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Friday</h5>
                 </div>
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-primary text-white">
-                  9
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Saturday</h5>
                 </div>
               </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
+              <div class="col">
+                <div class="card mb-1 bg-info text-white calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center font-weight-bold">Sunday</h5>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
+            <!--            Calendar content-->
+            <div class = "row no-gutters mb-1">
+              <div class="col-1">
+                <div class="card mb-1 lead text-center bg-info text-white h-100">
+                  <div class="card-body">
+                    <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
+                    <span class="align-middle"> Total: </span>
+                    <span class="align-middle"> 40 </span>
+                  </div>
                 </div>
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
+              <!--    calendar cell template-->
+              <!--              MONDAY-->
+              <div class="col">
+                <div class="card calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">ACT:</div>
+                      <div class="col"></div>
+                      <div class="col">HRS:</div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
+              <!--              TUESDAY-->
+              <div class="col">
+                <div class="card calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-primary text-white">
+                        9
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
+              <!--              WEDNESDAY-->
+              <div class="col">
+                <div class="card mb-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col">
-                  17:30
+              </div>
+              <!--              THURSDAY-->
+              <div class="col">
+                <div class="card mb-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-warning text-dark">
+                        7
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--              FRIDAY-->
+              <div class="col">
+                <div class="card mb-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--              SATURDAY-->
+              <div class="col">
+                <div class="card mb-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--              SUNDAY-->
+              <div class="col">
+                <div class="card calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-secondary text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col ">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "row mb-1">
+              <div class="col-1">
+                <div class="card mb-1 lead text-center bg-info text-white h-100 ">
+                  <div class="card-body">
+                    <span class="align-middle font-weight-bold border-bottom"> CW-2 </span>
+                    <span class="align-middle"> Total: </span>
+                    <span class="align-middle"> 40 </span>
+                  </div>
+                </div>
+              </div>
+              <!--    calendar cell template-->
+              <div class="col">
+                <div class="card calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-primary text-white">
+                        9
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-warning text-dark">
+                        7
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col ">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "row mb-1">
+              <div class="col-1">
+                <div class="card mr-1 lead text-center bg-info text-white h-100">
+                  <div class="card-body">
+                    <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
+                    <span class="align-middle"> Total: </span>
+                    <span class="align-middle"> 40 </span>
+                  </div>
+                </div>
+              </div>
+              <!--    calendar cell template-->
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-primary text-white">
+                        9
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-warning text-dark">
+                        7
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col ">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "row mb-1">
+              <div class="col-1">
+                <div class="card mr-1 lead text-center bg-info text-white h-100">
+                  <div class="card-body">
+                    <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
+                    <span class="align-middle"> Total: </span>
+                    <span class="align-middle"> 40 </span>
+                  </div>
+                </div>
+              </div>
+              <!--    calendar cell template-->
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-primary text-white">
+                        9
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-warning text-dark">
+                        7
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col ">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "row mb-1">
+              <div class="col-1">
+                <div class="card mr-1 lead text-center bg-info text-white h-100">
+                  <div class="card-body">
+                    <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
+                    <span class="align-middle"> Total: </span>
+                    <span class="align-middle"> 40 </span>
+                  </div>
+                </div>
+              </div>
+              <!--    calendar cell template-->
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-1">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-primary text-white">
+                        9
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col bg-warning text-dark">
+                        7
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        2
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        8
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        9:00
+                      </div>
+                      <div class="col">
+                        17:30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mr-1 calendar-cell">
+                  <!-- date-->
+                  <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
+                  <div class="card-body">
+                    <!-- Activities and hours count-->
+                    <div class="row bg-light card-t1">
+                      <div class="col">
+                        ACT:
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col">
+                        HRS:
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col-2">
+                      </div>
+                      <div class="col ">
+                        -
+                      </div>
+                    </div>
+                    <!-- coming and going rows-->
+                    <div class="row bg-light card-t1-vals">
+                      <div class="col">
+                        COMING
+                      </div>
+                      <div class="col">
+                        GOING
+                      </div>
+                    </div>
+                    <div class="row card-t1-vals text-center">
+                      <div class="col">
+                        -
+                      </div>
+                      <div class="col">
+                        -
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-warning text-dark">
-                  7
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col ">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class = "row">
-        <div class="col-1">
-          <div class="card mr-1 lead text-center bg-info text-white h-100">
-            <div class="card-body">
-              <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
-              <span class="align-middle"> Total: </span>
-              <span class="align-middle"> 40 </span>
-            </div>
-          </div>
-        </div>
-        <!--    calendar cell template-->
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-primary text-white">
-                  9
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-warning text-dark">
-                  7
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col ">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class = "row">
-        <div class="col-1">
-          <div class="card mr-1 lead text-center bg-info text-white h-100">
-            <div class="card-body">
-              <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
-              <span class="align-middle"> Total: </span>
-              <span class="align-middle"> 40 </span>
-            </div>
-          </div>
-        </div>
-        <!--    calendar cell template-->
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-primary text-white">
-                  9
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-warning text-dark">
-                  7
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
+          <div class="col-1">
+            <div class="card h-100">
+              <div class="card-header text-center bg-info text-white lead">
+                Monthly Overview
               </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
+              <div class="card-body">
+                <div class="row">
+                  Hours:
                 </div>
-                <div class="col">
-                  17:30
+                <div class="row">
+                  Activities:
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col ">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class = "row">
-        <div class="col-1">
-          <div class="card mr-1 lead text-center bg-info text-white h-100">
-            <div class="card-body">
-              <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
-              <span class="align-middle"> Total: </span>
-              <span class="align-middle"> 40 </span>
-            </div>
-          </div>
-        </div>
-        <!--    calendar cell template-->
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-primary text-white">
-                  9
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-warning text-dark">
-                  7
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
+                <div class="row">
+                  Overtime:
                 </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col ">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class = "row">
-        <div class="col-1">
-          <div class="card mr-1 lead text-center bg-info text-white h-100">
-            <div class="card-body">
-              <span class="align-middle font-weight-bold border-bottom"> CW-1 </span>
-              <span class="align-middle"> Total: </span>
-              <span class="align-middle"> 40 </span>
-            </div>
-          </div>
-        </div>
-        <!--    calendar cell template-->
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-primary text-white">
-                  9
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col bg-warning text-dark">
-                  7
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  2
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  8
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  9:00
-                </div>
-                <div class="col">
-                  17:30
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col">
-                  -
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mr-1 calendar-cell">
-            <!-- date-->
-            <h5 class="card-header lead text-center bg-info text-white">11.11.2021</h5>
-            <div class="card-body">
-              <!-- Activities and hours count-->
-              <div class="row bg-success text-white card-t1">
-                <div class="col">
-                  ACT:
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col">
-                  HRS:
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col ">
-                  -
-                </div>
-              </div>
-              <!-- coming and going rows-->
-              <div class="row bg-success text-white card-t1-vals">
-                <div class="col">
-                  COMING
-                </div>
-                <div class="col">
-                  GOING
-                </div>
-              </div>
-              <div class="row card-t1-vals text-center">
-                <div class="col">
-                  -
+                <div class="row">
+                  Projects:
                 </div>
-                <div class="col">
-                  -
+                <div class="row">
+                  Issues:
                 </div>
               </div>
             </div>
@@ -1740,34 +1834,15 @@
         </div>
       </div>
     </div>
-    <div class="col-1">
-      <div class="card h-100">
-        <div class="card-header text-center bg-info text-white lead">
-          Monthly Overview
-        </div>
-        <div class="card-body">
-          <div class="row">
-            Hours:
-          </div>
-          <div class="row">
-            Activities:
-          </div>
-          <div class="row">
-            Overtime:
-          </div>
-          <div class="row">
-            Projects:
-          </div>
-          <div class="row">
-            Issues:
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-</div>
-
 
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../calendar_view_template/js/colapsible_nav.js"> </script>
+
 </body>
 </html>
