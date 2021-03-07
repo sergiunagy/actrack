@@ -24,68 +24,16 @@
 <body>
 <!--/*@thymesVar id="activities" type="java.util.List<sena.activitytracker.acktrack.model.Activity>"*/-->
 
-    <div class="wrapper">
+    <div class="wrapper container-fluid px-0 no-gutters">
         <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Activities tracker </h3>
-                <h6>administrative</h6>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="/list_activities" >
-                        <i class="fas fa-tasks"></i>
-                        Activities
-                    </a>
-                </li>
-                <li>
-                    <a href="/list_teammates">
-                        <i class="fas fa-user-friends"></i>
-                        Teammates
-                    </a>
-                </li>
-                <li>
-                    <a href="/list_projects">
-                        <i class="fas fa-code-branch"></i>
-                        Projects
-                    </a>
-                </li>
-                <li>
-                    <a href="/list_issues">
-                        <i class="fas fa-unlink"></i>
-                        Issues
-                    </a>
-                </li>
-                <li>
-                    <a href="/list_workpackages">
-                        <i class="fas fa-cubes"></i>
-                        Workpackages
-                    </a>
-                </li>
-                <li>
-<!--                    <a href="/list_reports">-->
-                    <a href="/get_bookings_calendar">
-                        <i class="fas fa-clipboard-list"></i>
-                        Reports
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
+        <div th:replace="fragments/side_menu::side-menu"> </div>
 
         <!-- Page Content  -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-sm navbar-light bg-light">
-                <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn">
-                        <i class="fas fa-align-left"></i>
-                    </button>
-                    <h2>Activities report</h2>
-                </div>
-            </nav>
-
+        <div id="content" class="col no-gutters">
+            <!--  Header title, collapse button..- set to full width and a bottom margin-->
+            <div th:replace="fragments/report_header::colapse-btn"> </div>
+            <div th:replace="fragments/report_header::report-title">  </div>
+            <!-- Data table-->
             <div class="container-fluid grid-striped">
                 <div class="table-header">
                     <div class="row">
@@ -158,7 +106,7 @@
             th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}">
     </script>
 
-    <script src="/js/colapsible_nav.js"> </script>
+    <script src="/js/colapsible_nav.js" th:src="@{/js/colapsible_nav.js}"> </script>
 
 
 </body>

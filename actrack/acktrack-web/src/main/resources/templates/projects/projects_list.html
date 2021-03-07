@@ -26,52 +26,7 @@
 
 <div class="wrapper">
     <!-- Sidebar  -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Activities tracker </h3>
-            <h6>administrative</h6>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li>
-                <a href="/list_activities" >
-                    <i class="fas fa-tasks"></i>
-                    Activities
-                </a>
-            </li>
-            <li>
-                <a href="/list_teammates">
-                    <i class="fas fa-user-friends"></i>
-                    Teammates
-                </a>
-            </li>
-            <li class="active">
-                <a href="/list_projects">
-                    <i class="fas fa-code-branch"></i>
-                    Projects
-                </a>
-            </li>
-            <li>
-                <a href="/list_issues">
-                    <i class="fas fa-unlink"></i>
-                    Issues
-                </a>
-            </li>
-            <li>
-                <a href="/list_workpackages">
-                    <i class="fas fa-cubes"></i>
-                    Workpackages
-                </a>
-            </li>
-            <li>
-                <a href="/list_reports">
-                    <i class="fas fa-clipboard-list"></i>
-                    Reports
-                </a>
-            </li>
-        </ul>
-
-    </nav>
+    <div th:replace="fragments/side_menu::side-menu"> </div>
 
     <!-- Page Content  -->
     <div id="content">

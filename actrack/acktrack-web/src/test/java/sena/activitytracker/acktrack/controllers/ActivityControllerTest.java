@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import sena.activitytracker.acktrack.dtos.ActivityDTO;
 import sena.activitytracker.acktrack.model.Activity;
+import sena.activitytracker.acktrack.model.security.User;
 import sena.activitytracker.acktrack.services.ActivityService;
 
 import java.sql.Timestamp;
@@ -52,7 +53,7 @@ class ActivityControllerTest {
     }
 
     @Test
-    void listActivities() throws Exception{
+    void listActivitiesTest() throws Exception{
 
         // given setup
 
@@ -60,6 +61,23 @@ class ActivityControllerTest {
         when(activityService.listAllActivities()).thenReturn(activitySet);
 
         mockMvc.perform(get("/list_activities"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(LIST_ACTIVITIES_PAGE))
+                .andExpect(model().attribute("activities", hasSize(2)));
+    }
+
+    @Test
+    void showBookingsCalendarTest() throws Exception{
+
+        /* request activities for current user and date range :
+        * - requires user id - from authentication
+        * - calculate month based on current date
+         */
+
+        User user = User.builder().id(1).build();
+
+        /* pass uid and date range as request parameters */
+        mockMvc.perform(get("/get_bookings_calendar"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(LIST_ACTIVITIES_PAGE))
                 .andExpect(model().attribute("activities", hasSize(2)));
