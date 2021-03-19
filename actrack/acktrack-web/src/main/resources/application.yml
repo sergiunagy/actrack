@@ -20,7 +20,7 @@ spring:
   security:
     user:
       name: user
-      password: pass
+      password: user
 ---
 # Production profile yml
 spring:

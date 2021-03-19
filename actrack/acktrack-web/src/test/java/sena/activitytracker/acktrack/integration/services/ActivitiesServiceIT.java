@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sena.activitytracker.acktrack.bootstrap.BootstrapData_obsolete;
 import sena.activitytracker.acktrack.model.Activity;
@@ -60,4 +63,21 @@ public class ActivitiesServiceIT {
         assertTrue(expectedText.equals(found.stream().findAny().get().getDescription()));
     }
 
+    @Test
+    void testAuthentication(){
+
+        SecurityContext context = SecurityContextHolder.getContext();
+
+        Authentication authentication = context.getAuthentication();
+
+        System.out.println(authentication.getAuthorities().stream().findAny().get());
+
+        assertNotNull(authentication);
+        assertEquals("user", authentication.getName());
+        assertEquals(1, authentication.getAuthorities().size());
+        Object princ = authentication.getPrincipal();
+        System.out.println(princ);
+        /* TODO: mao authorities to automated test setup*/
+//        assertTrue(authentication.getAuthorities().stream().findAny().get().equalsIgnoreCase("role_test_user"));
+    }
 }

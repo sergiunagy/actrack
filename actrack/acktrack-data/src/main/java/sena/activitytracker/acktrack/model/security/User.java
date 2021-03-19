@@ -60,6 +60,16 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     @Column(name = "given_name")
     private String givenName;
 
+    @Column(name = "pers_email")
+    private String personalEmail;
+
+    @Column(name = "work_email")
+    private String workEmail;
+
+
+    /***********************************************************************************************
+     * Activity tracking properties */
+
     /*Todo: Lazy load for activities. Also batch the load by date*/
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user") /* remove activities if user is removed ? */
      private Set<Activity> activities = new HashSet<>();

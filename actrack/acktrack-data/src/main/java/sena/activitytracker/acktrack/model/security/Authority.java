@@ -1,6 +1,7 @@
 package sena.activitytracker.acktrack.model.security;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Authority extends BaseSecurityEntity{
+public class Authority extends BaseSecurityEntity implements GrantedAuthority {
 
     private String permission;
 
@@ -26,5 +27,12 @@ public class Authority extends BaseSecurityEntity{
         super(id, version, createdTimestamp, updatedTimestamp);
         this.permission = permission;
         if(roles != null) this.roles = roles;
+    }
+
+    @Override
+    public String getAuthority() {
+
+        /*TODO */
+        return null;
     }
 }

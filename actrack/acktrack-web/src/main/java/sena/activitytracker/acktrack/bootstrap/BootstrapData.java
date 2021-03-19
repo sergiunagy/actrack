@@ -2,9 +2,19 @@ package sena.activitytracker.acktrack.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 import sena.activitytracker.acktrack.model.Activity;
 import sena.activitytracker.acktrack.model.Issue;
 import sena.activitytracker.acktrack.model.Project;
@@ -64,6 +74,11 @@ public class BootstrapData implements CommandLineRunner {
             workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
             activityCreate, activityRead, activityUpdate, activityDelete;
 
+    /*Security loading*/
+    @Autowired
+    @Qualifier("authenticationManager")
+    protected AuthenticationManager authenticationManager;
+
 
     @Autowired
     public BootstrapData(ProjectRepository projectRepository, UserRepository userRepository, IssueRepository issueRepository, WorkpackageRepository workpackageRepository, ActivityRepository activityRepository, RoleRepository roleRepository, AuthorityRepository authorityRepository) {
@@ -92,6 +107,25 @@ public class BootstrapData implements CommandLineRunner {
         mapActivitiesFromWpsToIssues();
         mapActivitiesToUsers();
         mapUsersToRoles();
+
+        performAutoAuthentication();
+    }
+    /*************** Auto-authentication *******************/
+    /* */
+    private void performAutoAuthentication(){
+
+        String user = "user";
+        String password = "user";
+        String role = "role_test_user";
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Authentication authentication = new TestingAuthenticationToken(user, password, role);
+
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        System.out.println("TEEEEEEEEEEEEEEST");
+        System.out.println(role.equalsIgnoreCase("role_test_user"));
     }
 
 

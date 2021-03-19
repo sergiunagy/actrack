@@ -138,6 +138,7 @@
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <compilerArg>
+                        <!--Instruct MapStruct to mark the mappers as Spring Components-->
                             -Amapstruct.defaultComponentModel=spring
                         </compilerArg>
                     </compilerArgs>
