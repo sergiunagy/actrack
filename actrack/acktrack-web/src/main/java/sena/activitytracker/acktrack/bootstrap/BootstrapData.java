@@ -74,10 +74,10 @@ public class BootstrapData implements CommandLineRunner {
             workpackageCreate, workpackageRead, workpackageUpdate, workpackageDelete,
             activityCreate, activityRead, activityUpdate, activityDelete;
 
-    /*Security loading*/
-    @Autowired
-    @Qualifier("authenticationManager")
-    protected AuthenticationManager authenticationManager;
+//    /*Security loading*/
+//    @Autowired
+//    @Qualifier("authenticationManager")
+//    protected AuthenticationManager authenticationManager;
 
 
     @Autowired
@@ -108,7 +108,7 @@ public class BootstrapData implements CommandLineRunner {
         mapActivitiesToUsers();
         mapUsersToRoles();
 
-        performAutoAuthentication();
+        /*performAutoAuthentication();*/
     }
     /*************** Auto-authentication *******************/
     /* */
