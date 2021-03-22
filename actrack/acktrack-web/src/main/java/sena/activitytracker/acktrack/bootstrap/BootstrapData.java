@@ -113,7 +113,15 @@ public class BootstrapData implements CommandLineRunner {
     /*************** Auto-authentication *******************/
     /* */
     private void performAutoAuthentication(){
-
+        /* TODO:
+                We are injecting directly in the  SecurityContextHolder here.
+                Without setting up the authentication filter, THIS WILL NOT TRIGGER a UserDetails load
+                We must create the filter then use one of the users there to authenticate, maybe find a way to
+                connect to the filter .
+                - First create an authentication filter - REST
+                - check if the UserDertails service is now triggered
+                https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-abstractprocessingfilter
+        */
         String user = "user";
         String password = "user";
         String role = "role_test_user";
