@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class StartupController {
+public class IndexController {
 
     @GetMapping({"/","/index", "index.html"})
     public String getIndexPage(){
-        /*TODO : user role identification and predirect to proper landing page*/
-        return "redirect:/administrative"; /*todo: remove - Hardwired to Admin temorarily*/
+        /*TODO : user role identification and predirect to proper landing page. Here: hardwired to admin*/
+        return "redirect:/get_bookings_calendar";
     }
 }
