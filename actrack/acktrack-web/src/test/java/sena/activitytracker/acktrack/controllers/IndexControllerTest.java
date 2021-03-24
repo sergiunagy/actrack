@@ -55,9 +55,8 @@ class IndexControllerTest {
     }
 
     @Test
-    void getIndexPage() throws Exception {
+    void getIndexPageNoSec() throws Exception {
         /* unrestricted access to root ? */
-
         mockMvc.perform(get(INDEX_PAGE))
                 .andExpect(status().is3xxRedirection());
     }
