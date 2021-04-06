@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ActivitiesControllerV2Test {
 
     private static final String BOOKINGS_CALENDAR_PAGE = "/activities/bookings_calendar";
-    private static final String CALENDAR_PAGE_LINK = "/api/calendar";
+    private static final String CALENDAR_PAGE_LINK = "/api/v1/calendar";
 
 
     @Autowired
