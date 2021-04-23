@@ -80,7 +80,7 @@ class ActivitiesControllerV2Test {
     @Test
     void showBookingsCalendarWithHttpBasic() throws Exception {
 
-        mockMvc.perform(get(CALENDAR_PAGE_LINK).with(httpBasic("user", "user")))
+        mockMvc.perform(get(CALENDAR_PAGE_LINK).with(httpBasic("user2", "user")))
                 .andExpect(status().isOk())
                 .andExpect(view().name(BOOKINGS_CALENDAR_PAGE));
     }

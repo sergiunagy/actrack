@@ -47,4 +47,11 @@ public class ActivityController {
 
         return BOOKINGS_CALENDAR_PAGE;
     }
+
+    @GetMapping("/calendar/create_booking")
+    private String createBooking(Model model){
+
+        /*dummy return*/
+        return LIST_ACTIVITIES_PAGE;
+    }
 }

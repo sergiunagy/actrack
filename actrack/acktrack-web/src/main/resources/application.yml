@@ -17,10 +17,11 @@ spring:
     properties:
       hibernate:
         generate_statistics : true
-  security:
-    user:
-      name: user
-      password: user
+# Security replaced with overriden UserDetails service
+#  security:
+#    user:
+#      name: user
+#      password: user
 ---
 # Production profile yml
 spring:
