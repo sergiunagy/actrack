@@ -11,4 +11,5 @@ public interface ActivityService extends CrudService<Activity, Long> {
 
     Set<Activity> findAllActivitiesBetweenDates(LocalDate startDate, LocalDate endDate);
     Set<ActivityDTO> listAllActivities();
+
 }

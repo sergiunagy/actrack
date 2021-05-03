@@ -40,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 authorization->{
                     authorization.mvcMatchers(HttpMethod.GET, "/", "/webjars/**", "/css/**", "/fonts/**", "/js/**").permitAll();
                     authorization.mvcMatchers(HttpMethod.GET, "/calendar/create_booking").hasRole("ADMIN");
+                    authorization.mvcMatchers(HttpMethod.GET, "/h2-console/**").hasRole("ADMIN");
+                    authorization.mvcMatchers(HttpMethod.POST, "/h2-console/**").hasRole("ADMIN");
         })
         .authorizeRequests()
         .anyRequest().authenticated()
@@ -85,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("user")
+                .password("{noop}user")
                 .roles("USER");
     }
 

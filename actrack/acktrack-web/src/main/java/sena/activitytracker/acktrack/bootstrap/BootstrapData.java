@@ -367,6 +367,8 @@ public class BootstrapData implements CommandLineRunner {
         });
         /* todo: check problem with persisting by save-all . Seems Timestamp does not have enough resolution if we
         *   store using saveall */
+        System.out.println("List of added activites");
+        activities.forEach(activity -> System.out.println(activity.getId()));
     }
 
     private void initRolesAndAuthorities() {
