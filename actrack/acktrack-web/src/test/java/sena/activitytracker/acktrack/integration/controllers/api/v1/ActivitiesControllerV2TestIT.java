@@ -66,6 +66,27 @@ public class ActivitiesControllerV2TestIT {
                 .andExpect(status().isOk());
     }
 
+
+    @Test
+    void testDeleteActivityBookingBadCredentials() throws Exception{
+
+        /* prepare */
+        Activity newActivity = Activity.builder()
+                .duration(Duration.ofHours(8))
+                .date(LocalDate.now())
+                .isExported(false)
+                .description("delete test")
+                .build();
+
+        Activity saved = activityService.save(newActivity);
+
+        /* run test - this will trigger a successful authentication*/
+        mockMvc.perform(delete(CALENDAR_PAGE_LINK + saved.getId())
+                .header("Api-Key", "guru")
+                .header("Api-Secret", "guru_bad"))
+                .andExpect(status().isUnauthorized());
+    }
+
     /* Instruct Spring Test context we are authenticated with user. This does NOT trigger auth */
     @WithMockUser("whateveruser")
     @Test

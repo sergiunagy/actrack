@@ -1,6 +1,8 @@
 package sena.activitytracker.acktrack.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
@@ -8,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -40,17 +43,57 @@ public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter
             logger.debug("Request is to process authentication");
         }
 
-        Authentication authResult = attemptAuthentication(request, response);
-        if(null == authResult) {
-            /* go to any next method of authenticating */
-            chain.doFilter(req, res);
-        } else { /* wrap up authentication, this was the only necessary layer and passed data was complete*/
-            successfulAuthentication(request, response, chain, authResult);
+
+        try{
+            Authentication authResult = attemptAuthentication(request, response);
+
+            if(null == authResult) {
+                /* go to any next method of authenticating */
+                chain.doFilter(req, res);
+            } else { /* wrap up authentication, this was the only necessary layer and passed data was complete*/
+                successfulAuthentication(request, response, chain, authResult);
+            }
+        }catch(BadCredentialsException e){ /* We're only catching the bad credentials - implement other error handling*/
+            /* trigger the super : unauthorized action*/
+            log.error("Unsuccesfull authentication", e);
+            unsuccessfulAuthentication(request, response, e);
         }
+
+    }
+
+
+    /**
+     * Default behaviour for unsuccessful authentication.
+     * <ol>
+     * <li>Clears the {@link SecurityContextHolder}</li>
+     * <li>Stores the exception in the session (if it exists or
+     * <tt>allowSesssionCreation</tt> is set to <tt>true</tt>)</li>
+     * <li>Informs the configured <tt>RememberMeServices</tt> of the failed login</li>
+     * <li>Delegates additional behaviour to the {@link AuthenticationFailureHandler}.</li>
+     * </ol>
+     */
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request,
+                                              HttpServletResponse response, AuthenticationException failed)
+            throws IOException, ServletException {
+
+        /* Clear security context*/
+        SecurityContextHolder.clearContext();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Authentication request failed: " + failed.toString(), failed);
+            log.debug("Updated SecurityContextHolder to contain null Authentication");
+        }
+
+        /* Set error reaction*/
+        response.sendError(HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase());
     }
 
     @Override
-    public Authentication attemptAuthentication(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(javax.servlet.http.HttpServletRequest httpServletRequest,
+                                                javax.servlet.http.HttpServletResponse httpServletResponse)
+            throws AuthenticationException, IOException, ServletException {
 
         /* collect credentials from the request*/
         String username = getUserName(httpServletRequest);
