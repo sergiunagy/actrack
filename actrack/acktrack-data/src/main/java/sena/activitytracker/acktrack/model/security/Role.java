@@ -22,7 +22,7 @@ public class Role extends BaseSecurityEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

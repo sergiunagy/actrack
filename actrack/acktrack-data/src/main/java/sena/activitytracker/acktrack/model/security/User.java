@@ -37,12 +37,10 @@ public class User extends BaseSecurityEntity implements UserDetails, Credentials
     private String username;
     private String password;
 
+    /* set defaults to True */
     private boolean accountNonExpired = true;
-
     private boolean accountNonLocked = true;
-
     private boolean credentialsNonExpired = true;
-
     private boolean enabled = true;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)

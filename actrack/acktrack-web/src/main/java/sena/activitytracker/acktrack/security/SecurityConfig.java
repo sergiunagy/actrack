@@ -51,19 +51,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
 
+        /*test dev code implementation */
+
         http
         .authorizeRequests(
                 authorization->{
-                    authorization.mvcMatchers(HttpMethod.GET, "/", "/webjars/**", "/css/**", "/fonts/**", "/js/**").permitAll();
+                    authorization.mvcMatchers(HttpMethod.GET, "/**").authenticated();
+                    authorization.mvcMatchers(HttpMethod.POST, "/**").authenticated();
+//                    authorization.mvcMatchers(HttpMethod.GET, "/", "/webjars/**", "/css/**", "/fonts/**", "/js/**").authenticated();
                     authorization.mvcMatchers(HttpMethod.GET, "/calendar/create_booking").hasRole("ADMIN");
                     authorization.mvcMatchers(HttpMethod.GET, "/h2-console/**").hasRole("ADMIN");
                     authorization.mvcMatchers(HttpMethod.POST, "/h2-console/**").hasRole("ADMIN");
         })
-        .authorizeRequests()
-        .anyRequest().authenticated()
-        .and()
+//        .authorizeRequests()
+//        .anyRequest().authenticated()
+//        .and()
         .formLogin().and()
         .httpBasic();
+
+        http.headers().frameOptions().sameOrigin();
     }
 
     /* Password encoding provider - overrides default delegating encoder*/
